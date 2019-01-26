@@ -16,7 +16,7 @@ call %DBFLUTE_HOME%\etc\cmd\_df-delete-extlib.cmd
 
 for %%I IN ( %DBFLUTE_HOME% ) do set "MYDBFLUTE_DIR=%%~dpI"
 if exist %MYDBFLUTE_DIR%working_patched_dbflute (
-  echo ...Switching current engine to patched engine
+  echo ...Switching current engine to patched engine of same version
   move %DBFLUTE_HOME% %MYDBFLUTE_DIR%working_old_dbflute
   move %MYDBFLUTE_DIR%working_patched_dbflute %DBFLUTE_HOME%
   if exist %DBFLUTE_HOME%\build-torque.xml (
