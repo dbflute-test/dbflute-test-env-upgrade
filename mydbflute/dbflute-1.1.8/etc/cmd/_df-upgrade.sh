@@ -18,9 +18,10 @@ fi
 
 MYDBFLUTE_DIR=$(dirname $DBFLUTE_HOME)
 if [ -d $MYDBFLUTE_DIR/working_patched_dbflute ];then
+  echo "...Switching current engine to patched engine"
   mv -f $DBFLUTE_HOME $MYDBFLUTE_DIR/working_old_dbflute
   mv -f $MYDBFLUTE_DIR/working_patched_dbflute $DBFLUTE_HOME
   if [ -f $DBFLUTE_HOME/build-torque.xml ];then
-    rm -f $MYDBFLUTE_DIR/working_old_dbflute
+    rm -Rf $MYDBFLUTE_DIR/working_old_dbflute
   fi
 fi
