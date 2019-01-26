@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.allcommon;
 
 import java.lang.reflect.Field;
@@ -10,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.dbflute.bhv.core.context.mapping.MappingDateTimeZoneProvider;
 import org.dbflute.bhv.core.supplement.SequenceCacheKeyGenerator;
+import org.dbflute.cbean.garnish.SpecifyColumnRequiredExceptDeterminer;
 import org.dbflute.cbean.cipher.GearedCipherManager;
 import org.dbflute.cbean.sqlclause.SqlClauseCreator;
 import org.dbflute.dbmeta.name.SqlNameFilter;
@@ -60,8 +76,11 @@ public class DBFluteConfig {
     protected boolean _emptyStringParameterAllowed = false;
     protected boolean _overridingQueryAllowed = false;
     protected boolean _nonSpecifiedColumnAccessAllowed = false;
+    protected boolean _specifyColumnRequired = false;
+    protected SpecifyColumnRequiredExceptDeterminer _specifyColumnRequiredExceptDeterminer;
     protected boolean _columnNullObjectAllowed = false;
     protected boolean _columnNullObjectGearedToSpecify = false;
+    protected boolean _datetimePrecisionTruncationOfCondition = false;
     protected boolean _disableSelectIndex;
     protected boolean _queryUpdateCountPreCheck = false;
 
@@ -83,7 +102,6 @@ public class DBFluteConfig {
     protected PhysicalConnectionDigger _physicalConnectionDigger;
     protected SQLExceptionDigger _sqlExceptionDigger;
     protected String _outsideSqlPackage = null;
-    protected boolean _useSqlLogRegistry = false;
     protected MappingDateTimeZoneProvider _mappingDateTimeZoneProvider;
 
     // extension
@@ -276,6 +294,33 @@ public class DBFluteConfig {
     }
 
     // ===================================================================================
+    //                                                              SpecifyColumn Required
+    //                                                              ======================
+    public boolean isSpecifyColumnRequired() {
+        return _specifyColumnRequired;
+    }
+
+    public void setSpecifyColumnRequired(boolean specifyColumnRequired) {
+        assertUnlocked();
+        if (_log.isInfoEnabled()) {
+            _log.info("...Setting specifyColumnRequired: " + specifyColumnRequired);
+        }
+        _specifyColumnRequired = specifyColumnRequired;
+    }
+
+    public SpecifyColumnRequiredExceptDeterminer getSpecifyColumnRequiredExceptDeterminer() {
+        return _specifyColumnRequiredExceptDeterminer;
+    }
+
+    public void setSpecifyColumnRequiredExceptDeterminer(SpecifyColumnRequiredExceptDeterminer specifyColumnRequiredExceptDeterminer) {
+        assertUnlocked();
+        if (_log.isInfoEnabled()) {
+            _log.info("...Setting specifyColumnRequiredExceptDeterminer: " + specifyColumnRequiredExceptDeterminer);
+        }
+        _specifyColumnRequiredExceptDeterminer = specifyColumnRequiredExceptDeterminer;
+    }
+
+    // ===================================================================================
     //                                                                  Column Null Object
     //                                                                  ==================
     public boolean isColumnNullObjectAllowed() {
@@ -310,6 +355,26 @@ public class DBFluteConfig {
             _log.info("...Setting columnNullObjectGearedToSpecify: " + columnNullObjectGearedToSpecify);
         }
         _columnNullObjectGearedToSpecify = columnNullObjectGearedToSpecify;
+    }
+
+    // ===================================================================================
+    //                                                                 Date-time Precision
+    //                                                                 ===================
+    public boolean isDatetimePrecisionTruncationOfCondition() {
+        return _datetimePrecisionTruncationOfCondition;
+    }
+
+    /**
+     * Set whether it truncates date-time precision of condition value or not. <br>
+     * This configuration is only for ConditionBean.
+     * @param datetimePrecisionTruncationOfCondition The determination, true or false.
+     */
+    public void setDatetimePrecisionTruncationOfCondition(boolean datetimePrecisionTruncationOfCondition) {
+        assertUnlocked();
+        if (_log.isInfoEnabled()) {
+            _log.info("...Setting datetimePrecisionTruncationOfCondition: " + datetimePrecisionTruncationOfCondition);
+        }
+        _datetimePrecisionTruncationOfCondition = datetimePrecisionTruncationOfCondition;
     }
 
     // ===================================================================================
@@ -584,22 +649,6 @@ public class DBFluteConfig {
         _outsideSqlPackage = outsideSqlPackage;
     }
 
-    // [DBFlute-0.8.2]
-    // ===================================================================================
-    //                                                                    SQL Log Registry
-    //                                                                    ================
-    public boolean isUseSqlLogRegistry() {
-        return _useSqlLogRegistry;
-    }
-
-    public void setUseSqlLogRegistry(boolean useSqlLogRegistry) {
-        assertUnlocked();
-        if (_log.isInfoEnabled()) {
-            _log.info("...Setting useSqlLogRegistry: " + useSqlLogRegistry);
-        }
-        _useSqlLogRegistry = useSqlLogRegistry;
-    }
-
     // [DBFlute-1.1.0]
     // ===================================================================================
     //                                                               Mapping Date TimeZone
@@ -741,7 +790,7 @@ public class DBFluteConfig {
     //                                                                          ==========
     /**
      * Register the basic value type. <br>
-     * This setting is shared per DBMS in the same class loader. 
+     * This setting is shared per DBMS in the same class loader.
      * @param keyType The type as key. (NotNull)
      * @param valueType The basic value type. (NotNull)
      */

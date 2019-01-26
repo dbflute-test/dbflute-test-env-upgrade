@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.cbean.cq.bs;
 
 import java.util.*;
@@ -45,8 +60,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     //                                                                               =====
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
-     * @param memberId The value of memberId as equal. (NullAllowed: if null, no condition)
+     * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
+     * @param memberId The value of memberId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberId_Equal(Integer memberId) {
         doSetMemberId_Equal(memberId);
@@ -58,8 +73,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
-     * @param memberId The value of memberId as notEqual. (NullAllowed: if null, no condition)
+     * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
+     * @param memberId The value of memberId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberId_NotEqual(Integer memberId) {
         doSetMemberId_NotEqual(memberId);
@@ -71,8 +86,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
-     * @param memberId The value of memberId as greaterThan. (NullAllowed: if null, no condition)
+     * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
+     * @param memberId The value of memberId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberId_GreaterThan(Integer memberId) {
         regMemberId(CK_GT, memberId);
@@ -80,8 +95,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
-     * @param memberId The value of memberId as lessThan. (NullAllowed: if null, no condition)
+     * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
+     * @param memberId The value of memberId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberId_LessThan(Integer memberId) {
         regMemberId(CK_LT, memberId);
@@ -89,8 +104,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
-     * @param memberId The value of memberId as greaterEqual. (NullAllowed: if null, no condition)
+     * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
+     * @param memberId The value of memberId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberId_GreaterEqual(Integer memberId) {
         regMemberId(CK_GE, memberId);
@@ -98,8 +113,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
-     * @param memberId The value of memberId as lessEqual. (NullAllowed: if null, no condition)
+     * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
+     * @param memberId The value of memberId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setMemberId_LessEqual(Integer memberId) {
         regMemberId(CK_LE, memberId);
@@ -109,9 +124,9 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
-     * @param minNumber The min number of memberId. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of memberId. (NullAllowed: if null, no to-condition)
+     * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
+     * @param minNumber The min number of memberId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of memberId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setMemberId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
@@ -122,9 +137,9 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
-     * @param minNumber The min number of memberId. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of memberId. (NullAllowed: if null, no to-condition)
+     * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
+     * @param minNumber The min number of memberId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of memberId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     protected void setMemberId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
@@ -133,8 +148,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
-     * @param memberIdList The collection of memberId as inScope. (NullAllowed: if null (or empty), no condition)
+     * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
+     * @param memberIdList The collection of memberId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberId_InScope(Collection<Integer> memberIdList) {
         doSetMemberId_InScope(memberIdList);
@@ -146,8 +161,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
-     * @param memberIdList The collection of memberId as notInScope. (NullAllowed: if null (or empty), no condition)
+     * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
+     * @param memberIdList The collection of memberId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMemberId_NotInScope(Collection<Integer> memberIdList) {
         doSetMemberId_NotInScope(memberIdList);
@@ -159,13 +174,13 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
+     * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
      */
     public void setMemberId_IsNull() { regMemberId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
+     * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
      */
     public void setMemberId_IsNotNull() { regMemberId(CK_ISNN, DOBJ); }
 
@@ -174,8 +189,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
-     * @param loginPassword The value of loginPassword as equal. (NullAllowed: if null (or empty), no condition)
+     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(100)}
+     * @param loginPassword The value of loginPassword as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setLoginPassword_Equal(String loginPassword) {
         doSetLoginPassword_Equal(fRES(loginPassword));
@@ -187,8 +202,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
-     * @param loginPassword The value of loginPassword as notEqual. (NullAllowed: if null (or empty), no condition)
+     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(100)}
+     * @param loginPassword The value of loginPassword as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setLoginPassword_NotEqual(String loginPassword) {
         doSetLoginPassword_NotEqual(fRES(loginPassword));
@@ -200,8 +215,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
-     * @param loginPassword The value of loginPassword as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(100)}
+     * @param loginPassword The value of loginPassword as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setLoginPassword_GreaterThan(String loginPassword) {
         regLoginPassword(CK_GT, fRES(loginPassword));
@@ -209,8 +224,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
-     * @param loginPassword The value of loginPassword as lessThan. (NullAllowed: if null (or empty), no condition)
+     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(100)}
+     * @param loginPassword The value of loginPassword as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setLoginPassword_LessThan(String loginPassword) {
         regLoginPassword(CK_LT, fRES(loginPassword));
@@ -218,8 +233,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
-     * @param loginPassword The value of loginPassword as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(100)}
+     * @param loginPassword The value of loginPassword as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setLoginPassword_GreaterEqual(String loginPassword) {
         regLoginPassword(CK_GE, fRES(loginPassword));
@@ -227,8 +242,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
-     * @param loginPassword The value of loginPassword as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(100)}
+     * @param loginPassword The value of loginPassword as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setLoginPassword_LessEqual(String loginPassword) {
         regLoginPassword(CK_LE, fRES(loginPassword));
@@ -236,8 +251,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
-     * @param loginPasswordList The collection of loginPassword as inScope. (NullAllowed: if null (or empty), no condition)
+     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(100)}
+     * @param loginPasswordList The collection of loginPassword as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setLoginPassword_InScope(Collection<String> loginPasswordList) {
         doSetLoginPassword_InScope(loginPasswordList);
@@ -249,8 +264,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
-     * @param loginPasswordList The collection of loginPassword as notInScope. (NullAllowed: if null (or empty), no condition)
+     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(100)}
+     * @param loginPasswordList The collection of loginPassword as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setLoginPassword_NotInScope(Collection<String> loginPasswordList) {
         doSetLoginPassword_NotInScope(loginPasswordList);
@@ -262,9 +277,9 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * LOGIN_PASSWORD: {NotNull, VARCHAR(50)} <br>
+     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(100)} <br>
      * <pre>e.g. setLoginPassword_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param loginPassword The value of loginPassword as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param loginPassword The value of loginPassword as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setLoginPassword_LikeSearch(String loginPassword, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -273,9 +288,9 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * LOGIN_PASSWORD: {NotNull, VARCHAR(50)} <br>
+     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(100)} <br>
      * <pre>e.g. setLoginPassword_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param loginPassword The value of loginPassword as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param loginPassword The value of loginPassword as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setLoginPassword_LikeSearch(String loginPassword, LikeSearchOption likeSearchOption) {
@@ -285,8 +300,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
-     * @param loginPassword The value of loginPassword as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(100)}
+     * @param loginPassword The value of loginPassword as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setLoginPassword_NotLikeSearch(String loginPassword, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -296,8 +311,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
-     * @param loginPassword The value of loginPassword as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(100)}
+     * @param loginPassword The value of loginPassword as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setLoginPassword_NotLikeSearch(String loginPassword, LikeSearchOption likeSearchOption) {
@@ -309,8 +324,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_QUESTION: {NotNull, VARCHAR(50)}
-     * @param reminderQuestion The value of reminderQuestion as equal. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
+     * @param reminderQuestion The value of reminderQuestion as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderQuestion_Equal(String reminderQuestion) {
         doSetReminderQuestion_Equal(fRES(reminderQuestion));
@@ -322,8 +337,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_QUESTION: {NotNull, VARCHAR(50)}
-     * @param reminderQuestion The value of reminderQuestion as notEqual. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
+     * @param reminderQuestion The value of reminderQuestion as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderQuestion_NotEqual(String reminderQuestion) {
         doSetReminderQuestion_NotEqual(fRES(reminderQuestion));
@@ -335,8 +350,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_QUESTION: {NotNull, VARCHAR(50)}
-     * @param reminderQuestion The value of reminderQuestion as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
+     * @param reminderQuestion The value of reminderQuestion as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderQuestion_GreaterThan(String reminderQuestion) {
         regReminderQuestion(CK_GT, fRES(reminderQuestion));
@@ -344,8 +359,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_QUESTION: {NotNull, VARCHAR(50)}
-     * @param reminderQuestion The value of reminderQuestion as lessThan. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
+     * @param reminderQuestion The value of reminderQuestion as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderQuestion_LessThan(String reminderQuestion) {
         regReminderQuestion(CK_LT, fRES(reminderQuestion));
@@ -353,8 +368,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_QUESTION: {NotNull, VARCHAR(50)}
-     * @param reminderQuestion The value of reminderQuestion as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
+     * @param reminderQuestion The value of reminderQuestion as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderQuestion_GreaterEqual(String reminderQuestion) {
         regReminderQuestion(CK_GE, fRES(reminderQuestion));
@@ -362,8 +377,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_QUESTION: {NotNull, VARCHAR(50)}
-     * @param reminderQuestion The value of reminderQuestion as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
+     * @param reminderQuestion The value of reminderQuestion as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderQuestion_LessEqual(String reminderQuestion) {
         regReminderQuestion(CK_LE, fRES(reminderQuestion));
@@ -371,8 +386,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * REMINDER_QUESTION: {NotNull, VARCHAR(50)}
-     * @param reminderQuestionList The collection of reminderQuestion as inScope. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
+     * @param reminderQuestionList The collection of reminderQuestion as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderQuestion_InScope(Collection<String> reminderQuestionList) {
         doSetReminderQuestion_InScope(reminderQuestionList);
@@ -384,8 +399,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * REMINDER_QUESTION: {NotNull, VARCHAR(50)}
-     * @param reminderQuestionList The collection of reminderQuestion as notInScope. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
+     * @param reminderQuestionList The collection of reminderQuestion as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderQuestion_NotInScope(Collection<String> reminderQuestionList) {
         doSetReminderQuestion_NotInScope(reminderQuestionList);
@@ -397,9 +412,9 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * REMINDER_QUESTION: {NotNull, VARCHAR(50)} <br>
+     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)} <br>
      * <pre>e.g. setReminderQuestion_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param reminderQuestion The value of reminderQuestion as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param reminderQuestion The value of reminderQuestion as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setReminderQuestion_LikeSearch(String reminderQuestion, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -408,9 +423,9 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * REMINDER_QUESTION: {NotNull, VARCHAR(50)} <br>
+     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)} <br>
      * <pre>e.g. setReminderQuestion_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param reminderQuestion The value of reminderQuestion as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param reminderQuestion The value of reminderQuestion as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setReminderQuestion_LikeSearch(String reminderQuestion, LikeSearchOption likeSearchOption) {
@@ -420,8 +435,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * REMINDER_QUESTION: {NotNull, VARCHAR(50)}
-     * @param reminderQuestion The value of reminderQuestion as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
+     * @param reminderQuestion The value of reminderQuestion as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setReminderQuestion_NotLikeSearch(String reminderQuestion, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -431,8 +446,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * REMINDER_QUESTION: {NotNull, VARCHAR(50)}
-     * @param reminderQuestion The value of reminderQuestion as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
+     * @param reminderQuestion The value of reminderQuestion as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setReminderQuestion_NotLikeSearch(String reminderQuestion, LikeSearchOption likeSearchOption) {
@@ -444,8 +459,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_ANSWER: {NotNull, VARCHAR(50)}
-     * @param reminderAnswer The value of reminderAnswer as equal. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
+     * @param reminderAnswer The value of reminderAnswer as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderAnswer_Equal(String reminderAnswer) {
         doSetReminderAnswer_Equal(fRES(reminderAnswer));
@@ -457,8 +472,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_ANSWER: {NotNull, VARCHAR(50)}
-     * @param reminderAnswer The value of reminderAnswer as notEqual. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
+     * @param reminderAnswer The value of reminderAnswer as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderAnswer_NotEqual(String reminderAnswer) {
         doSetReminderAnswer_NotEqual(fRES(reminderAnswer));
@@ -470,8 +485,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_ANSWER: {NotNull, VARCHAR(50)}
-     * @param reminderAnswer The value of reminderAnswer as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
+     * @param reminderAnswer The value of reminderAnswer as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderAnswer_GreaterThan(String reminderAnswer) {
         regReminderAnswer(CK_GT, fRES(reminderAnswer));
@@ -479,8 +494,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_ANSWER: {NotNull, VARCHAR(50)}
-     * @param reminderAnswer The value of reminderAnswer as lessThan. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
+     * @param reminderAnswer The value of reminderAnswer as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderAnswer_LessThan(String reminderAnswer) {
         regReminderAnswer(CK_LT, fRES(reminderAnswer));
@@ -488,8 +503,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_ANSWER: {NotNull, VARCHAR(50)}
-     * @param reminderAnswer The value of reminderAnswer as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
+     * @param reminderAnswer The value of reminderAnswer as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderAnswer_GreaterEqual(String reminderAnswer) {
         regReminderAnswer(CK_GE, fRES(reminderAnswer));
@@ -497,8 +512,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_ANSWER: {NotNull, VARCHAR(50)}
-     * @param reminderAnswer The value of reminderAnswer as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
+     * @param reminderAnswer The value of reminderAnswer as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderAnswer_LessEqual(String reminderAnswer) {
         regReminderAnswer(CK_LE, fRES(reminderAnswer));
@@ -506,8 +521,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * REMINDER_ANSWER: {NotNull, VARCHAR(50)}
-     * @param reminderAnswerList The collection of reminderAnswer as inScope. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
+     * @param reminderAnswerList The collection of reminderAnswer as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderAnswer_InScope(Collection<String> reminderAnswerList) {
         doSetReminderAnswer_InScope(reminderAnswerList);
@@ -519,8 +534,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * REMINDER_ANSWER: {NotNull, VARCHAR(50)}
-     * @param reminderAnswerList The collection of reminderAnswer as notInScope. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
+     * @param reminderAnswerList The collection of reminderAnswer as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderAnswer_NotInScope(Collection<String> reminderAnswerList) {
         doSetReminderAnswer_NotInScope(reminderAnswerList);
@@ -532,9 +547,9 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * REMINDER_ANSWER: {NotNull, VARCHAR(50)} <br>
+     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)} <br>
      * <pre>e.g. setReminderAnswer_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param reminderAnswer The value of reminderAnswer as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param reminderAnswer The value of reminderAnswer as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setReminderAnswer_LikeSearch(String reminderAnswer, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -543,9 +558,9 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * REMINDER_ANSWER: {NotNull, VARCHAR(50)} <br>
+     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)} <br>
      * <pre>e.g. setReminderAnswer_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param reminderAnswer The value of reminderAnswer as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param reminderAnswer The value of reminderAnswer as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setReminderAnswer_LikeSearch(String reminderAnswer, LikeSearchOption likeSearchOption) {
@@ -555,8 +570,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * REMINDER_ANSWER: {NotNull, VARCHAR(50)}
-     * @param reminderAnswer The value of reminderAnswer as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
+     * @param reminderAnswer The value of reminderAnswer as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setReminderAnswer_NotLikeSearch(String reminderAnswer, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -566,8 +581,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * REMINDER_ANSWER: {NotNull, VARCHAR(50)}
-     * @param reminderAnswer The value of reminderAnswer as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
+     * @param reminderAnswer The value of reminderAnswer as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setReminderAnswer_NotLikeSearch(String reminderAnswer, LikeSearchOption likeSearchOption) {
@@ -579,8 +594,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
-     * @param reminderUseCount The value of reminderUseCount as equal. (NullAllowed: if null, no condition)
+     * (リマインダ利用回数)REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
+     * @param reminderUseCount The value of reminderUseCount as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setReminderUseCount_Equal(Integer reminderUseCount) {
         doSetReminderUseCount_Equal(reminderUseCount);
@@ -592,8 +607,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
-     * @param reminderUseCount The value of reminderUseCount as notEqual. (NullAllowed: if null, no condition)
+     * (リマインダ利用回数)REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
+     * @param reminderUseCount The value of reminderUseCount as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setReminderUseCount_NotEqual(Integer reminderUseCount) {
         doSetReminderUseCount_NotEqual(reminderUseCount);
@@ -605,8 +620,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
-     * @param reminderUseCount The value of reminderUseCount as greaterThan. (NullAllowed: if null, no condition)
+     * (リマインダ利用回数)REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
+     * @param reminderUseCount The value of reminderUseCount as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setReminderUseCount_GreaterThan(Integer reminderUseCount) {
         regReminderUseCount(CK_GT, reminderUseCount);
@@ -614,8 +629,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
-     * @param reminderUseCount The value of reminderUseCount as lessThan. (NullAllowed: if null, no condition)
+     * (リマインダ利用回数)REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
+     * @param reminderUseCount The value of reminderUseCount as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setReminderUseCount_LessThan(Integer reminderUseCount) {
         regReminderUseCount(CK_LT, reminderUseCount);
@@ -623,8 +638,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
-     * @param reminderUseCount The value of reminderUseCount as greaterEqual. (NullAllowed: if null, no condition)
+     * (リマインダ利用回数)REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
+     * @param reminderUseCount The value of reminderUseCount as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setReminderUseCount_GreaterEqual(Integer reminderUseCount) {
         regReminderUseCount(CK_GE, reminderUseCount);
@@ -632,8 +647,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
-     * @param reminderUseCount The value of reminderUseCount as lessEqual. (NullAllowed: if null, no condition)
+     * (リマインダ利用回数)REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
+     * @param reminderUseCount The value of reminderUseCount as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setReminderUseCount_LessEqual(Integer reminderUseCount) {
         regReminderUseCount(CK_LE, reminderUseCount);
@@ -643,9 +658,9 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
-     * @param minNumber The min number of reminderUseCount. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of reminderUseCount. (NullAllowed: if null, no to-condition)
+     * (リマインダ利用回数)REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
+     * @param minNumber The min number of reminderUseCount. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of reminderUseCount. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setReminderUseCount_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
@@ -656,9 +671,9 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
-     * @param minNumber The min number of reminderUseCount. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of reminderUseCount. (NullAllowed: if null, no to-condition)
+     * (リマインダ利用回数)REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
+     * @param minNumber The min number of reminderUseCount. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of reminderUseCount. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     protected void setReminderUseCount_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
@@ -667,8 +682,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
-     * @param reminderUseCountList The collection of reminderUseCount as inScope. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ利用回数)REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
+     * @param reminderUseCountList The collection of reminderUseCount as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderUseCount_InScope(Collection<Integer> reminderUseCountList) {
         doSetReminderUseCount_InScope(reminderUseCountList);
@@ -680,8 +695,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
-     * @param reminderUseCountList The collection of reminderUseCount as notInScope. (NullAllowed: if null (or empty), no condition)
+     * (リマインダ利用回数)REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
+     * @param reminderUseCountList The collection of reminderUseCount as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReminderUseCount_NotInScope(Collection<Integer> reminderUseCountList) {
         doSetReminderUseCount_NotInScope(reminderUseCountList);
@@ -696,8 +711,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param registerDatetime The value of registerDatetime as equal. (NullAllowed: if null, no condition)
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
+     * @param registerDatetime The value of registerDatetime as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegisterDatetime_Equal(java.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_EQ,  registerDatetime);
@@ -705,8 +720,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param registerDatetime The value of registerDatetime as greaterThan. (NullAllowed: if null, no condition)
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
+     * @param registerDatetime The value of registerDatetime as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegisterDatetime_GreaterThan(java.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_GT,  registerDatetime);
@@ -714,8 +729,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param registerDatetime The value of registerDatetime as lessThan. (NullAllowed: if null, no condition)
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
+     * @param registerDatetime The value of registerDatetime as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegisterDatetime_LessThan(java.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_LT,  registerDatetime);
@@ -723,8 +738,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param registerDatetime The value of registerDatetime as greaterEqual. (NullAllowed: if null, no condition)
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
+     * @param registerDatetime The value of registerDatetime as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegisterDatetime_GreaterEqual(java.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_GE,  registerDatetime);
@@ -732,8 +747,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param registerDatetime The value of registerDatetime as lessEqual. (NullAllowed: if null, no condition)
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
+     * @param registerDatetime The value of registerDatetime as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setRegisterDatetime_LessEqual(java.time.LocalDateTime registerDatetime) {
         regRegisterDatetime(CK_LE, registerDatetime);
@@ -742,10 +757,10 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * <pre>e.g. setRegisterDatetime_FromTo(fromDate, toDate, op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
-     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (NullAllowed: if null, no from-condition)
-     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (NullAllowed: if null, no to-condition)
+     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setRegisterDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, ConditionOptionCall<FromToOption> opLambda) {
@@ -755,10 +770,10 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * <pre>e.g. setRegisterDatetime_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
-     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (NullAllowed: if null, no from-condition)
-     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (NullAllowed: if null, no to-condition)
+     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param fromToOption The option of from-to. (NotNull)
      */
     protected void setRegisterDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, FromToOption fromToOption) {
@@ -772,7 +787,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUser The value of registerUser as equal. (NullAllowed: if null (or empty), no condition)
+     * @param registerUser The value of registerUser as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setRegisterUser_Equal(String registerUser) {
         doSetRegisterUser_Equal(fRES(registerUser));
@@ -785,7 +800,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUser The value of registerUser as notEqual. (NullAllowed: if null (or empty), no condition)
+     * @param registerUser The value of registerUser as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setRegisterUser_NotEqual(String registerUser) {
         doSetRegisterUser_NotEqual(fRES(registerUser));
@@ -798,7 +813,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUser The value of registerUser as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * @param registerUser The value of registerUser as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setRegisterUser_GreaterThan(String registerUser) {
         regRegisterUser(CK_GT, fRES(registerUser));
@@ -807,7 +822,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUser The value of registerUser as lessThan. (NullAllowed: if null (or empty), no condition)
+     * @param registerUser The value of registerUser as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setRegisterUser_LessThan(String registerUser) {
         regRegisterUser(CK_LT, fRES(registerUser));
@@ -816,7 +831,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUser The value of registerUser as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * @param registerUser The value of registerUser as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setRegisterUser_GreaterEqual(String registerUser) {
         regRegisterUser(CK_GE, fRES(registerUser));
@@ -825,7 +840,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUser The value of registerUser as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * @param registerUser The value of registerUser as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setRegisterUser_LessEqual(String registerUser) {
         regRegisterUser(CK_LE, fRES(registerUser));
@@ -834,7 +849,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUserList The collection of registerUser as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param registerUserList The collection of registerUser as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setRegisterUser_InScope(Collection<String> registerUserList) {
         doSetRegisterUser_InScope(registerUserList);
@@ -847,7 +862,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUserList The collection of registerUser as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param registerUserList The collection of registerUser as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setRegisterUser_NotInScope(Collection<String> registerUserList) {
         doSetRegisterUser_NotInScope(registerUserList);
@@ -861,7 +876,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * REGISTER_USER: {NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setRegisterUser_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param registerUser The value of registerUser as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param registerUser The value of registerUser as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setRegisterUser_LikeSearch(String registerUser, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -872,7 +887,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * REGISTER_USER: {NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setRegisterUser_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param registerUser The value of registerUser as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param registerUser The value of registerUser as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setRegisterUser_LikeSearch(String registerUser, LikeSearchOption likeSearchOption) {
@@ -883,7 +898,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUser The value of registerUser as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param registerUser The value of registerUser as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setRegisterUser_NotLikeSearch(String registerUser, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -894,7 +909,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUser The value of registerUser as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param registerUser The value of registerUser as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setRegisterUser_NotLikeSearch(String registerUser, LikeSearchOption likeSearchOption) {
@@ -906,8 +921,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param updateDatetime The value of updateDatetime as equal. (NullAllowed: if null, no condition)
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
+     * @param updateDatetime The value of updateDatetime as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setUpdateDatetime_Equal(java.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_EQ,  updateDatetime);
@@ -915,8 +930,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param updateDatetime The value of updateDatetime as greaterThan. (NullAllowed: if null, no condition)
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
+     * @param updateDatetime The value of updateDatetime as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUpdateDatetime_GreaterThan(java.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_GT,  updateDatetime);
@@ -924,8 +939,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param updateDatetime The value of updateDatetime as lessThan. (NullAllowed: if null, no condition)
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
+     * @param updateDatetime The value of updateDatetime as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUpdateDatetime_LessThan(java.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_LT,  updateDatetime);
@@ -933,8 +948,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param updateDatetime The value of updateDatetime as greaterEqual. (NullAllowed: if null, no condition)
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
+     * @param updateDatetime The value of updateDatetime as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUpdateDatetime_GreaterEqual(java.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_GE,  updateDatetime);
@@ -942,8 +957,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param updateDatetime The value of updateDatetime as lessEqual. (NullAllowed: if null, no condition)
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
+     * @param updateDatetime The value of updateDatetime as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUpdateDatetime_LessEqual(java.time.LocalDateTime updateDatetime) {
         regUpdateDatetime(CK_LE, updateDatetime);
@@ -952,10 +967,10 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * <pre>e.g. setUpdateDatetime_FromTo(fromDate, toDate, op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
-     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (NullAllowed: if null, no from-condition)
-     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (NullAllowed: if null, no to-condition)
+     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of from-to. (NotNull)
      */
     public void setUpdateDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, ConditionOptionCall<FromToOption> opLambda) {
@@ -965,10 +980,10 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * <pre>e.g. setUpdateDatetime_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
-     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (NullAllowed: if null, no from-condition)
-     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (NullAllowed: if null, no to-condition)
+     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param fromToOption The option of from-to. (NotNull)
      */
     protected void setUpdateDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, FromToOption fromToOption) {
@@ -982,7 +997,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUser The value of updateUser as equal. (NullAllowed: if null (or empty), no condition)
+     * @param updateUser The value of updateUser as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUpdateUser_Equal(String updateUser) {
         doSetUpdateUser_Equal(fRES(updateUser));
@@ -995,7 +1010,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUser The value of updateUser as notEqual. (NullAllowed: if null (or empty), no condition)
+     * @param updateUser The value of updateUser as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUpdateUser_NotEqual(String updateUser) {
         doSetUpdateUser_NotEqual(fRES(updateUser));
@@ -1008,7 +1023,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUser The value of updateUser as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * @param updateUser The value of updateUser as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUpdateUser_GreaterThan(String updateUser) {
         regUpdateUser(CK_GT, fRES(updateUser));
@@ -1017,7 +1032,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUser The value of updateUser as lessThan. (NullAllowed: if null (or empty), no condition)
+     * @param updateUser The value of updateUser as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUpdateUser_LessThan(String updateUser) {
         regUpdateUser(CK_LT, fRES(updateUser));
@@ -1026,7 +1041,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUser The value of updateUser as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * @param updateUser The value of updateUser as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUpdateUser_GreaterEqual(String updateUser) {
         regUpdateUser(CK_GE, fRES(updateUser));
@@ -1035,7 +1050,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUser The value of updateUser as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * @param updateUser The value of updateUser as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUpdateUser_LessEqual(String updateUser) {
         regUpdateUser(CK_LE, fRES(updateUser));
@@ -1044,7 +1059,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUserList The collection of updateUser as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param updateUserList The collection of updateUser as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUpdateUser_InScope(Collection<String> updateUserList) {
         doSetUpdateUser_InScope(updateUserList);
@@ -1057,7 +1072,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
      * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUserList The collection of updateUser as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param updateUserList The collection of updateUser as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUpdateUser_NotInScope(Collection<String> updateUserList) {
         doSetUpdateUser_NotInScope(updateUserList);
@@ -1071,7 +1086,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * UPDATE_USER: {NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setUpdateUser_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param updateUser The value of updateUser as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param updateUser The value of updateUser as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setUpdateUser_LikeSearch(String updateUser, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -1082,7 +1097,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
      * UPDATE_USER: {NotNull, VARCHAR(200)} <br>
      * <pre>e.g. setUpdateUser_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param updateUser The value of updateUser as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param updateUser The value of updateUser as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setUpdateUser_LikeSearch(String updateUser, LikeSearchOption likeSearchOption) {
@@ -1093,7 +1108,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUser The value of updateUser as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param updateUser The value of updateUser as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setUpdateUser_NotLikeSearch(String updateUser, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -1104,7 +1119,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
      * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUser The value of updateUser as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param updateUser The value of updateUser as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setUpdateUser_NotLikeSearch(String updateUser, LikeSearchOption likeSearchOption) {
@@ -1117,7 +1132,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNo The value of versionNo as equal. (NullAllowed: if null, no condition)
+     * @param versionNo The value of versionNo as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setVersionNo_Equal(Long versionNo) {
         doSetVersionNo_Equal(versionNo);
@@ -1130,7 +1145,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNo The value of versionNo as notEqual. (NullAllowed: if null, no condition)
+     * @param versionNo The value of versionNo as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setVersionNo_NotEqual(Long versionNo) {
         doSetVersionNo_NotEqual(versionNo);
@@ -1143,7 +1158,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNo The value of versionNo as greaterThan. (NullAllowed: if null, no condition)
+     * @param versionNo The value of versionNo as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setVersionNo_GreaterThan(Long versionNo) {
         regVersionNo(CK_GT, versionNo);
@@ -1152,7 +1167,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNo The value of versionNo as lessThan. (NullAllowed: if null, no condition)
+     * @param versionNo The value of versionNo as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setVersionNo_LessThan(Long versionNo) {
         regVersionNo(CK_LT, versionNo);
@@ -1161,7 +1176,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNo The value of versionNo as greaterEqual. (NullAllowed: if null, no condition)
+     * @param versionNo The value of versionNo as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setVersionNo_GreaterEqual(Long versionNo) {
         regVersionNo(CK_GE, versionNo);
@@ -1170,7 +1185,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNo The value of versionNo as lessEqual. (NullAllowed: if null, no condition)
+     * @param versionNo The value of versionNo as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setVersionNo_LessEqual(Long versionNo) {
         regVersionNo(CK_LE, versionNo);
@@ -1181,8 +1196,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param minNumber The min number of versionNo. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of versionNo. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of versionNo. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of versionNo. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setVersionNo_RangeOf(Long minNumber, Long maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
@@ -1194,8 +1209,8 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param minNumber The min number of versionNo. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of versionNo. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of versionNo. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of versionNo. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     protected void setVersionNo_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
@@ -1205,7 +1220,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNoList The collection of versionNo as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param versionNoList The collection of versionNo as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setVersionNo_InScope(Collection<Long> versionNoList) {
         doSetVersionNo_InScope(versionNoList);
@@ -1218,7 +1233,7 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNoList The collection of versionNo as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param versionNoList The collection of versionNo as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setVersionNo_NotInScope(Collection<Long> versionNoList) {
         doSetVersionNo_NotInScope(versionNoList);
@@ -1236,92 +1251,82 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     //                                                                     ===============
     /**
      * Prepare ScalarCondition as equal. <br>
-     * {where FOO = (select max(BAR) from ...)
+     * {where FOO = (select max(BAR) from ...)}
      * <pre>
-     * cb.query().<span style="color: #CC4747">scalar_Equal()</span>.max(new SubQuery&lt;MemberSecurityCB&gt;() {
-     *     public void query(MemberSecurityCB subCB) {
-     *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
-     *         subCB.query().setYyy...
-     *     }
+     * cb.query().scalar_Equal().<span style="color: #CC4747">avg</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">purchaseCB</span>.specify().<span style="color: #CC4747">columnPurchasePrice</span>(); <span style="color: #3F7E5E">// *Point!</span>
+     *     <span style="color: #553000">purchaseCB</span>.query().setPaymentCompleteFlg_Equal_True();
      * });
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSSQFunction<MemberSecurityCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ, MemberSecurityCB.class);
+    public HpSLCFunction<MemberSecurityCB> scalar_Equal() {
+        return xcreateSLCFunction(CK_EQ, MemberSecurityCB.class);
     }
 
     /**
      * Prepare ScalarCondition as equal. <br>
-     * {where FOO &lt;&gt; (select max(BAR) from ...)
+     * {where FOO &lt;&gt; (select max(BAR) from ...)}
      * <pre>
-     * cb.query().<span style="color: #CC4747">scalar_NotEqual()</span>.max(new SubQuery&lt;MemberSecurityCB&gt;() {
-     *     public void query(MemberSecurityCB subCB) {
-     *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
-     *         subCB.query().setYyy...
-     *     }
+     * cb.query().scalar_Equal().<span style="color: #CC4747">avg</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">purchaseCB</span>.specify().<span style="color: #CC4747">columnPurchasePrice</span>(); <span style="color: #3F7E5E">// *Point!</span>
+     *     <span style="color: #553000">purchaseCB</span>.query().setPaymentCompleteFlg_Equal_True();
      * });
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSSQFunction<MemberSecurityCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES, MemberSecurityCB.class);
+    public HpSLCFunction<MemberSecurityCB> scalar_NotEqual() {
+        return xcreateSLCFunction(CK_NES, MemberSecurityCB.class);
     }
 
     /**
      * Prepare ScalarCondition as greaterThan. <br>
-     * {where FOO &gt; (select max(BAR) from ...)
+     * {where FOO &gt; (select max(BAR) from ...)}
      * <pre>
-     * cb.query().<span style="color: #CC4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;MemberSecurityCB&gt;() {
-     *     public void query(MemberSecurityCB subCB) {
-     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
-     *         subCB.query().setBar...
-     *     }
+     * cb.query().scalar_Equal().<span style="color: #CC4747">avg</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">purchaseCB</span>.specify().<span style="color: #CC4747">columnPurchasePrice</span>(); <span style="color: #3F7E5E">// *Point!</span>
+     *     <span style="color: #553000">purchaseCB</span>.query().setPaymentCompleteFlg_Equal_True();
      * });
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSSQFunction<MemberSecurityCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT, MemberSecurityCB.class);
+    public HpSLCFunction<MemberSecurityCB> scalar_GreaterThan() {
+        return xcreateSLCFunction(CK_GT, MemberSecurityCB.class);
     }
 
     /**
      * Prepare ScalarCondition as lessThan. <br>
-     * {where FOO &lt; (select max(BAR) from ...)
+     * {where FOO &lt; (select max(BAR) from ...)}
      * <pre>
-     * cb.query().<span style="color: #CC4747">scalar_LessThan()</span>.max(new SubQuery&lt;MemberSecurityCB&gt;() {
-     *     public void query(MemberSecurityCB subCB) {
-     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
-     *         subCB.query().setBar...
-     *     }
+     * cb.query().scalar_Equal().<span style="color: #CC4747">avg</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">purchaseCB</span>.specify().<span style="color: #CC4747">columnPurchasePrice</span>(); <span style="color: #3F7E5E">// *Point!</span>
+     *     <span style="color: #553000">purchaseCB</span>.query().setPaymentCompleteFlg_Equal_True();
      * });
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSSQFunction<MemberSecurityCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT, MemberSecurityCB.class);
+    public HpSLCFunction<MemberSecurityCB> scalar_LessThan() {
+        return xcreateSLCFunction(CK_LT, MemberSecurityCB.class);
     }
 
     /**
      * Prepare ScalarCondition as greaterEqual. <br>
-     * {where FOO &gt;= (select max(BAR) from ...)
+     * {where FOO &gt;= (select max(BAR) from ...)}
      * <pre>
-     * cb.query().<span style="color: #CC4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;MemberSecurityCB&gt;() {
-     *     public void query(MemberSecurityCB subCB) {
-     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
-     *         subCB.query().setBar...
-     *     }
+     * cb.query().scalar_Equal().<span style="color: #CC4747">avg</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">purchaseCB</span>.specify().<span style="color: #CC4747">columnPurchasePrice</span>(); <span style="color: #3F7E5E">// *Point!</span>
+     *     <span style="color: #553000">purchaseCB</span>.query().setPaymentCompleteFlg_Equal_True();
      * });
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSSQFunction<MemberSecurityCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE, MemberSecurityCB.class);
+    public HpSLCFunction<MemberSecurityCB> scalar_GreaterEqual() {
+        return xcreateSLCFunction(CK_GE, MemberSecurityCB.class);
     }
 
     /**
      * Prepare ScalarCondition as lessEqual. <br>
-     * {where FOO &lt;= (select max(BAR) from ...)
+     * {where FOO &lt;= (select max(BAR) from ...)}
      * <pre>
      * cb.query().<span style="color: #CC4747">scalar_LessEqual()</span>.max(new SubQuery&lt;MemberSecurityCB&gt;() {
      *     public void query(MemberSecurityCB subCB) {
@@ -1332,17 +1337,17 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSSQFunction<MemberSecurityCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE, MemberSecurityCB.class);
+    public HpSLCFunction<MemberSecurityCB> scalar_LessEqual() {
+        return xcreateSLCFunction(CK_LE, MemberSecurityCB.class);
     }
 
     @SuppressWarnings("unchecked")
-    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSLCCustomized<CB> cs, ScalarConditionOption op) {
         assertObjectNotNull("subQuery", sq);
         MemberSecurityCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(fn, cb.query(), pp, rd, op);
+        cs.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, cs, op);
     }
     public abstract String keepScalarCondition(MemberSecurityCQ sq);
 
@@ -1415,7 +1420,6 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
      * <span style="color: #3F7E5E">//   end asc, ...</span>
      *
      * cb.query().addOrderBy_MemberStatusCode_Asc().<span style="color: #CC4747">withManualOrder</span>(<span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">op</span>.<span style="color: #CC4747">when_GreaterEqual</span>(priorityDate); <span style="color: #3F7E5E">// e.g. 2000/01/01</span>
      *     <span style="color: #553000">op</span>.<span style="color: #CC4747">when_Equal</span>(CDef.MemberStatus.Withdrawal);
      *     <span style="color: #553000">op</span>.<span style="color: #CC4747">when_Equal</span>(CDef.MemberStatus.Formalized);
      *     <span style="color: #553000">op</span>.<span style="color: #CC4747">when_Equal</span>(CDef.MemberStatus.Provisional);
@@ -1449,6 +1453,6 @@ public abstract class AbstractBsMemberSecurityCQ extends AbstractConditionQuery 
     protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return MemberSecurityCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
-    protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
+    protected String xabSLCS() { return HpSLCSetupper.class.getName(); }
     protected String xabSCP() { return SubQuery.class.getName(); }
 }

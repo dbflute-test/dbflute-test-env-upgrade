@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.allcommon;
 
 import javax.sql.DataSource;
@@ -39,7 +54,7 @@ public class ImplementedInvokerAssistant implements InvokerAssistant {
     //                                                                           Attribute
     //                                                                           =========
     protected static final String[] DEFAULT_CLIENT_INVOKE_NAMES
-        = new String[] { "Page", "Action", "Controller", "ControllerImpl", "Task", "Test" };
+        = new String[] { "Page", "Action", "Controller", "ControllerImpl", "Job", "Task", "Test" };
 
     protected static final String[] DEFAULT_BYPASS_INVOKE_NAMES
         = new String[] { "Service", "ServiceImpl", "Facade", "FacadeImpl", "Logic", "LogicImpl" };
@@ -487,8 +502,7 @@ public class ImplementedInvokerAssistant implements InvokerAssistant {
     // to check the initializer is an instance of DBFluteInitializer
     // when the initializer is extended by DBFlute property
     // so this variable is actually unused in this class
-    // (needs to be injected only when the DI container
-    // is set by its DI setting file)
+    // (needs to be injected only when the DI container is set by its DI setting file)
     public void setIntroduction(DBFluteInitializer introduction) {
         _introduction = introduction;
     }

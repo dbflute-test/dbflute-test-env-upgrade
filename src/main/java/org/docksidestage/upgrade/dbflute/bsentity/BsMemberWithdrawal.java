@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsentity;
 
 import java.util.List;
@@ -8,39 +23,45 @@ import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.dbflute.optional.OptionalEntity;
+import org.docksidestage.upgrade.dbflute.allcommon.EntityDefinedCommonColumn;
 import org.docksidestage.upgrade.dbflute.allcommon.DBMetaInstanceHandler;
+import org.docksidestage.upgrade.dbflute.allcommon.CDef;
 import org.docksidestage.upgrade.dbflute.exentity.*;
 
 /**
- * The entity of MEMBER_WITHDRAWAL as TABLE. <br>
+ * The entity of (会員退会情報)MEMBER_WITHDRAWAL as TABLE. <br>
+ * 退会会員の退会に関する詳細な情報。<br>
+ * 退会会員のみデータが存在し、"1 : 0..1" のパターンの one-to-one である。<br>
+ * 共通カラムがあってバージョンNOがないパターン。<br>
+ * 基本的に更新は入らないが、重要なデータなので万が一のために更新系の共通カラムも。
  * <pre>
  * [primary-key]
  *     MEMBER_ID
- * 
+ *
  * [column]
- *     MEMBER_ID, WITHDRAWAL_REASON_CODE, WITHDRAWAL_REASON_INPUT_TEXT, WITHDRAWAL_DATETIME, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER, VERSION_NO
- * 
+ *     MEMBER_ID, WITHDRAWAL_REASON_CODE, WITHDRAWAL_REASON_INPUT_TEXT, WITHDRAWAL_DATETIME, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     
- * 
+ *
  * [version-no]
- *     VERSION_NO
- * 
+ *     
+ *
  * [foreign table]
  *     MEMBER, WITHDRAWAL_REASON
- * 
+ *
  * [referrer table]
  *     
- * 
+ *
  * [foreign property]
  *     member, withdrawalReason
- * 
+ *
  * [referrer property]
  *     
- * 
+ *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer memberId = entity.getMemberId();
@@ -51,7 +72,6 @@ import org.docksidestage.upgrade.dbflute.exentity.*;
  * String registerUser = entity.getRegisterUser();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateUser = entity.getUpdateUser();
- * Long versionNo = entity.getVersionNo();
  * entity.setMemberId(memberId);
  * entity.setWithdrawalReasonCode(withdrawalReasonCode);
  * entity.setWithdrawalReasonInputText(withdrawalReasonInputText);
@@ -60,12 +80,11 @@ import org.docksidestage.upgrade.dbflute.exentity.*;
  * entity.setRegisterUser(registerUser);
  * entity.setUpdateDatetime(updateDatetime);
  * entity.setUpdateUser(updateUser);
- * entity.setVersionNo(versionNo);
  * = = = = = = = = = =/
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsMemberWithdrawal extends AbstractEntity implements DomainEntity {
+public abstract class BsMemberWithdrawal extends AbstractEntity implements DomainEntity, EntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition
@@ -79,29 +98,26 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     /** MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER} */
     protected Integer _memberId;
 
-    /** WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON} */
+    /** (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason} */
     protected String _withdrawalReasonCode;
 
-    /** WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)} */
+    /** (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)} */
     protected String _withdrawalReasonInputText;
 
-    /** WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
+    /** (退会日時)WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(26, 6)} */
     protected java.time.LocalDateTime _withdrawalDatetime;
 
-    /** REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
+    /** REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} */
     protected java.time.LocalDateTime _registerDatetime;
 
     /** REGISTER_USER: {NotNull, VARCHAR(200)} */
     protected String _registerUser;
 
-    /** UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
+    /** UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)} */
     protected java.time.LocalDateTime _updateDatetime;
 
     /** UPDATE_USER: {NotNull, VARCHAR(200)} */
     protected String _updateUser;
-
-    /** VERSION_NO: {NotNull, BIGINT(19)} */
-    protected Long _versionNo;
 
     // ===================================================================================
     //                                                                             DB Meta
@@ -117,8 +133,8 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     }
 
     // ===================================================================================
-    //                                                                         Primary Key
-    //                                                                         ===========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         if (_memberId == null) { return false; }
@@ -126,13 +142,119 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     }
 
     // ===================================================================================
+    //                                                             Classification Property
+    //                                                             =======================
+    /**
+     * Get the value of withdrawalReasonCode as the classification of WithdrawalReason. <br>
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason} <br>
+     * reason for member withdrawal
+     * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
+     * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
+     */
+    public CDef.WithdrawalReason getWithdrawalReasonCodeAsWithdrawalReason() {
+        return CDef.WithdrawalReason.codeOf(getWithdrawalReasonCode());
+    }
+
+    /**
+     * Set the value of withdrawalReasonCode as the classification of WithdrawalReason. <br>
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason} <br>
+     * reason for member withdrawal
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
+     */
+    public void setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason cdef) {
+        setWithdrawalReasonCode(cdef != null ? cdef.code() : null);
+    }
+
+    // ===================================================================================
+    //                                                              Classification Setting
+    //                                                              ======================
+    /**
+     * Set the value of withdrawalReasonCode as Sit (SIT). <br>
+     * SIT: サイトが使いにくいから
+     */
+    public void setWithdrawalReasonCode_Sit() {
+        setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason.Sit);
+    }
+
+    /**
+     * Set the value of withdrawalReasonCode as Prd (PRD). <br>
+     * PRD: 商品に魅力がないから
+     */
+    public void setWithdrawalReasonCode_Prd() {
+        setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason.Prd);
+    }
+
+    /**
+     * Set the value of withdrawalReasonCode as Frt (FRT). <br>
+     * FRT: フリテンだから
+     */
+    public void setWithdrawalReasonCode_Frt() {
+        setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason.Frt);
+    }
+
+    /**
+     * Set the value of withdrawalReasonCode as Oth (OTH). <br>
+     * OTH: その他理由
+     */
+    public void setWithdrawalReasonCode_Oth() {
+        setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason.Oth);
+    }
+
+    // ===================================================================================
+    //                                                        Classification Determination
+    //                                                        ============================
+    /**
+     * Is the value of withdrawalReasonCode Sit? <br>
+     * SIT: サイトが使いにくいから
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isWithdrawalReasonCodeSit() {
+        CDef.WithdrawalReason cdef = getWithdrawalReasonCodeAsWithdrawalReason();
+        return cdef != null ? cdef.equals(CDef.WithdrawalReason.Sit) : false;
+    }
+
+    /**
+     * Is the value of withdrawalReasonCode Prd? <br>
+     * PRD: 商品に魅力がないから
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isWithdrawalReasonCodePrd() {
+        CDef.WithdrawalReason cdef = getWithdrawalReasonCodeAsWithdrawalReason();
+        return cdef != null ? cdef.equals(CDef.WithdrawalReason.Prd) : false;
+    }
+
+    /**
+     * Is the value of withdrawalReasonCode Frt? <br>
+     * FRT: フリテンだから
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isWithdrawalReasonCodeFrt() {
+        CDef.WithdrawalReason cdef = getWithdrawalReasonCodeAsWithdrawalReason();
+        return cdef != null ? cdef.equals(CDef.WithdrawalReason.Frt) : false;
+    }
+
+    /**
+     * Is the value of withdrawalReasonCode Oth? <br>
+     * OTH: その他理由
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isWithdrawalReasonCodeOth() {
+        CDef.WithdrawalReason cdef = getWithdrawalReasonCodeAsWithdrawalReason();
+        return cdef != null ? cdef.equals(CDef.WithdrawalReason.Oth) : false;
+    }
+
+    // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
-    /** MEMBER by my MEMBER_ID, named 'member'. */
+    /** (会員)MEMBER by my MEMBER_ID, named 'member'. */
     protected OptionalEntity<Member> _member;
 
     /**
-     * [get] MEMBER by my MEMBER_ID, named 'member'. <br>
+     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'member'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -142,18 +264,18 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] MEMBER by my MEMBER_ID, named 'member'.
+     * [set] (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
     public void setMember(OptionalEntity<Member> member) {
         _member = member;
     }
 
-    /** WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'. */
+    /** (退会理由)WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'. */
     protected OptionalEntity<WithdrawalReason> _withdrawalReason;
 
     /**
-     * [get] WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'. <br>
+     * [get] (退会理由)WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'withdrawalReason'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -163,7 +285,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'.
+     * [set] (退会理由)WITHDRAWAL_REASON by my WITHDRAWAL_REASON_CODE, named 'withdrawalReason'.
      * @param withdrawalReason The entity of foreign property 'withdrawalReason'. (NullAllowed)
      */
     public void setWithdrawalReason(OptionalEntity<WithdrawalReason> withdrawalReason) {
@@ -173,7 +295,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
-    protected <ELEMENT> List<ELEMENT> newReferrerList() {
+    protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
 
@@ -223,7 +345,6 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
         sb.append(dm).append(xfND(_registerUser));
         sb.append(dm).append(xfND(_updateDatetime));
         sb.append(dm).append(xfND(_updateUser));
-        sb.append(dm).append(xfND(_versionNo));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -271,7 +392,9 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     }
 
     /**
-     * [get] WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON} <br>
+     * [get] (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason} <br>
+     * 定型的な退会した理由を参照するコード。<br>
+     * 何も言わずに退会する会員もいるので必須項目ではない。
      * @return The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getWithdrawalReasonCode() {
@@ -280,16 +403,21 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON} <br>
+     * [set] (退会理由コード)WITHDRAWAL_REASON_CODE: {IX, CHAR(3), FK to WITHDRAWAL_REASON, classification=WithdrawalReason} <br>
+     * 定型的な退会した理由を参照するコード。<br>
+     * 何も言わずに退会する会員もいるので必須項目ではない。
      * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setWithdrawalReasonCode(String withdrawalReasonCode) {
+    protected void setWithdrawalReasonCode(String withdrawalReasonCode) {
+        checkClassificationCode("WITHDRAWAL_REASON_CODE", CDef.DefMeta.WithdrawalReason, withdrawalReasonCode);
         registerModifiedProperty("withdrawalReasonCode");
         _withdrawalReasonCode = withdrawalReasonCode;
     }
 
     /**
-     * [get] WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)} <br>
+     * [get] (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)} <br>
+     * 会員がフリーテキストで入力できる退会理由。<br>
+     * もう言いたいこと言ってもらう感じ。サイト運営側としてはこういうのは真摯に受け止めて改善していきたいところ。
      * @return The value of the column 'WITHDRAWAL_REASON_INPUT_TEXT'. (NullAllowed even if selected: for no constraint)
      */
     public String getWithdrawalReasonInputText() {
@@ -298,7 +426,9 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)} <br>
+     * [set] (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)} <br>
+     * 会員がフリーテキストで入力できる退会理由。<br>
+     * もう言いたいこと言ってもらう感じ。サイト運営側としてはこういうのは真摯に受け止めて改善していきたいところ。
      * @param withdrawalReasonInputText The value of the column 'WITHDRAWAL_REASON_INPUT_TEXT'. (NullAllowed: null update allowed for no constraint)
      */
     public void setWithdrawalReasonInputText(String withdrawalReasonInputText) {
@@ -307,7 +437,9 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     }
 
     /**
-     * [get] WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * [get] (退会日時)WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
+     * 退会した瞬間の日時。<br>
+     * 正式会員日時と違い、こっちは one-to-one の別テーブルで管理されている。
      * @return The value of the column 'WITHDRAWAL_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getWithdrawalDatetime() {
@@ -316,7 +448,9 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * [set] (退会日時)WITHDRAWAL_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
+     * 退会した瞬間の日時。<br>
+     * 正式会員日時と違い、こっちは one-to-one の別テーブルで管理されている。
      * @param withdrawalDatetime The value of the column 'WITHDRAWAL_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setWithdrawalDatetime(java.time.LocalDateTime withdrawalDatetime) {
@@ -325,7 +459,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     }
 
     /**
-     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getRegisterDatetime() {
@@ -334,7 +468,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setRegisterDatetime(java.time.LocalDateTime registerDatetime) {
@@ -361,7 +495,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     }
 
     /**
-     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getUpdateDatetime() {
@@ -370,7 +504,7 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setUpdateDatetime(java.time.LocalDateTime updateDatetime) {
@@ -397,20 +531,10 @@ public abstract class BsMemberWithdrawal extends AbstractEntity implements Domai
     }
 
     /**
-     * [get] VERSION_NO: {NotNull, BIGINT(19)} <br>
-     * @return The value of the column 'VERSION_NO'. (basically NotNull if selected: for the constraint)
+     * For framework so basically DON'T use this method.
+     * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (NullAllowed: null update allowed for no constraint)
      */
-    public Long getVersionNo() {
-        checkSpecifiedProperty("versionNo");
-        return _versionNo;
-    }
-
-    /**
-     * [set] VERSION_NO: {NotNull, BIGINT(19)} <br>
-     * @param versionNo The value of the column 'VERSION_NO'. (basically NotNull if update: for the constraint)
-     */
-    public void setVersionNo(Long versionNo) {
-        registerModifiedProperty("versionNo");
-        _versionNo = versionNo;
+    public void mynativeMappingWithdrawalReasonCode(String withdrawalReasonCode) {
+        setWithdrawalReasonCode(withdrawalReasonCode);
     }
 }

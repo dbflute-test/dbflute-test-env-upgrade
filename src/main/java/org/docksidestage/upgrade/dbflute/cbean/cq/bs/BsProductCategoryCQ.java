@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.cbean.cq.bs;
 
 import java.util.Map;
@@ -8,9 +23,9 @@ import org.dbflute.cbean.coption.*;
 import org.dbflute.cbean.cvalue.ConditionValue;
 import org.dbflute.cbean.sqlclause.SqlClause;
 import org.dbflute.exception.IllegalConditionBeanOperationException;
+import org.docksidestage.upgrade.dbflute.cbean.cq.ciq.*;
 import org.docksidestage.upgrade.dbflute.cbean.*;
 import org.docksidestage.upgrade.dbflute.cbean.cq.*;
-import org.docksidestage.upgrade.dbflute.cbean.cq.ciq.*;
 
 /**
  * The base condition-query of PRODUCT_CATEGORY.
@@ -107,16 +122,16 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
     public Map<String, Object> xdfgetProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfListParameter() { return xgetSQuePmMap("productCategoryCode_QueryDerivedReferrer_ProductCategorySelfList"); }
     public String keepProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfListParameter(Object pm) { return xkeepSQuePm("productCategoryCode_QueryDerivedReferrer_ProductCategorySelfList", pm); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
+     * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
      * @return this. (NotNull)
      */
     public BsProductCategoryCQ addOrderBy_ProductCategoryCode_Asc() { regOBA("PRODUCT_CATEGORY_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
+     * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
      * @return this. (NotNull)
      */
     public BsProductCategoryCQ addOrderBy_ProductCategoryCode_Desc() { regOBD("PRODUCT_CATEGORY_CODE"); return this; }
@@ -127,16 +142,16 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
       return _productCategoryName; }
     protected ConditionValue xgetCValueProductCategoryName() { return xdfgetProductCategoryName(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
+     * (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsProductCategoryCQ addOrderBy_ProductCategoryName_Asc() { regOBA("PRODUCT_CATEGORY_NAME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
+     * (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsProductCategoryCQ addOrderBy_ProductCategoryName_Desc() { regOBD("PRODUCT_CATEGORY_NAME"); return this; }
@@ -147,16 +162,16 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
       return _parentCategoryCode; }
     protected ConditionValue xgetCValueParentCategoryCode() { return xdfgetParentCategoryCode(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY}
+     * (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY}
      * @return this. (NotNull)
      */
     public BsProductCategoryCQ addOrderBy_ParentCategoryCode_Asc() { regOBA("PARENT_CATEGORY_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY}
+     * (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY}
      * @return this. (NotNull)
      */
     public BsProductCategoryCQ addOrderBy_ParentCategoryCode_Desc() { regOBD("PARENT_CATEGORY_CODE"); return this; }
@@ -212,7 +227,7 @@ public class BsProductCategoryCQ extends AbstractBsProductCategoryCQ {
     //                                                                       =============
     /**
      * Get the condition-query for relation table. <br>
-     * PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
+     * (商品カテゴリ)PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
      * @return The instance of condition-query. (NotNull)
      */
     public ProductCategoryCQ queryProductCategorySelf() {

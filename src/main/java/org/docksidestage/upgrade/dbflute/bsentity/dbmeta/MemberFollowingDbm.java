@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsentity.dbmeta;
 
 import java.util.List;
@@ -5,13 +20,13 @@ import java.util.Map;
 
 import org.dbflute.Entity;
 import org.dbflute.optional.OptionalEntity;
-import org.docksidestage.upgrade.dbflute.allcommon.*;
-import org.docksidestage.upgrade.dbflute.exentity.*;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
 import org.dbflute.dbmeta.property.PropertyGateway;
 import org.dbflute.dbway.DBDef;
+import org.docksidestage.upgrade.dbflute.allcommon.*;
+import org.docksidestage.upgrade.dbflute.exentity.*;
 
 /**
  * The DB meta of MEMBER_FOLLOWING. (Singleton)
@@ -68,38 +83,42 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     //                                                                          Table Info
     //                                                                          ==========
     protected final String _tableDbName = "MEMBER_FOLLOWING";
+    protected final String _tableDispName = "MEMBER_FOLLOWING";
     protected final String _tablePropertyName = "memberFollowing";
     protected final TableSqlName _tableSqlName = new TableSqlName("MEMBER_FOLLOWING", _tableDbName);
     { _tableSqlName.xacceptFilter(DBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
+    public String getTableDispName() { return _tableDispName; }
     public String getTablePropertyName() { return _tablePropertyName; }
     public TableSqlName getTableSqlName() { return _tableSqlName; }
+    protected final String _tableAlias = "会員フォローイング";
+    public String getTableAlias() { return _tableAlias; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberFollowingId = cci("MEMBER_FOLLOWING_ID", "MEMBER_FOLLOWING_ID", null, null, Long.class, "memberFollowingId", null, true, true, true, "BIGINT", 19, 0, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_5654528E_5E2B_4363_BDE2_500CEA4A98F1", false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnMyMemberId = cci("MY_MEMBER_ID", "MY_MEMBER_ID", null, null, Integer.class, "myMemberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "memberByMyMemberId", null, null, false);
-    protected final ColumnInfo _columnYourMemberId = cci("YOUR_MEMBER_ID", "YOUR_MEMBER_ID", null, null, Integer.class, "yourMemberId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "memberByYourMemberId", null, null, false);
-    protected final ColumnInfo _columnFollowDatetime = cci("FOLLOW_DATETIME", "FOLLOW_DATETIME", null, null, java.time.LocalDateTime.class, "followDatetime", null, false, false, true, "TIMESTAMP", 23, 10, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMemberFollowingId = cci("MEMBER_FOLLOWING_ID", "MEMBER_FOLLOWING_ID", null, "会員フォローイングID", Long.class, "memberFollowingId", null, true, true, true, "BIGINT", 19, 0, null, "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_363C38C7_358A_43EB_A7DE_C1F19587E669", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMyMemberId = cci("MY_MEMBER_ID", "MY_MEMBER_ID", null, "わたし", Integer.class, "myMemberId", null, false, false, true, "INTEGER", 10, 0, null, null, false, null, null, "memberByMyMemberId", null, null, false);
+    protected final ColumnInfo _columnYourMemberId = cci("YOUR_MEMBER_ID", "YOUR_MEMBER_ID", null, "あなた", Integer.class, "yourMemberId", null, false, false, true, "INTEGER", 10, 0, null, null, false, null, null, "memberByYourMemberId", null, null, false);
+    protected final ColumnInfo _columnFollowDatetime = cci("FOLLOW_DATETIME", "FOLLOW_DATETIME", null, "その瞬間", java.time.LocalDateTime.class, "followDatetime", null, false, false, true, "TIMESTAMP", 26, 6, null, null, false, null, null, null, null, null, false);
 
     /**
-     * MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
+     * (会員フォローイングID)MEMBER_FOLLOWING_ID: {PK, ID, NotNull, BIGINT(19)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnMemberFollowingId() { return _columnMemberFollowingId; }
     /**
-     * MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
+     * (わたし)MY_MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnMyMemberId() { return _columnMyMemberId; }
     /**
-     * YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
+     * (あなた)YOUR_MEMBER_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to MEMBER}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnYourMemberId() { return _columnYourMemberId; }
     /**
-     * FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(23, 10)}
+     * (その瞬間)FOLLOW_DATETIME: {IX, NotNull, TIMESTAMP(26, 6)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnFollowDatetime() { return _columnFollowDatetime; }
@@ -125,6 +144,16 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
 
+    // -----------------------------------------------------
+    //                                        Unique Element
+    //                                        --------------
+    public UniqueInfo uniqueOf() {
+        List<ColumnInfo> ls = newArrayListSized(4);
+        ls.add(columnMyMemberId());
+        ls.add(columnYourMemberId());
+        return hpcui(ls);
+    }
+
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
@@ -134,7 +163,7 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     /**
-     * MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
+     * (会員)MEMBER by my MY_MEMBER_ID, named 'memberByMyMemberId'.
      * @return The information object of foreign property. (NotNull)
      */
     public ForeignInfo foreignMemberByMyMemberId() {
@@ -142,7 +171,7 @@ public class MemberFollowingDbm extends AbstractDBMeta {
         return cfi("FK_MEMBER_FOLLOWING_MY_MEMBER", "memberByMyMemberId", this, MemberDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "memberFollowingByMyMemberIdList", false);
     }
     /**
-     * MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
+     * (会員)MEMBER by my YOUR_MEMBER_ID, named 'memberByYourMemberId'.
      * @return The information object of foreign property. (NotNull)
      */
     public ForeignInfo foreignMemberByYourMemberId() {
@@ -162,9 +191,9 @@ public class MemberFollowingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "org.docksidestage.install.dbflute.exentity.MemberFollowing"; }
-    public String getConditionBeanTypeName() { return "org.docksidestage.install.dbflute.cbean.MemberFollowingCB"; }
-    public String getBehaviorTypeName() { return "org.docksidestage.install.dbflute.exbhv.MemberFollowingBhv"; }
+    public String getEntityTypeName() { return "org.docksidestage.upgrade.dbflute.exentity.MemberFollowing"; }
+    public String getConditionBeanTypeName() { return "org.docksidestage.upgrade.dbflute.cbean.MemberFollowingCB"; }
+    public String getBehaviorTypeName() { return "org.docksidestage.upgrade.dbflute.exbhv.MemberFollowingBhv"; }
 
     // ===================================================================================
     //                                                                         Object Type

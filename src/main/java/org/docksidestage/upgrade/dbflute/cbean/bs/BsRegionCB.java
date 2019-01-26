@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.cbean.bs;
 
 import org.dbflute.cbean.AbstractConditionBean;
@@ -12,6 +27,7 @@ import org.dbflute.cbean.scoping.*;
 import org.dbflute.dbmeta.DBMetaProvider;
 import org.dbflute.twowaysql.factory.SqlAnalyzerFactory;
 import org.dbflute.twowaysql.style.BoundDateDisplayTimeZoneProvider;
+import org.docksidestage.upgrade.dbflute.allcommon.CDef;
 import org.docksidestage.upgrade.dbflute.allcommon.DBFluteConfig;
 import org.docksidestage.upgrade.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.upgrade.dbflute.allcommon.ImplementedInvokerAssistant;
@@ -43,6 +59,10 @@ public class BsRegionCB extends AbstractConditionBean {
         if (DBFluteConfig.getInstance().isNonSpecifiedColumnAccessAllowed()) {
             enableNonSpecifiedColumnAccess();
         }
+        if (DBFluteConfig.getInstance().isSpecifyColumnRequired()) {
+            enableSpecifyColumnRequired();
+        }
+        xsetSpecifyColumnRequiredExceptDeterminer(DBFluteConfig.getInstance().getSpecifyColumnRequiredExceptDeterminer());
         if (DBFluteConfig.getInstance().isQueryUpdateCountPreCheck()) {
             enableQueryUpdateCountPreCheck();
         }
@@ -77,13 +97,13 @@ public class BsRegionCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param regionId : PK, NotNull, INTEGER(10). (NotNull)
+     * @param regionId (地域ID): PK, NotNull, INTEGER(10), classification=Region. (NotNull)
      * @return this. (NotNull)
      */
-    public RegionCB acceptPK(Integer regionId) {
+    public RegionCB acceptPK(CDef.Region regionId) {
         assertObjectNotNull("regionId", regionId);
         BsRegionCB cb = this;
-        cb.query().setRegionId_Equal(regionId);
+        cb.query().setRegionId_Equal_AsRegion(regionId);
         return (RegionCB)this;
     }
 
@@ -124,33 +144,33 @@ public class BsRegionCB extends AbstractConditionBean {
      * <span style="color: #3F7E5E">// {fromDate &lt;= BIRTHDATE &lt; toDate + 1 day}</span>
      * cb.query().setBirthdate_IsNull();    <span style="color: #3F7E5E">// is null</span>
      * cb.query().setBirthdate_IsNotNull(); <span style="color: #3F7E5E">// is not null</span>
-     * 
+     *
      * <span style="color: #3F7E5E">// ExistsReferrer: (correlated sub-query)</span>
      * <span style="color: #3F7E5E">// {where exists (select PURCHASE_ID from PURCHASE where ...)}</span>
      * cb.query().existsPurchase(purchaseCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     purchaseCB.query().set... <span style="color: #3F7E5E">// referrer sub-query condition</span>
      * });
      * cb.query().notExistsPurchase...
-     * 
+     *
      * <span style="color: #3F7E5E">// (Query)DerivedReferrer: (correlated sub-query)</span>
      * cb.query().derivedPurchaseList().max(purchaseCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     purchaseCB.specify().columnPurchasePrice(); <span style="color: #3F7E5E">// derived column for function</span>
      *     purchaseCB.query().set... <span style="color: #3F7E5E">// referrer sub-query condition</span>
      * }).greaterEqual(value);
-     * 
+     *
      * <span style="color: #3F7E5E">// ScalarCondition: (self-table sub-query)</span>
      * cb.query().scalar_Equal().max(scalarCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     scalarCB.specify().columnBirthdate(); <span style="color: #3F7E5E">// derived column for function</span>
      *     scalarCB.query().set... <span style="color: #3F7E5E">// scalar sub-query condition</span>
      * });
-     * 
+     *
      * <span style="color: #3F7E5E">// OrderBy</span>
      * cb.query().addOrderBy_MemberName_Asc();
      * cb.query().addOrderBy_MemberName_Desc().withManualOrder(option);
      * cb.query().addOrderBy_MemberName_Desc().withNullsFirst();
      * cb.query().addOrderBy_MemberName_Desc().withNullsLast();
      * cb.query().addSpecifiedDerivedOrderBy_Desc(aliasName);
-     * 
+     *
      * <span style="color: #3F7E5E">// Query(Relation)</span>
      * cb.query().queryMemberStatus()...;
      * cb.query().queryMemberAddressAsValid(targetDate)...;
@@ -158,7 +178,7 @@ public class BsRegionCB extends AbstractConditionBean {
      * @return The instance of condition-query for base-point table to set up query. (NotNull)
      */
     public RegionCQ query() {
-        assertQueryPurpose(); // assert only when user-public query 
+        assertQueryPurpose(); // assert only when user-public query
         return doGetConditionQuery();
     }
 
@@ -209,7 +229,7 @@ public class BsRegionCB extends AbstractConditionBean {
      * @param unionCBLambda The callback for query of 'union'. (NotNull)
      */
     public void union(UnionQuery<RegionCB> unionCBLambda) {
-        final RegionCB cb = new RegionCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        final RegionCB cb = new RegionCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final RegionCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
@@ -270,8 +290,8 @@ public class BsRegionCB extends AbstractConditionBean {
         return specify();
     }
 
-    public boolean hasSpecifiedColumn() {
-        return _specification != null && _specification.isAlreadySpecifiedRequiredColumn();
+    public boolean hasSpecifiedLocalColumn() {
+        return _specification != null && _specification.hasSpecifiedColumn();
     }
 
     public static class HpSpecification extends HpAbstractSpecification<RegionCQ> {
@@ -280,12 +300,12 @@ public class BsRegionCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * REGION_ID: {PK, NotNull, INTEGER(10)}
+         * (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegionId() { return doColumn("REGION_ID"); }
         /**
-         * REGION_NAME: {NotNull, VARCHAR(50)}
+         * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegionName() { return doColumn("REGION_NAME"); }
@@ -300,7 +320,7 @@ public class BsRegionCB extends AbstractConditionBean {
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
          * {select max(FOO) from MEMBER_ADDRESS where ...) as FOO_MAX} <br>
-         * MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
+         * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
          * <pre>
          * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(addressCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
          *     addressCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>

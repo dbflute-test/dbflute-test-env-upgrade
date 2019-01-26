@@ -1,9 +1,25 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsbhv;
 
 import java.util.List;
 
 import org.dbflute.*;
 import org.dbflute.bhv.*;
+import org.dbflute.bhv.core.BehaviorCommandInvoker;
 import org.dbflute.bhv.readable.*;
 import org.dbflute.bhv.writable.*;
 import org.dbflute.bhv.referrer.*;
@@ -11,16 +27,17 @@ import org.dbflute.cbean.*;
 import org.dbflute.cbean.chelper.HpSLSFunction;
 import org.dbflute.cbean.result.*;
 import org.dbflute.exception.*;
+import org.dbflute.hook.CommonColumnAutoSetupper;
 import org.dbflute.optional.OptionalEntity;
 import org.dbflute.outsidesql.executor.*;
+import org.docksidestage.upgrade.dbflute.exbhv.*;
 import org.docksidestage.upgrade.dbflute.bsbhv.loader.*;
+import org.docksidestage.upgrade.dbflute.exentity.*;
 import org.docksidestage.upgrade.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.upgrade.dbflute.cbean.*;
-import org.docksidestage.upgrade.dbflute.exbhv.*;
-import org.docksidestage.upgrade.dbflute.exentity.*;
 
 /**
- * The behavior of PURCHASE_PAYMENT as TABLE. <br>
+ * The behavior of (購入支払)PURCHASE_PAYMENT as TABLE. <br>
  * <pre>
  * [primary key]
  *     PURCHASE_PAYMENT_ID
@@ -107,7 +124,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      *     <span style="color: #3F7E5E">// called if present, or exception</span>
      *     ... = <span style="color: #553000">purchasePayment</span>.get...
      * });
-     * 
+     *
      * <span style="color: #3F7E5E">// if it might be no data, ...</span>
      * <span style="color: #0000C0">purchasePaymentBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
@@ -157,7 +174,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
 
     /**
      * Select the entity by the primary-key value.
-     * @param purchasePaymentId : PK, ID, NotNull, BIGINT(19). (NotNull)
+     * @param purchasePaymentId (購入支払ID): PK, ID, NotNull, BIGINT(19). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -290,7 +307,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
     //                                                                       Load Referrer
     //                                                                       =============
     /**
-     * Load referrer for the list by the the referrer loader.
+     * Load referrer for the list by the referrer loader.
      * <pre>
      * List&lt;Member&gt; <span style="color: #553000">memberList</span> = <span style="color: #0000C0">memberBhv</span>.selectList(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
@@ -804,8 +821,8 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
     /**
      * Prepare the all facade executor of outside-SQL to execute it.
      * <pre>
-     * <span style="color: #3F7E5E">// main style</span> 
-     * purchasePaymentBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span> 
+     * <span style="color: #3F7E5E">// main style</span>
+     * purchasePaymentBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span>
      * purchasePaymentBhv.outideSql().selectList(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
      * purchasePaymentBhv.outideSql().selectPage(pmb); <span style="color: #3F7E5E">// PagingResultBean</span>
      * purchasePaymentBhv.outideSql().selectPagedListOnly(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
@@ -813,7 +830,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * purchasePaymentBhv.outideSql().execute(pmb); <span style="color: #3F7E5E">// int (updated count)</span>
      * purchasePaymentBhv.outideSql().call(pmb); <span style="color: #3F7E5E">// void (pmb has OUT parameters)</span>
      *
-     * <span style="color: #3F7E5E">// traditional style</span> 
+     * <span style="color: #3F7E5E">// traditional style</span>
      * purchasePaymentBhv.outideSql().traditionalStyle().selectEntity(path, pmb, entityType);
      * purchasePaymentBhv.outideSql().traditionalStyle().selectList(path, pmb, entityType);
      * purchasePaymentBhv.outideSql().traditionalStyle().selectPage(path, pmb, entityType);
@@ -821,7 +838,7 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
      * purchasePaymentBhv.outideSql().traditionalStyle().selectCursor(path, pmb, handler);
      * purchasePaymentBhv.outideSql().traditionalStyle().execute(path, pmb);
      *
-     * <span style="color: #3F7E5E">// options</span> 
+     * <span style="color: #3F7E5E">// options</span>
      * purchasePaymentBhv.outideSql().removeBlockComment().selectList()
      * purchasePaymentBhv.outideSql().removeLineComment().selectList()
      * purchasePaymentBhv.outideSql().formatSql().selectList()
@@ -839,4 +856,25 @@ public abstract class BsPurchasePaymentBhv extends AbstractBehaviorWritable<Purc
     protected Class<? extends PurchasePayment> typeOfSelectedEntity() { return PurchasePayment.class; }
     protected Class<PurchasePayment> typeOfHandlingEntity() { return PurchasePayment.class; }
     protected Class<PurchasePaymentCB> typeOfHandlingConditionBean() { return PurchasePaymentCB.class; }
+
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
+    @Override
+    @javax.annotation.Resource(name="behaviorCommandInvoker")
+    public void setBehaviorCommandInvoker(BehaviorCommandInvoker behaviorCommandInvoker) {
+        super.setBehaviorCommandInvoker(behaviorCommandInvoker);
+    }
+
+    @Override
+    @javax.annotation.Resource(name="behaviorSelector")
+    public void setBehaviorSelector(BehaviorSelector behaviorSelector) {
+        super.setBehaviorSelector(behaviorSelector);
+    }
+
+    @Override
+    @javax.annotation.Resource(name="commonColumnAutoSetupper")
+    public void setCommonColumnAutoSetupper(CommonColumnAutoSetupper commonColumnAutoSetupper) {
+        super.setCommonColumnAutoSetupper(commonColumnAutoSetupper);
+    }
 }

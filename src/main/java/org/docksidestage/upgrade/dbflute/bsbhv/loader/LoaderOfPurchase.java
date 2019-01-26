@@ -1,15 +1,30 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsbhv.loader;
 
 import java.util.List;
 
 import org.dbflute.bhv.*;
 import org.dbflute.bhv.referrer.*;
-import org.docksidestage.upgrade.dbflute.cbean.*;
 import org.docksidestage.upgrade.dbflute.exbhv.*;
 import org.docksidestage.upgrade.dbflute.exentity.*;
+import org.docksidestage.upgrade.dbflute.cbean.*;
 
 /**
- * The referrer loader of PURCHASE as TABLE. <br>
+ * The referrer loader of (購入)PURCHASE as TABLE. <br>
  * <pre>
  * [primary key]
  *     PURCHASE_ID
@@ -27,13 +42,13 @@ import org.docksidestage.upgrade.dbflute.exentity.*;
  *     VERSION_NO
  *
  * [foreign table]
- *     MEMBER, PRODUCT
+ *     MEMBER, PRODUCT, SUMMARY_PRODUCT
  *
  * [referrer table]
  *     PURCHASE_PAYMENT
  *
  * [foreign property]
- *     member, product
+ *     member, product, summaryProduct
  *
  * [referrer property]
  *     purchasePaymentList
@@ -65,7 +80,7 @@ public class LoaderOfPurchase {
 
     /**
      * Load referrer of purchasePaymentList by the set-upper of referrer. <br>
-     * PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
+     * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
      * <pre>
      * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">purchaseList</span>, <span style="color: #553000">purchaseLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">purchaseLoader</span>.<span style="color: #CC4747">loadPurchasePayment</span>(<span style="color: #553000">paymentCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -110,6 +125,13 @@ public class LoaderOfPurchase {
         if (_foreignProductLoader == null)
         { _foreignProductLoader = new LoaderOfProduct().ready(myBhv().pulloutProduct(_selectedList), _selector); }
         return _foreignProductLoader;
+    }
+
+    protected LoaderOfSummaryProduct _foreignSummaryProductLoader;
+    public LoaderOfSummaryProduct pulloutSummaryProduct() {
+        if (_foreignSummaryProductLoader == null)
+        { _foreignSummaryProductLoader = new LoaderOfSummaryProduct().ready(myBhv().pulloutSummaryProduct(_selectedList), _selector); }
+        return _foreignSummaryProductLoader;
     }
 
     // ===================================================================================

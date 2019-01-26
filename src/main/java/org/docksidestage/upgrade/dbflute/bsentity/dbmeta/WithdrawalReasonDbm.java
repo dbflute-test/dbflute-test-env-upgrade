@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsentity.dbmeta;
 
 import java.util.List;
@@ -42,7 +57,14 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     { xsetupEpg(); }
     protected void xsetupEpg() {
-        setupEpg(_epgMap, et -> ((WithdrawalReason)et).getWithdrawalReasonCode(), (et, vl) -> ((WithdrawalReason)et).setWithdrawalReasonCode((String)vl), "withdrawalReasonCode");
+        setupEpg(_epgMap, et -> ((WithdrawalReason)et).getWithdrawalReasonCode(), (et, vl) -> {
+            CDef.WithdrawalReason cls = (CDef.WithdrawalReason)gcls(et, columnWithdrawalReasonCode(), vl);
+            if (cls != null) {
+                ((WithdrawalReason)et).setWithdrawalReasonCodeAsWithdrawalReason(cls);
+            } else {
+                ((WithdrawalReason)et).mynativeMappingWithdrawalReasonCode((String)vl);
+            }
+        }, "withdrawalReasonCode");
         setupEpg(_epgMap, et -> ((WithdrawalReason)et).getWithdrawalReasonText(), (et, vl) -> ((WithdrawalReason)et).setWithdrawalReasonText((String)vl), "withdrawalReasonText");
         setupEpg(_epgMap, et -> ((WithdrawalReason)et).getDisplayOrder(), (et, vl) -> ((WithdrawalReason)et).setDisplayOrder(cti(vl)), "displayOrder");
     }
@@ -53,27 +75,31 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     //                                                                          Table Info
     //                                                                          ==========
     protected final String _tableDbName = "WITHDRAWAL_REASON";
+    protected final String _tableDispName = "WITHDRAWAL_REASON";
     protected final String _tablePropertyName = "withdrawalReason";
     protected final TableSqlName _tableSqlName = new TableSqlName("WITHDRAWAL_REASON", _tableDbName);
     { _tableSqlName.xacceptFilter(DBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
+    public String getTableDispName() { return _tableDispName; }
     public String getTablePropertyName() { return _tablePropertyName; }
     public TableSqlName getTableSqlName() { return _tableSqlName; }
+    protected final String _tableAlias = "退会理由";
+    public String getTableAlias() { return _tableAlias; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnWithdrawalReasonCode = cci("WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", null, null, String.class, "withdrawalReasonCode", null, true, false, true, "CHAR", 3, 0, null, false, null, null, null, "memberWithdrawalList", null, false);
-    protected final ColumnInfo _columnWithdrawalReasonText = cci("WITHDRAWAL_REASON_TEXT", "WITHDRAWAL_REASON_TEXT", null, null, String.class, "withdrawalReasonText", null, false, false, true, "CLOB", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, null, Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnWithdrawalReasonCode = cci("WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", null, "退会理由コード", String.class, "withdrawalReasonCode", null, true, false, true, "CHAR", 3, 0, null, null, false, null, null, null, "memberWithdrawalList", CDef.DefMeta.WithdrawalReason, false);
+    protected final ColumnInfo _columnWithdrawalReasonText = cci("WITHDRAWAL_REASON_TEXT", "WITHDRAWAL_REASON_TEXT", null, "退会理由テキスト", String.class, "withdrawalReasonText", null, false, false, true, "CLOB", 2147483647, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, null, Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
 
     /**
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)}
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnWithdrawalReasonCode() { return _columnWithdrawalReasonCode; }
     /**
-     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
+     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnWithdrawalReasonText() { return _columnWithdrawalReasonText; }
@@ -103,6 +129,11 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
 
+    // -----------------------------------------------------
+    //                                        Unique Element
+    //                                        --------------
+    public UniqueInfo uniqueOf() { return hpcui(columnDisplayOrder()); }
+
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
@@ -116,7 +147,7 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     /**
-     * MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
+     * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * @return The information object of referrer property. (NotNull)
      */
     public ReferrerInfo referrerMemberWithdrawalList() {
@@ -131,9 +162,9 @@ public class WithdrawalReasonDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "org.docksidestage.install.dbflute.exentity.WithdrawalReason"; }
-    public String getConditionBeanTypeName() { return "org.docksidestage.install.dbflute.cbean.WithdrawalReasonCB"; }
-    public String getBehaviorTypeName() { return "org.docksidestage.install.dbflute.exbhv.WithdrawalReasonBhv"; }
+    public String getEntityTypeName() { return "org.docksidestage.upgrade.dbflute.exentity.WithdrawalReason"; }
+    public String getConditionBeanTypeName() { return "org.docksidestage.upgrade.dbflute.cbean.WithdrawalReasonCB"; }
+    public String getBehaviorTypeName() { return "org.docksidestage.upgrade.dbflute.exbhv.WithdrawalReasonBhv"; }
 
     // ===================================================================================
     //                                                                         Object Type

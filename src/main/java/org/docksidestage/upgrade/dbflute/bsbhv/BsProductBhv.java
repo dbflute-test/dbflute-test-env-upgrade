@@ -1,9 +1,25 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsbhv;
 
 import java.util.List;
 
 import org.dbflute.*;
 import org.dbflute.bhv.*;
+import org.dbflute.bhv.core.BehaviorCommandInvoker;
 import org.dbflute.bhv.readable.*;
 import org.dbflute.bhv.writable.*;
 import org.dbflute.bhv.referrer.*;
@@ -11,16 +27,17 @@ import org.dbflute.cbean.*;
 import org.dbflute.cbean.chelper.HpSLSFunction;
 import org.dbflute.cbean.result.*;
 import org.dbflute.exception.*;
+import org.dbflute.hook.CommonColumnAutoSetupper;
 import org.dbflute.optional.OptionalEntity;
 import org.dbflute.outsidesql.executor.*;
+import org.docksidestage.upgrade.dbflute.exbhv.*;
 import org.docksidestage.upgrade.dbflute.bsbhv.loader.*;
+import org.docksidestage.upgrade.dbflute.exentity.*;
 import org.docksidestage.upgrade.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.upgrade.dbflute.cbean.*;
-import org.docksidestage.upgrade.dbflute.exbhv.*;
-import org.docksidestage.upgrade.dbflute.exentity.*;
 
 /**
- * The behavior of PRODUCT as TABLE. <br>
+ * The behavior of (商品)PRODUCT as TABLE. <br>
  * <pre>
  * [primary key]
  *     PRODUCT_ID
@@ -107,7 +124,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      *     <span style="color: #3F7E5E">// called if present, or exception</span>
      *     ... = <span style="color: #553000">product</span>.get...
      * });
-     * 
+     *
      * <span style="color: #3F7E5E">// if it might be no data, ...</span>
      * <span style="color: #0000C0">productBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
@@ -186,7 +203,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
 
     /**
      * Select the entity by the unique-key value.
-     * @param productHandleCode : UQ, NotNull, VARCHAR(100). (NotNull)
+     * @param productHandleCode (商品ハンドルコード): UQ, NotNull, VARCHAR(100). (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -315,7 +332,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
     //                                                                       Load Referrer
     //                                                                       =============
     /**
-     * Load referrer for the list by the the referrer loader.
+     * Load referrer for the list by the referrer loader.
      * <pre>
      * List&lt;Member&gt; <span style="color: #553000">memberList</span> = <span style="color: #0000C0">memberBhv</span>.selectList(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
@@ -386,7 +403,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
 
     /**
      * Load referrer of purchaseList by the set-upper of referrer. <br>
-     * PURCHASE by PRODUCT_ID, named 'purchaseList'.
+     * (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * <pre>
      * <span style="color: #0000C0">productBhv</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">productList</span>, <span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">purchaseCB</span>.setupSelect...
@@ -417,7 +434,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
 
     /**
      * Load referrer of purchaseList by the set-upper of referrer. <br>
-     * PURCHASE by PRODUCT_ID, named 'purchaseList'.
+     * (購入)PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * <pre>
      * <span style="color: #0000C0">productBhv</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">product</span>, <span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">purchaseCB</span>.setupSelect...
@@ -1084,8 +1101,8 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
     /**
      * Prepare the all facade executor of outside-SQL to execute it.
      * <pre>
-     * <span style="color: #3F7E5E">// main style</span> 
-     * productBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span> 
+     * <span style="color: #3F7E5E">// main style</span>
+     * productBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span>
      * productBhv.outideSql().selectList(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
      * productBhv.outideSql().selectPage(pmb); <span style="color: #3F7E5E">// PagingResultBean</span>
      * productBhv.outideSql().selectPagedListOnly(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
@@ -1093,7 +1110,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * productBhv.outideSql().execute(pmb); <span style="color: #3F7E5E">// int (updated count)</span>
      * productBhv.outideSql().call(pmb); <span style="color: #3F7E5E">// void (pmb has OUT parameters)</span>
      *
-     * <span style="color: #3F7E5E">// traditional style</span> 
+     * <span style="color: #3F7E5E">// traditional style</span>
      * productBhv.outideSql().traditionalStyle().selectEntity(path, pmb, entityType);
      * productBhv.outideSql().traditionalStyle().selectList(path, pmb, entityType);
      * productBhv.outideSql().traditionalStyle().selectPage(path, pmb, entityType);
@@ -1101,7 +1118,7 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
      * productBhv.outideSql().traditionalStyle().selectCursor(path, pmb, handler);
      * productBhv.outideSql().traditionalStyle().execute(path, pmb);
      *
-     * <span style="color: #3F7E5E">// options</span> 
+     * <span style="color: #3F7E5E">// options</span>
      * productBhv.outideSql().removeBlockComment().selectList()
      * productBhv.outideSql().removeLineComment().selectList()
      * productBhv.outideSql().formatSql().selectList()
@@ -1125,4 +1142,25 @@ public abstract class BsProductBhv extends AbstractBehaviorWritable<Product, Pro
     protected Class<? extends Product> typeOfSelectedEntity() { return Product.class; }
     protected Class<Product> typeOfHandlingEntity() { return Product.class; }
     protected Class<ProductCB> typeOfHandlingConditionBean() { return ProductCB.class; }
+
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
+    @Override
+    @javax.annotation.Resource(name="behaviorCommandInvoker")
+    public void setBehaviorCommandInvoker(BehaviorCommandInvoker behaviorCommandInvoker) {
+        super.setBehaviorCommandInvoker(behaviorCommandInvoker);
+    }
+
+    @Override
+    @javax.annotation.Resource(name="behaviorSelector")
+    public void setBehaviorSelector(BehaviorSelector behaviorSelector) {
+        super.setBehaviorSelector(behaviorSelector);
+    }
+
+    @Override
+    @javax.annotation.Resource(name="commonColumnAutoSetupper")
+    public void setCommonColumnAutoSetupper(CommonColumnAutoSetupper commonColumnAutoSetupper) {
+        super.setCommonColumnAutoSetupper(commonColumnAutoSetupper);
+    }
 }

@@ -1,9 +1,25 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsbhv;
 
 import java.util.List;
 
 import org.dbflute.*;
 import org.dbflute.bhv.*;
+import org.dbflute.bhv.core.BehaviorCommandInvoker;
 import org.dbflute.bhv.readable.*;
 import org.dbflute.bhv.writable.*;
 import org.dbflute.bhv.referrer.*;
@@ -11,16 +27,18 @@ import org.dbflute.cbean.*;
 import org.dbflute.cbean.chelper.HpSLSFunction;
 import org.dbflute.cbean.result.*;
 import org.dbflute.exception.*;
+import org.dbflute.hook.CommonColumnAutoSetupper;
 import org.dbflute.optional.OptionalEntity;
 import org.dbflute.outsidesql.executor.*;
+import org.docksidestage.upgrade.dbflute.allcommon.CDef;
+import org.docksidestage.upgrade.dbflute.exbhv.*;
 import org.docksidestage.upgrade.dbflute.bsbhv.loader.*;
+import org.docksidestage.upgrade.dbflute.exentity.*;
 import org.docksidestage.upgrade.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.upgrade.dbflute.cbean.*;
-import org.docksidestage.upgrade.dbflute.exbhv.*;
-import org.docksidestage.upgrade.dbflute.exentity.*;
 
 /**
- * The behavior of PRODUCT_STATUS as TABLE. <br>
+ * The behavior of (商品ステータス)PRODUCT_STATUS as TABLE. <br>
  * <pre>
  * [primary key]
  *     PRODUCT_STATUS_CODE
@@ -41,13 +59,13 @@ import org.docksidestage.upgrade.dbflute.exentity.*;
  *     
  *
  * [referrer table]
- *     PRODUCT
+ *     PRODUCT, SUMMARY_PRODUCT
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     productList
+ *     productList, summaryProductList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -107,7 +125,7 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      *     <span style="color: #3F7E5E">// called if present, or exception</span>
      *     ... = <span style="color: #553000">productStatus</span>.get...
      * });
-     * 
+     *
      * <span style="color: #3F7E5E">// if it might be no data, ...</span>
      * <span style="color: #0000C0">productStatusBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
@@ -157,36 +175,36 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
 
     /**
      * Select the entity by the primary-key value.
-     * @param productStatusCode : PK, NotNull, CHAR(3). (NotNull)
+     * @param productStatusCode (商品ステータスコード): PK, NotNull, CHAR(3), classification=ProductStatus. (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<ProductStatus> selectByPK(String productStatusCode) {
+    public OptionalEntity<ProductStatus> selectByPK(CDef.ProductStatus productStatusCode) {
         return facadeSelectByPK(productStatusCode);
     }
 
-    protected OptionalEntity<ProductStatus> facadeSelectByPK(String productStatusCode) {
+    protected OptionalEntity<ProductStatus> facadeSelectByPK(CDef.ProductStatus productStatusCode) {
         return doSelectOptionalByPK(productStatusCode, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends ProductStatus> ENTITY doSelectByPK(String productStatusCode, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends ProductStatus> ENTITY doSelectByPK(CDef.ProductStatus productStatusCode, Class<? extends ENTITY> tp) {
         return doSelectEntity(xprepareCBAsPK(productStatusCode), tp);
     }
 
-    protected <ENTITY extends ProductStatus> OptionalEntity<ENTITY> doSelectOptionalByPK(String productStatusCode, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends ProductStatus> OptionalEntity<ENTITY> doSelectOptionalByPK(CDef.ProductStatus productStatusCode, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(productStatusCode, tp), productStatusCode);
     }
 
-    protected ProductStatusCB xprepareCBAsPK(String productStatusCode) {
+    protected ProductStatusCB xprepareCBAsPK(CDef.ProductStatus productStatusCode) {
         assertObjectNotNull("productStatusCode", productStatusCode);
         return newConditionBean().acceptPK(productStatusCode);
     }
 
     /**
      * Select the entity by the unique-key value.
-     * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
+     * @param displayOrder (表示順): UQ, NotNull, INTEGER(10). (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -315,7 +333,7 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
     //                                                                       Load Referrer
     //                                                                       =============
     /**
-     * Load referrer for the list by the the referrer loader.
+     * Load referrer for the list by the referrer loader.
      * <pre>
      * List&lt;Member&gt; <span style="color: #553000">memberList</span> = <span style="color: #0000C0">memberBhv</span>.selectList(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
@@ -386,7 +404,7 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
 
     /**
      * Load referrer of productList by the set-upper of referrer. <br>
-     * PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
+     * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
      * <pre>
      * <span style="color: #0000C0">productStatusBhv</span>.<span style="color: #CC4747">loadProduct</span>(<span style="color: #553000">productStatusList</span>, <span style="color: #553000">productCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">productCB</span>.setupSelect...
@@ -417,7 +435,7 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
 
     /**
      * Load referrer of productList by the set-upper of referrer. <br>
-     * PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
+     * (商品)PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
      * <pre>
      * <span style="color: #0000C0">productStatusBhv</span>.<span style="color: #CC4747">loadProduct</span>(<span style="color: #553000">productStatus</span>, <span style="color: #553000">productCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">productCB</span>.setupSelect...
@@ -446,6 +464,70 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
 
     protected NestedReferrerListGateway<Product> doLoadProduct(List<ProductStatus> productStatusList, LoadReferrerOption<ProductCB, Product> option) {
         return helpLoadReferrerInternally(productStatusList, option, "productList");
+    }
+
+    /**
+     * Load referrer of summaryProductList by the set-upper of referrer. <br>
+     * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'.
+     * <pre>
+     * <span style="color: #0000C0">productStatusBhv</span>.<span style="color: #CC4747">loadSummaryProduct</span>(<span style="color: #553000">productStatusList</span>, <span style="color: #553000">productCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">productCB</span>.setupSelect...
+     *     <span style="color: #553000">productCB</span>.query().set...
+     *     <span style="color: #553000">productCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (ProductStatus productStatus : <span style="color: #553000">productStatusList</span>) {
+     *     ... = productStatus.<span style="color: #CC4747">getSummaryProductList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setProductStatusCode_InScope(pkList);
+     * cb.query().addOrderBy_ProductStatusCode_Asc();
+     * </pre>
+     * @param productStatusList The entity list of productStatus. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<SummaryProduct> loadSummaryProduct(List<ProductStatus> productStatusList, ReferrerConditionSetupper<SummaryProductCB> refCBLambda) {
+        xassLRArg(productStatusList, refCBLambda);
+        return doLoadSummaryProduct(productStatusList, new LoadReferrerOption<SummaryProductCB, SummaryProduct>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of summaryProductList by the set-upper of referrer. <br>
+     * SUMMARY_PRODUCT by PRODUCT_STATUS_CODE, named 'summaryProductList'.
+     * <pre>
+     * <span style="color: #0000C0">productStatusBhv</span>.<span style="color: #CC4747">loadSummaryProduct</span>(<span style="color: #553000">productStatus</span>, <span style="color: #553000">productCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">productCB</span>.setupSelect...
+     *     <span style="color: #553000">productCB</span>.query().set...
+     *     <span style="color: #553000">productCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">productStatus</span>.<span style="color: #CC4747">getSummaryProductList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setProductStatusCode_InScope(pkList);
+     * cb.query().addOrderBy_ProductStatusCode_Asc();
+     * </pre>
+     * @param productStatus The entity of productStatus. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<SummaryProduct> loadSummaryProduct(ProductStatus productStatus, ReferrerConditionSetupper<SummaryProductCB> refCBLambda) {
+        xassLRArg(productStatus, refCBLambda);
+        return doLoadSummaryProduct(xnewLRLs(productStatus), new LoadReferrerOption<SummaryProductCB, SummaryProduct>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<SummaryProduct> doLoadSummaryProduct(List<ProductStatus> productStatusList, LoadReferrerOption<SummaryProductCB, SummaryProduct> option) {
+        return helpLoadReferrerInternally(productStatusList, option, "summaryProductList");
     }
 
     // ===================================================================================
@@ -893,8 +975,8 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
     /**
      * Prepare the all facade executor of outside-SQL to execute it.
      * <pre>
-     * <span style="color: #3F7E5E">// main style</span> 
-     * productStatusBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span> 
+     * <span style="color: #3F7E5E">// main style</span>
+     * productStatusBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span>
      * productStatusBhv.outideSql().selectList(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
      * productStatusBhv.outideSql().selectPage(pmb); <span style="color: #3F7E5E">// PagingResultBean</span>
      * productStatusBhv.outideSql().selectPagedListOnly(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
@@ -902,7 +984,7 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * productStatusBhv.outideSql().execute(pmb); <span style="color: #3F7E5E">// int (updated count)</span>
      * productStatusBhv.outideSql().call(pmb); <span style="color: #3F7E5E">// void (pmb has OUT parameters)</span>
      *
-     * <span style="color: #3F7E5E">// traditional style</span> 
+     * <span style="color: #3F7E5E">// traditional style</span>
      * productStatusBhv.outideSql().traditionalStyle().selectEntity(path, pmb, entityType);
      * productStatusBhv.outideSql().traditionalStyle().selectList(path, pmb, entityType);
      * productStatusBhv.outideSql().traditionalStyle().selectPage(path, pmb, entityType);
@@ -910,7 +992,7 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
      * productStatusBhv.outideSql().traditionalStyle().selectCursor(path, pmb, handler);
      * productStatusBhv.outideSql().traditionalStyle().execute(path, pmb);
      *
-     * <span style="color: #3F7E5E">// options</span> 
+     * <span style="color: #3F7E5E">// options</span>
      * productStatusBhv.outideSql().removeBlockComment().selectList()
      * productStatusBhv.outideSql().removeLineComment().selectList()
      * productStatusBhv.outideSql().formatSql().selectList()
@@ -928,4 +1010,25 @@ public abstract class BsProductStatusBhv extends AbstractBehaviorWritable<Produc
     protected Class<? extends ProductStatus> typeOfSelectedEntity() { return ProductStatus.class; }
     protected Class<ProductStatus> typeOfHandlingEntity() { return ProductStatus.class; }
     protected Class<ProductStatusCB> typeOfHandlingConditionBean() { return ProductStatusCB.class; }
+
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
+    @Override
+    @javax.annotation.Resource(name="behaviorCommandInvoker")
+    public void setBehaviorCommandInvoker(BehaviorCommandInvoker behaviorCommandInvoker) {
+        super.setBehaviorCommandInvoker(behaviorCommandInvoker);
+    }
+
+    @Override
+    @javax.annotation.Resource(name="behaviorSelector")
+    public void setBehaviorSelector(BehaviorSelector behaviorSelector) {
+        super.setBehaviorSelector(behaviorSelector);
+    }
+
+    @Override
+    @javax.annotation.Resource(name="commonColumnAutoSetupper")
+    public void setCommonColumnAutoSetupper(CommonColumnAutoSetupper commonColumnAutoSetupper) {
+        super.setCommonColumnAutoSetupper(commonColumnAutoSetupper);
+    }
 }

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsentity;
 
 import java.util.List;
@@ -7,38 +22,43 @@ import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.docksidestage.upgrade.dbflute.allcommon.DBMetaInstanceHandler;
+import org.docksidestage.upgrade.dbflute.allcommon.CDef;
 import org.docksidestage.upgrade.dbflute.exentity.*;
 
 /**
- * The entity of MEMBER_STATUS as TABLE. <br>
+ * The entity of (会員ステータス)MEMBER_STATUS as TABLE. <br>
+ * 会員のステータスを示す固定的なマスタテーブル。いわゆるテーブル区分値！<br>
+ * 業務運用上で増えることはなく、増減するときはプログラム修正ともなうレベルの業務変更と考えられる。<br>
+ * <br>
+ * こういった固定的なマスタテーブルには、更新日時などの共通カラムは定義していないが、業務上そういった情報を管理する必要性が低いという理由に加え、ExampleDBとして共通カラムでER図が埋め尽くされてしまい見づらくなるというところで割り切っている。実業務では統一的に定義することもある。
  * <pre>
  * [primary-key]
  *     MEMBER_STATUS_CODE
- * 
+ *
  * [column]
  *     MEMBER_STATUS_CODE, MEMBER_STATUS_NAME, DESCRIPTION, DISPLAY_ORDER
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     
- * 
+ *
  * [referrer table]
  *     MEMBER, MEMBER_LOGIN
- * 
+ *
  * [foreign property]
  *     
- * 
+ *
  * [referrer property]
  *     memberList, memberLoginList
- * 
+ *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * String memberStatusCode = entity.getMemberStatusCode();
@@ -64,16 +84,16 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3)} */
+    /** (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} */
     protected String _memberStatusCode;
 
-    /** MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)} */
+    /** (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)} */
     protected String _memberStatusName;
 
-    /** DESCRIPTION: {NotNull, VARCHAR(200)} */
+    /** (説明)DESCRIPTION: {NotNull, VARCHAR(200)} */
     protected String _description;
 
-    /** DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} */
+    /** (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} */
     protected Integer _displayOrder;
 
     // ===================================================================================
@@ -90,8 +110,8 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
     }
 
     // ===================================================================================
-    //                                                                         Primary Key
-    //                                                                         ===========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         if (_memberStatusCode == null) { return false; }
@@ -101,7 +121,7 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
     /**
      * To be unique by the unique column. <br>
      * You can update the entity by the key when entity update (NOT batch update).
-     * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
+     * @param displayOrder (表示順): UQ, NotNull, INTEGER(10). (NotNull)
      */
     public void uniqueBy(Integer displayOrder) {
         __uniqueDrivenProperties.clear();
@@ -110,16 +130,123 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
     }
 
     // ===================================================================================
+    //                                                             Classification Property
+    //                                                             =======================
+    /**
+     * Get the value of memberStatusCode as the classification of MemberStatus. <br>
+     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
+     * status of member from entry to withdrawal
+     * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
+     * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
+     */
+    public CDef.MemberStatus getMemberStatusCodeAsMemberStatus() {
+        return CDef.MemberStatus.codeOf(getMemberStatusCode());
+    }
+
+    /**
+     * Set the value of memberStatusCode as the classification of MemberStatus. <br>
+     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
+     * status of member from entry to withdrawal
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
+     */
+    public void setMemberStatusCodeAsMemberStatus(CDef.MemberStatus cdef) {
+        setMemberStatusCode(cdef != null ? cdef.code() : null);
+    }
+
+    // ===================================================================================
+    //                                                              Classification Setting
+    //                                                              ======================
+    /**
+     * Set the value of memberStatusCode as Formalized (FML). <br>
+     * Formalized: as formal member, allowed to use all service
+     */
+    public void setMemberStatusCode_Formalized() {
+        setMemberStatusCodeAsMemberStatus(CDef.MemberStatus.Formalized);
+    }
+
+    /**
+     * Set the value of memberStatusCode as Withdrawal (WDL). <br>
+     * Withdrawal: withdrawal is fixed, not allowed to use service
+     */
+    public void setMemberStatusCode_Withdrawal() {
+        setMemberStatusCodeAsMemberStatus(CDef.MemberStatus.Withdrawal);
+    }
+
+    /**
+     * Set the value of memberStatusCode as Provisional (PRV). <br>
+     * Provisional: first status after entry, allowed to use only part of service
+     */
+    public void setMemberStatusCode_Provisional() {
+        setMemberStatusCodeAsMemberStatus(CDef.MemberStatus.Provisional);
+    }
+
+    // ===================================================================================
+    //                                                        Classification Determination
+    //                                                        ============================
+    /**
+     * Is the value of memberStatusCode Formalized? <br>
+     * Formalized: as formal member, allowed to use all service
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isMemberStatusCodeFormalized() {
+        CDef.MemberStatus cdef = getMemberStatusCodeAsMemberStatus();
+        return cdef != null ? cdef.equals(CDef.MemberStatus.Formalized) : false;
+    }
+
+    /**
+     * Is the value of memberStatusCode Withdrawal? <br>
+     * Withdrawal: withdrawal is fixed, not allowed to use service
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isMemberStatusCodeWithdrawal() {
+        CDef.MemberStatus cdef = getMemberStatusCodeAsMemberStatus();
+        return cdef != null ? cdef.equals(CDef.MemberStatus.Withdrawal) : false;
+    }
+
+    /**
+     * Is the value of memberStatusCode Provisional? <br>
+     * Provisional: first status after entry, allowed to use only part of service
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isMemberStatusCodeProvisional() {
+        CDef.MemberStatus cdef = getMemberStatusCodeAsMemberStatus();
+        return cdef != null ? cdef.equals(CDef.MemberStatus.Provisional) : false;
+    }
+
+    /**
+     * means member that can use services <br>
+     * The group elements:[Formalized, Provisional]
+     * @return The determination, true or false.
+     */
+    public boolean isMemberStatusCode_ServiceAvailable() {
+        CDef.MemberStatus cdef = getMemberStatusCodeAsMemberStatus();
+        return cdef != null && cdef.isServiceAvailable();
+    }
+
+    /**
+     * Members are not formalized yet <br>
+     * The group elements:[Provisional]
+     * @return The determination, true or false.
+     */
+    public boolean isMemberStatusCode_ShortOfFormalized() {
+        CDef.MemberStatus cdef = getMemberStatusCodeAsMemberStatus();
+        return cdef != null && cdef.isShortOfFormalized();
+    }
+
+    // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
-    /** MEMBER by MEMBER_STATUS_CODE, named 'memberList'. */
+    /** (会員)MEMBER by MEMBER_STATUS_CODE, named 'memberList'. */
     protected List<Member> _memberList;
 
     /**
-     * [get] MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
+     * [get] (会員)MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
      * @return The entity list of referrer property 'memberList'. (NotNull: even if no loading, returns empty list)
      */
     public List<Member> getMemberList() {
@@ -128,18 +255,18 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
     }
 
     /**
-     * [set] MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
+     * [set] (会員)MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
      * @param memberList The entity list of referrer property 'memberList'. (NullAllowed)
      */
     public void setMemberList(List<Member> memberList) {
         _memberList = memberList;
     }
 
-    /** MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'. */
+    /** (会員ログイン)MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'. */
     protected List<MemberLogin> _memberLoginList;
 
     /**
-     * [get] MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
+     * [get] (会員ログイン)MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
      * @return The entity list of referrer property 'memberLoginList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberLogin> getMemberLoginList() {
@@ -148,14 +275,14 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
     }
 
     /**
-     * [set] MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
+     * [set] (会員ログイン)MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
      * @param memberLoginList The entity list of referrer property 'memberLoginList'. (NullAllowed)
      */
     public void setMemberLoginList(List<MemberLogin> memberLoginList) {
         _memberLoginList = memberLoginList;
     }
 
-    protected <ELEMENT> List<ELEMENT> newReferrerList() {
+    protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
 
@@ -227,7 +354,9 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3)} <br>
+     * [get] (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
+     * 会員ステータスを識別するコード。<br>
+     * 固定的なデータなので連番とか番号にはせず、データを直接見たときも人が直感的にわかるように、例えば "FML" とかの３桁のコード形式にしている。(3って何会員だっけ？とかの問答をやりたくないので)
      * @return The value of the column 'MEMBER_STATUS_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getMemberStatusCode() {
@@ -236,16 +365,21 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
     }
 
     /**
-     * [set] MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3)} <br>
+     * [set] (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus} <br>
+     * 会員ステータスを識別するコード。<br>
+     * 固定的なデータなので連番とか番号にはせず、データを直接見たときも人が直感的にわかるように、例えば "FML" とかの３桁のコード形式にしている。(3って何会員だっけ？とかの問答をやりたくないので)
      * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (basically NotNull if update: for the constraint)
      */
-    public void setMemberStatusCode(String memberStatusCode) {
+    protected void setMemberStatusCode(String memberStatusCode) {
+        checkClassificationCode("MEMBER_STATUS_CODE", CDef.DefMeta.MemberStatus, memberStatusCode);
         registerModifiedProperty("memberStatusCode");
         _memberStatusCode = memberStatusCode;
     }
 
     /**
-     * [get] MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
+     * [get] (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
+     * 表示用の名称。<br>
+     * 国際化対応するときはもっと色々考える必要があるかと...ということで英語名カラムがないので、そのまま区分値メソッド名の一部としても利用される。
      * @return The value of the column 'MEMBER_STATUS_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getMemberStatusName() {
@@ -254,7 +388,9 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
     }
 
     /**
-     * [set] MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
+     * [set] (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)} <br>
+     * 表示用の名称。<br>
+     * 国際化対応するときはもっと色々考える必要があるかと...ということで英語名カラムがないので、そのまま区分値メソッド名の一部としても利用される。
      * @param memberStatusName The value of the column 'MEMBER_STATUS_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setMemberStatusName(String memberStatusName) {
@@ -263,7 +399,9 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
     }
 
     /**
-     * [get] DESCRIPTION: {NotNull, VARCHAR(200)} <br>
+     * [get] (説明)DESCRIPTION: {NotNull, VARCHAR(200)} <br>
+     * 会員ステータスそれぞれの説明。<br>
+     * 区分値の一つ一つの要素に気の利いた説明があるとディベロッパーがとても助かるので絶対に欲しい。
      * @return The value of the column 'DESCRIPTION'. (basically NotNull if selected: for the constraint)
      */
     public String getDescription() {
@@ -272,7 +410,9 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
     }
 
     /**
-     * [set] DESCRIPTION: {NotNull, VARCHAR(200)} <br>
+     * [set] (説明)DESCRIPTION: {NotNull, VARCHAR(200)} <br>
+     * 会員ステータスそれぞれの説明。<br>
+     * 区分値の一つ一つの要素に気の利いた説明があるとディベロッパーがとても助かるので絶対に欲しい。
      * @param description The value of the column 'DESCRIPTION'. (basically NotNull if update: for the constraint)
      */
     public void setDescription(String description) {
@@ -281,7 +421,9 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
     }
 
     /**
-     * [get] DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br>
+     * [get] (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br>
+     * UI上のステータスの表示順を示すNO。<br>
+     * 並べるときは、このカラムに対して昇順のソート条件にする。
      * @return The value of the column 'DISPLAY_ORDER'. (basically NotNull if selected: for the constraint)
      */
     public Integer getDisplayOrder() {
@@ -290,11 +432,21 @@ public abstract class BsMemberStatus extends AbstractEntity implements DomainEnt
     }
 
     /**
-     * [set] DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br>
+     * [set] (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} <br>
+     * UI上のステータスの表示順を示すNO。<br>
+     * 並べるときは、このカラムに対して昇順のソート条件にする。
      * @param displayOrder The value of the column 'DISPLAY_ORDER'. (basically NotNull if update: for the constraint)
      */
     public void setDisplayOrder(Integer displayOrder) {
         registerModifiedProperty("displayOrder");
         _displayOrder = displayOrder;
+    }
+
+    /**
+     * For framework so basically DON'T use this method.
+     * @param memberStatusCode The value of the column 'MEMBER_STATUS_CODE'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingMemberStatusCode(String memberStatusCode) {
+        setMemberStatusCode(memberStatusCode);
     }
 }

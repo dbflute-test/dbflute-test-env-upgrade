@@ -1,15 +1,30 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsbhv.loader;
 
 import java.util.List;
 
 import org.dbflute.bhv.*;
 import org.dbflute.bhv.referrer.*;
-import org.docksidestage.upgrade.dbflute.cbean.*;
 import org.docksidestage.upgrade.dbflute.exbhv.*;
 import org.docksidestage.upgrade.dbflute.exentity.*;
+import org.docksidestage.upgrade.dbflute.cbean.*;
 
 /**
- * The referrer loader of MEMBER as TABLE. <br>
+ * The referrer loader of (会員)MEMBER as TABLE. <br>
  * <pre>
  * [primary key]
  *     MEMBER_ID
@@ -27,13 +42,13 @@ import org.docksidestage.upgrade.dbflute.exentity.*;
  *     VERSION_NO
  *
  * [foreign table]
- *     MEMBER_STATUS, MEMBER_SECURITY(AsOne), MEMBER_SERVICE(AsOne), MEMBER_WITHDRAWAL(AsOne)
+ *     MEMBER_STATUS, MEMBER_ADDRESS(AsValid), MEMBER_LOGIN(AsLatest), MEMBER_SECURITY(AsOne), MEMBER_SERVICE(AsOne), MEMBER_WITHDRAWAL(AsOne)
  *
  * [referrer table]
  *     MEMBER_ADDRESS, MEMBER_FOLLOWING, MEMBER_LOGIN, PURCHASE, MEMBER_SECURITY, MEMBER_SERVICE, MEMBER_WITHDRAWAL
  *
  * [foreign property]
- *     memberStatus, memberSecurityAsOne, memberServiceAsOne, memberWithdrawalAsOne
+ *     memberStatus, memberAddressAsValid, memberLoginAsLatest, memberSecurityAsOne, memberServiceAsOne, memberWithdrawalAsOne
  *
  * [referrer property]
  *     memberAddressList, memberFollowingByMyMemberIdList, memberFollowingByYourMemberIdList, memberLoginList, purchaseList
@@ -65,7 +80,7 @@ public class LoaderOfMember {
 
     /**
      * Load referrer of memberAddressList by the set-upper of referrer. <br>
-     * MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
+     * (会員住所情報)MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
      * <pre>
      * <span style="color: #0000C0">memberBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadMemberAddress</span>(<span style="color: #553000">addressCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -99,7 +114,7 @@ public class LoaderOfMember {
 
     /**
      * Load referrer of memberFollowingByMyMemberIdList by the set-upper of referrer. <br>
-     * MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
+     * (会員フォローイング)MEMBER_FOLLOWING by MY_MEMBER_ID, named 'memberFollowingByMyMemberIdList'.
      * <pre>
      * <span style="color: #0000C0">memberBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadMemberFollowingByMyMemberId</span>(<span style="color: #553000">followingCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -133,7 +148,7 @@ public class LoaderOfMember {
 
     /**
      * Load referrer of memberFollowingByYourMemberIdList by the set-upper of referrer. <br>
-     * MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
+     * (会員フォローイング)MEMBER_FOLLOWING by YOUR_MEMBER_ID, named 'memberFollowingByYourMemberIdList'.
      * <pre>
      * <span style="color: #0000C0">memberBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadMemberFollowingByYourMemberId</span>(<span style="color: #553000">followingCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -167,7 +182,7 @@ public class LoaderOfMember {
 
     /**
      * Load referrer of memberLoginList by the set-upper of referrer. <br>
-     * MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
+     * (会員ログイン)MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
      * <pre>
      * <span style="color: #0000C0">memberBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadMemberLogin</span>(<span style="color: #553000">loginCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -201,7 +216,7 @@ public class LoaderOfMember {
 
     /**
      * Load referrer of purchaseList by the set-upper of referrer. <br>
-     * PURCHASE by MEMBER_ID, named 'purchaseList'.
+     * (購入)PURCHASE by MEMBER_ID, named 'purchaseList'.
      * <pre>
      * <span style="color: #0000C0">memberBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">memberList</span>, <span style="color: #553000">memberLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">memberLoader</span>.<span style="color: #CC4747">loadPurchase</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -239,6 +254,20 @@ public class LoaderOfMember {
         if (_foreignMemberStatusLoader == null)
         { _foreignMemberStatusLoader = new LoaderOfMemberStatus().ready(myBhv().pulloutMemberStatus(_selectedList), _selector); }
         return _foreignMemberStatusLoader;
+    }
+
+    protected LoaderOfMemberAddress _foreignMemberAddressAsValidLoader;
+    public LoaderOfMemberAddress pulloutMemberAddressAsValid() {
+        if (_foreignMemberAddressAsValidLoader == null)
+        { _foreignMemberAddressAsValidLoader = new LoaderOfMemberAddress().ready(myBhv().pulloutMemberAddressAsValid(_selectedList), _selector); }
+        return _foreignMemberAddressAsValidLoader;
+    }
+
+    protected LoaderOfMemberLogin _foreignMemberLoginAsLatestLoader;
+    public LoaderOfMemberLogin pulloutMemberLoginAsLatest() {
+        if (_foreignMemberLoginAsLatestLoader == null)
+        { _foreignMemberLoginAsLatestLoader = new LoaderOfMemberLogin().ready(myBhv().pulloutMemberLoginAsLatest(_selectedList), _selector); }
+        return _foreignMemberLoginAsLatestLoader;
     }
 
     protected LoaderOfMemberSecurity _foreignMemberSecurityAsOneLoader;

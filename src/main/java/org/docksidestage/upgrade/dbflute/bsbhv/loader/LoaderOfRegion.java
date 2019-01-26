@@ -1,15 +1,30 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsbhv.loader;
 
 import java.util.List;
 
 import org.dbflute.bhv.*;
 import org.dbflute.bhv.referrer.*;
-import org.docksidestage.upgrade.dbflute.cbean.*;
 import org.docksidestage.upgrade.dbflute.exbhv.*;
 import org.docksidestage.upgrade.dbflute.exentity.*;
+import org.docksidestage.upgrade.dbflute.cbean.*;
 
 /**
- * The referrer loader of REGION as TABLE. <br>
+ * The referrer loader of (地域)REGION as TABLE. <br>
  * <pre>
  * [primary key]
  *     REGION_ID
@@ -65,7 +80,7 @@ public class LoaderOfRegion {
 
     /**
      * Load referrer of memberAddressList by the set-upper of referrer. <br>
-     * MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
+     * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * <pre>
      * <span style="color: #0000C0">regionBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">regionList</span>, <span style="color: #553000">regionLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">regionLoader</span>.<span style="color: #CC4747">loadMemberAddress</span>(<span style="color: #553000">addressCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {

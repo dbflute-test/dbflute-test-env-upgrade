@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsentity.dbmeta;
 
 import java.util.List;
@@ -42,10 +57,24 @@ public class ServiceRankDbm extends AbstractDBMeta {
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     { xsetupEpg(); }
     protected void xsetupEpg() {
-        setupEpg(_epgMap, et -> ((ServiceRank)et).getServiceRankCode(), (et, vl) -> ((ServiceRank)et).setServiceRankCode((String)vl), "serviceRankCode");
+        setupEpg(_epgMap, et -> ((ServiceRank)et).getServiceRankCode(), (et, vl) -> {
+            CDef.ServiceRank cls = (CDef.ServiceRank)gcls(et, columnServiceRankCode(), vl);
+            if (cls != null) {
+                ((ServiceRank)et).setServiceRankCodeAsServiceRank(cls);
+            } else {
+                ((ServiceRank)et).mynativeMappingServiceRankCode((String)vl);
+            }
+        }, "serviceRankCode");
         setupEpg(_epgMap, et -> ((ServiceRank)et).getServiceRankName(), (et, vl) -> ((ServiceRank)et).setServiceRankName((String)vl), "serviceRankName");
         setupEpg(_epgMap, et -> ((ServiceRank)et).getServicePointIncidence(), (et, vl) -> ((ServiceRank)et).setServicePointIncidence(ctb(vl)), "servicePointIncidence");
-        setupEpg(_epgMap, et -> ((ServiceRank)et).getNewAcceptableFlg(), (et, vl) -> ((ServiceRank)et).setNewAcceptableFlg(cti(vl)), "newAcceptableFlg");
+        setupEpg(_epgMap, et -> ((ServiceRank)et).getNewAcceptableFlg(), (et, vl) -> {
+            CDef.Flg cls = (CDef.Flg)gcls(et, columnNewAcceptableFlg(), vl);
+            if (cls != null) {
+                ((ServiceRank)et).setNewAcceptableFlgAsFlg(cls);
+            } else {
+                ((ServiceRank)et).mynativeMappingNewAcceptableFlg(ctn(vl, Integer.class));
+            }
+        }, "newAcceptableFlg");
         setupEpg(_epgMap, et -> ((ServiceRank)et).getDescription(), (et, vl) -> ((ServiceRank)et).setDescription((String)vl), "description");
         setupEpg(_epgMap, et -> ((ServiceRank)et).getDisplayOrder(), (et, vl) -> ((ServiceRank)et).setDisplayOrder(cti(vl)), "displayOrder");
     }
@@ -56,50 +85,54 @@ public class ServiceRankDbm extends AbstractDBMeta {
     //                                                                          Table Info
     //                                                                          ==========
     protected final String _tableDbName = "SERVICE_RANK";
+    protected final String _tableDispName = "SERVICE_RANK";
     protected final String _tablePropertyName = "serviceRank";
     protected final TableSqlName _tableSqlName = new TableSqlName("SERVICE_RANK", _tableDbName);
     { _tableSqlName.xacceptFilter(DBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
+    public String getTableDispName() { return _tableDispName; }
     public String getTablePropertyName() { return _tablePropertyName; }
     public TableSqlName getTableSqlName() { return _tableSqlName; }
+    protected final String _tableAlias = "サービスランク";
+    public String getTableAlias() { return _tableAlias; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnServiceRankCode = cci("SERVICE_RANK_CODE", "SERVICE_RANK_CODE", null, null, String.class, "serviceRankCode", null, true, false, true, "CHAR", 3, 0, null, false, null, null, null, "memberServiceList", null, false);
-    protected final ColumnInfo _columnServiceRankName = cci("SERVICE_RANK_NAME", "SERVICE_RANK_NAME", null, null, String.class, "serviceRankName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnServicePointIncidence = cci("SERVICE_POINT_INCIDENCE", "SERVICE_POINT_INCIDENCE", null, null, java.math.BigDecimal.class, "servicePointIncidence", null, false, false, true, "DECIMAL", 5, 3, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnNewAcceptableFlg = cci("NEW_ACCEPTABLE_FLG", "NEW_ACCEPTABLE_FLG", null, null, Integer.class, "newAcceptableFlg", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnDescription = cci("DESCRIPTION", "DESCRIPTION", null, null, String.class, "description", null, false, false, true, "VARCHAR", 200, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, null, Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnServiceRankCode = cci("SERVICE_RANK_CODE", "SERVICE_RANK_CODE", null, "サービスランクコード", String.class, "serviceRankCode", null, true, false, true, "CHAR", 3, 0, null, null, false, null, null, null, "memberServiceList", CDef.DefMeta.ServiceRank, false);
+    protected final ColumnInfo _columnServiceRankName = cci("SERVICE_RANK_NAME", "SERVICE_RANK_NAME", null, "サービスランク名称", String.class, "serviceRankName", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnServicePointIncidence = cci("SERVICE_POINT_INCIDENCE", "SERVICE_POINT_INCIDENCE", null, "サービスポイント発生率", java.math.BigDecimal.class, "servicePointIncidence", null, false, false, true, "DECIMAL", 5, 3, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnNewAcceptableFlg = cci("NEW_ACCEPTABLE_FLG", "NEW_ACCEPTABLE_FLG", null, "新規受け入れ可能フラグ", Integer.class, "newAcceptableFlg", null, false, false, true, "INTEGER", 10, 0, null, null, false, null, null, null, null, CDef.DefMeta.Flg, false);
+    protected final ColumnInfo _columnDescription = cci("DESCRIPTION", "DESCRIPTION", null, "説明", String.class, "description", null, false, false, true, "VARCHAR", 200, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, "表示順", Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
 
     /**
-     * SERVICE_RANK_CODE: {PK, NotNull, CHAR(3)}
+     * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnServiceRankCode() { return _columnServiceRankCode; }
     /**
-     * SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
+     * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnServiceRankName() { return _columnServiceRankName; }
     /**
-     * SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)}
+     * (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnServicePointIncidence() { return _columnServicePointIncidence; }
     /**
-     * NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10)}
+     * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnNewAcceptableFlg() { return _columnNewAcceptableFlg; }
     /**
-     * DESCRIPTION: {NotNull, VARCHAR(200)}
+     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnDescription() { return _columnDescription; }
     /**
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnDisplayOrder() { return _columnDisplayOrder; }
@@ -127,6 +160,11 @@ public class ServiceRankDbm extends AbstractDBMeta {
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
 
+    // -----------------------------------------------------
+    //                                        Unique Element
+    //                                        --------------
+    public UniqueInfo uniqueOf() { return hpcui(columnDisplayOrder()); }
+
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
@@ -140,7 +178,7 @@ public class ServiceRankDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     /**
-     * MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
+     * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
      * @return The information object of referrer property. (NotNull)
      */
     public ReferrerInfo referrerMemberServiceList() {
@@ -155,9 +193,9 @@ public class ServiceRankDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "org.docksidestage.install.dbflute.exentity.ServiceRank"; }
-    public String getConditionBeanTypeName() { return "org.docksidestage.install.dbflute.cbean.ServiceRankCB"; }
-    public String getBehaviorTypeName() { return "org.docksidestage.install.dbflute.exbhv.ServiceRankBhv"; }
+    public String getEntityTypeName() { return "org.docksidestage.upgrade.dbflute.exentity.ServiceRank"; }
+    public String getConditionBeanTypeName() { return "org.docksidestage.upgrade.dbflute.cbean.ServiceRankCB"; }
+    public String getBehaviorTypeName() { return "org.docksidestage.upgrade.dbflute.exbhv.ServiceRankBhv"; }
 
     // ===================================================================================
     //                                                                         Object Type

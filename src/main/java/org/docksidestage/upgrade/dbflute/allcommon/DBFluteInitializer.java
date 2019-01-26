@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.allcommon;
 
 import org.dbflute.dbway.DBDef;
@@ -94,10 +109,17 @@ public class DBFluteInitializer {
         if (dataSourceHandler != null) {
             return;
         }
-        if (dataSourceFqcn.startsWith("org.apache.commons.dbcp.")) {
+        if (needsSpringTransactionalDataSource(dataSourceFqcn)) {
             config.unlock();
             config.setDataSourceHandler(new DBFluteConfig.SpringTransactionalDataSourceHandler());
         }
+    }
+
+    protected boolean needsSpringTransactionalDataSource(String dataSourceFqcn) {
+        return dataSourceFqcn.startsWith("org.apache.commons.dbcp.")
+            || dataSourceFqcn.startsWith("org.apache.commons.dbcp2.")
+            || dataSourceFqcn.startsWith("org.apache.tomcat.jdbc.pool.")
+            || dataSourceFqcn.startsWith("com.zaxxer.hikari.");
     }
 
     /**

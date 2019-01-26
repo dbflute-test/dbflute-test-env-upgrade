@@ -1,9 +1,25 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsbhv;
 
 import java.util.List;
 
 import org.dbflute.*;
 import org.dbflute.bhv.*;
+import org.dbflute.bhv.core.BehaviorCommandInvoker;
 import org.dbflute.bhv.readable.*;
 import org.dbflute.bhv.writable.*;
 import org.dbflute.bhv.referrer.*;
@@ -11,16 +27,17 @@ import org.dbflute.cbean.*;
 import org.dbflute.cbean.chelper.HpSLSFunction;
 import org.dbflute.cbean.result.*;
 import org.dbflute.exception.*;
+import org.dbflute.hook.CommonColumnAutoSetupper;
 import org.dbflute.optional.OptionalEntity;
 import org.dbflute.outsidesql.executor.*;
+import org.docksidestage.upgrade.dbflute.exbhv.*;
 import org.docksidestage.upgrade.dbflute.bsbhv.loader.*;
+import org.docksidestage.upgrade.dbflute.exentity.*;
 import org.docksidestage.upgrade.dbflute.bsentity.dbmeta.*;
 import org.docksidestage.upgrade.dbflute.cbean.*;
-import org.docksidestage.upgrade.dbflute.exbhv.*;
-import org.docksidestage.upgrade.dbflute.exentity.*;
 
 /**
- * The behavior of PURCHASE as TABLE. <br>
+ * The behavior of (購入)PURCHASE as TABLE. <br>
  * <pre>
  * [primary key]
  *     PURCHASE_ID
@@ -38,13 +55,13 @@ import org.docksidestage.upgrade.dbflute.exentity.*;
  *     VERSION_NO
  *
  * [foreign table]
- *     MEMBER, PRODUCT
+ *     MEMBER, PRODUCT, SUMMARY_PRODUCT
  *
  * [referrer table]
  *     PURCHASE_PAYMENT
  *
  * [foreign property]
- *     member, product
+ *     member, product, summaryProduct
  *
  * [referrer property]
  *     purchasePaymentList
@@ -107,7 +124,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      *     <span style="color: #3F7E5E">// called if present, or exception</span>
      *     ... = <span style="color: #553000">purchase</span>.get...
      * });
-     * 
+     *
      * <span style="color: #3F7E5E">// if it might be no data, ...</span>
      * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
@@ -186,9 +203,9 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
 
     /**
      * Select the entity by the unique-key value.
-     * @param memberId : UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
-     * @param productId : +UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT. (NotNull)
-     * @param purchaseDatetime : +UQ, IX+, NotNull, TIMESTAMP(23, 10). (NotNull)
+     * @param memberId (会員ID): UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param productId (商品ID): +UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT. (NotNull)
+     * @param purchaseDatetime (購入日時): +UQ, IX+, NotNull, TIMESTAMP(26, 6). (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -317,7 +334,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
     //                                                                       Load Referrer
     //                                                                       =============
     /**
-     * Load referrer for the list by the the referrer loader.
+     * Load referrer for the list by the referrer loader.
      * <pre>
      * List&lt;Member&gt; <span style="color: #553000">memberList</span> = <span style="color: #0000C0">memberBhv</span>.selectList(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
@@ -388,7 +405,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
 
     /**
      * Load referrer of purchasePaymentList by the set-upper of referrer. <br>
-     * PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
+     * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
      * <pre>
      * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">loadPurchasePayment</span>(<span style="color: #553000">purchaseList</span>, <span style="color: #553000">paymentCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">paymentCB</span>.setupSelect...
@@ -419,7 +436,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
 
     /**
      * Load referrer of purchasePaymentList by the set-upper of referrer. <br>
-     * PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
+     * (購入支払)PURCHASE_PAYMENT by PURCHASE_ID, named 'purchasePaymentList'.
      * <pre>
      * <span style="color: #0000C0">purchaseBhv</span>.<span style="color: #CC4747">loadPurchasePayment</span>(<span style="color: #553000">purchase</span>, <span style="color: #553000">paymentCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">paymentCB</span>.setupSelect...
@@ -468,6 +485,14 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      */
     public List<Product> pulloutProduct(List<Purchase> purchaseList)
     { return helpPulloutInternally(purchaseList, "product"); }
+
+    /**
+     * Pull out the list of foreign table 'SummaryProduct'.
+     * @param purchaseList The list of purchase. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<SummaryProduct> pulloutSummaryProduct(List<Purchase> purchaseList)
+    { return helpPulloutInternally(purchaseList, "summaryProduct"); }
 
     // ===================================================================================
     //                                                                      Extract Column
@@ -1078,8 +1103,8 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
     /**
      * Prepare the all facade executor of outside-SQL to execute it.
      * <pre>
-     * <span style="color: #3F7E5E">// main style</span> 
-     * purchaseBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span> 
+     * <span style="color: #3F7E5E">// main style</span>
+     * purchaseBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span>
      * purchaseBhv.outideSql().selectList(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
      * purchaseBhv.outideSql().selectPage(pmb); <span style="color: #3F7E5E">// PagingResultBean</span>
      * purchaseBhv.outideSql().selectPagedListOnly(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
@@ -1087,7 +1112,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * purchaseBhv.outideSql().execute(pmb); <span style="color: #3F7E5E">// int (updated count)</span>
      * purchaseBhv.outideSql().call(pmb); <span style="color: #3F7E5E">// void (pmb has OUT parameters)</span>
      *
-     * <span style="color: #3F7E5E">// traditional style</span> 
+     * <span style="color: #3F7E5E">// traditional style</span>
      * purchaseBhv.outideSql().traditionalStyle().selectEntity(path, pmb, entityType);
      * purchaseBhv.outideSql().traditionalStyle().selectList(path, pmb, entityType);
      * purchaseBhv.outideSql().traditionalStyle().selectPage(path, pmb, entityType);
@@ -1095,7 +1120,7 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
      * purchaseBhv.outideSql().traditionalStyle().selectCursor(path, pmb, handler);
      * purchaseBhv.outideSql().traditionalStyle().execute(path, pmb);
      *
-     * <span style="color: #3F7E5E">// options</span> 
+     * <span style="color: #3F7E5E">// options</span>
      * purchaseBhv.outideSql().removeBlockComment().selectList()
      * purchaseBhv.outideSql().removeLineComment().selectList()
      * purchaseBhv.outideSql().formatSql().selectList()
@@ -1119,4 +1144,25 @@ public abstract class BsPurchaseBhv extends AbstractBehaviorWritable<Purchase, P
     protected Class<? extends Purchase> typeOfSelectedEntity() { return Purchase.class; }
     protected Class<Purchase> typeOfHandlingEntity() { return Purchase.class; }
     protected Class<PurchaseCB> typeOfHandlingConditionBean() { return PurchaseCB.class; }
+
+    // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
+    @Override
+    @javax.annotation.Resource(name="behaviorCommandInvoker")
+    public void setBehaviorCommandInvoker(BehaviorCommandInvoker behaviorCommandInvoker) {
+        super.setBehaviorCommandInvoker(behaviorCommandInvoker);
+    }
+
+    @Override
+    @javax.annotation.Resource(name="behaviorSelector")
+    public void setBehaviorSelector(BehaviorSelector behaviorSelector) {
+        super.setBehaviorSelector(behaviorSelector);
+    }
+
+    @Override
+    @javax.annotation.Resource(name="commonColumnAutoSetupper")
+    public void setCommonColumnAutoSetupper(CommonColumnAutoSetupper commonColumnAutoSetupper) {
+        super.setCommonColumnAutoSetupper(commonColumnAutoSetupper);
+    }
 }

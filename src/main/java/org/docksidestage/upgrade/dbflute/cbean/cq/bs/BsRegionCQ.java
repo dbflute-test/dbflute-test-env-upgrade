@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.cbean.cq.bs;
 
 import java.util.Map;
@@ -8,9 +23,9 @@ import org.dbflute.cbean.coption.*;
 import org.dbflute.cbean.cvalue.ConditionValue;
 import org.dbflute.cbean.sqlclause.SqlClause;
 import org.dbflute.exception.IllegalConditionBeanOperationException;
+import org.docksidestage.upgrade.dbflute.cbean.cq.ciq.*;
 import org.docksidestage.upgrade.dbflute.cbean.*;
 import org.docksidestage.upgrade.dbflute.cbean.cq.*;
-import org.docksidestage.upgrade.dbflute.cbean.cq.ciq.*;
 
 /**
  * The base condition-query of REGION.
@@ -93,16 +108,16 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
     public Map<String, Object> xdfgetRegionId_QueryDerivedReferrer_MemberAddressListParameter() { return xgetSQuePmMap("regionId_QueryDerivedReferrer_MemberAddressList"); }
     public String keepRegionId_QueryDerivedReferrer_MemberAddressListParameter(Object pm) { return xkeepSQuePm("regionId_QueryDerivedReferrer_MemberAddressList", pm); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * REGION_ID: {PK, NotNull, INTEGER(10)}
+     * (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
      * @return this. (NotNull)
      */
     public BsRegionCQ addOrderBy_RegionId_Asc() { regOBA("REGION_ID"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * REGION_ID: {PK, NotNull, INTEGER(10)}
+     * (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
      * @return this. (NotNull)
      */
     public BsRegionCQ addOrderBy_RegionId_Desc() { regOBD("REGION_ID"); return this; }
@@ -113,16 +128,16 @@ public class BsRegionCQ extends AbstractBsRegionCQ {
       return _regionName; }
     protected ConditionValue xgetCValueRegionName() { return xdfgetRegionName(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * REGION_NAME: {NotNull, VARCHAR(50)}
+     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsRegionCQ addOrderBy_RegionName_Asc() { regOBA("REGION_NAME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * REGION_NAME: {NotNull, VARCHAR(50)}
+     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsRegionCQ addOrderBy_RegionName_Desc() { regOBD("REGION_NAME"); return this; }

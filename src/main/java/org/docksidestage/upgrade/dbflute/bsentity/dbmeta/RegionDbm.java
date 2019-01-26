@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsentity.dbmeta;
 
 import java.util.List;
@@ -42,7 +57,14 @@ public class RegionDbm extends AbstractDBMeta {
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     { xsetupEpg(); }
     protected void xsetupEpg() {
-        setupEpg(_epgMap, et -> ((Region)et).getRegionId(), (et, vl) -> ((Region)et).setRegionId(cti(vl)), "regionId");
+        setupEpg(_epgMap, et -> ((Region)et).getRegionId(), (et, vl) -> {
+            CDef.Region cls = (CDef.Region)gcls(et, columnRegionId(), vl);
+            if (cls != null) {
+                ((Region)et).setRegionIdAsRegion(cls);
+            } else {
+                ((Region)et).mynativeMappingRegionId(ctn(vl, Integer.class));
+            }
+        }, "regionId");
         setupEpg(_epgMap, et -> ((Region)et).getRegionName(), (et, vl) -> ((Region)et).setRegionName((String)vl), "regionName");
     }
     public PropertyGateway findPropertyGateway(String prop)
@@ -52,26 +74,30 @@ public class RegionDbm extends AbstractDBMeta {
     //                                                                          Table Info
     //                                                                          ==========
     protected final String _tableDbName = "REGION";
+    protected final String _tableDispName = "REGION";
     protected final String _tablePropertyName = "region";
     protected final TableSqlName _tableSqlName = new TableSqlName("REGION", _tableDbName);
     { _tableSqlName.xacceptFilter(DBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
+    public String getTableDispName() { return _tableDispName; }
     public String getTablePropertyName() { return _tablePropertyName; }
     public TableSqlName getTableSqlName() { return _tableSqlName; }
+    protected final String _tableAlias = "地域";
+    public String getTableAlias() { return _tableAlias; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnRegionId = cci("REGION_ID", "REGION_ID", null, null, Integer.class, "regionId", null, true, false, true, "INTEGER", 10, 0, null, false, null, null, null, "memberAddressList", null, false);
-    protected final ColumnInfo _columnRegionName = cci("REGION_NAME", "REGION_NAME", null, null, String.class, "regionName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnRegionId = cci("REGION_ID", "REGION_ID", null, "地域ID", Integer.class, "regionId", null, true, false, true, "INTEGER", 10, 0, null, null, false, null, null, null, "memberAddressList", CDef.DefMeta.Region, false);
+    protected final ColumnInfo _columnRegionName = cci("REGION_NAME", "REGION_NAME", null, "地域名称", String.class, "regionName", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
 
     /**
-     * REGION_ID: {PK, NotNull, INTEGER(10)}
+     * (地域ID)REGION_ID: {PK, NotNull, INTEGER(10), classification=Region}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnRegionId() { return _columnRegionId; }
     /**
-     * REGION_NAME: {NotNull, VARCHAR(50)}
+     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnRegionName() { return _columnRegionName; }
@@ -108,7 +134,7 @@ public class RegionDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     /**
-     * MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
+     * (会員住所情報)MEMBER_ADDRESS by REGION_ID, named 'memberAddressList'.
      * @return The information object of referrer property. (NotNull)
      */
     public ReferrerInfo referrerMemberAddressList() {
@@ -123,9 +149,9 @@ public class RegionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "org.docksidestage.install.dbflute.exentity.Region"; }
-    public String getConditionBeanTypeName() { return "org.docksidestage.install.dbflute.cbean.RegionCB"; }
-    public String getBehaviorTypeName() { return "org.docksidestage.install.dbflute.exbhv.RegionBhv"; }
+    public String getEntityTypeName() { return "org.docksidestage.upgrade.dbflute.exentity.Region"; }
+    public String getConditionBeanTypeName() { return "org.docksidestage.upgrade.dbflute.cbean.RegionCB"; }
+    public String getBehaviorTypeName() { return "org.docksidestage.upgrade.dbflute.exbhv.RegionBhv"; }
 
     // ===================================================================================
     //                                                                         Object Type

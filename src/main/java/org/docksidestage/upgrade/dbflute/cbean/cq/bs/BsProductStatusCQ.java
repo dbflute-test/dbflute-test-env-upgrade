@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.cbean.cq.bs;
 
 import java.util.Map;
@@ -8,9 +23,9 @@ import org.dbflute.cbean.coption.*;
 import org.dbflute.cbean.cvalue.ConditionValue;
 import org.dbflute.cbean.sqlclause.SqlClause;
 import org.dbflute.exception.IllegalConditionBeanOperationException;
+import org.docksidestage.upgrade.dbflute.cbean.cq.ciq.*;
 import org.docksidestage.upgrade.dbflute.cbean.*;
 import org.docksidestage.upgrade.dbflute.cbean.cq.*;
-import org.docksidestage.upgrade.dbflute.cbean.cq.ciq.*;
 
 /**
  * The base condition-query of PRODUCT_STATUS.
@@ -82,27 +97,41 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
     public Map<String, ProductCQ> xdfgetProductStatusCode_ExistsReferrer_ProductList() { return xgetSQueMap("productStatusCode_ExistsReferrer_ProductList"); }
     public String keepProductStatusCode_ExistsReferrer_ProductList(ProductCQ sq) { return xkeepSQue("productStatusCode_ExistsReferrer_ProductList", sq); }
 
+    public Map<String, SummaryProductCQ> xdfgetProductStatusCode_ExistsReferrer_SummaryProductList() { return xgetSQueMap("productStatusCode_ExistsReferrer_SummaryProductList"); }
+    public String keepProductStatusCode_ExistsReferrer_SummaryProductList(SummaryProductCQ sq) { return xkeepSQue("productStatusCode_ExistsReferrer_SummaryProductList", sq); }
+
     public Map<String, ProductCQ> xdfgetProductStatusCode_NotExistsReferrer_ProductList() { return xgetSQueMap("productStatusCode_NotExistsReferrer_ProductList"); }
     public String keepProductStatusCode_NotExistsReferrer_ProductList(ProductCQ sq) { return xkeepSQue("productStatusCode_NotExistsReferrer_ProductList", sq); }
 
+    public Map<String, SummaryProductCQ> xdfgetProductStatusCode_NotExistsReferrer_SummaryProductList() { return xgetSQueMap("productStatusCode_NotExistsReferrer_SummaryProductList"); }
+    public String keepProductStatusCode_NotExistsReferrer_SummaryProductList(SummaryProductCQ sq) { return xkeepSQue("productStatusCode_NotExistsReferrer_SummaryProductList", sq); }
+
     public Map<String, ProductCQ> xdfgetProductStatusCode_SpecifyDerivedReferrer_ProductList() { return xgetSQueMap("productStatusCode_SpecifyDerivedReferrer_ProductList"); }
     public String keepProductStatusCode_SpecifyDerivedReferrer_ProductList(ProductCQ sq) { return xkeepSQue("productStatusCode_SpecifyDerivedReferrer_ProductList", sq); }
+
+    public Map<String, SummaryProductCQ> xdfgetProductStatusCode_SpecifyDerivedReferrer_SummaryProductList() { return xgetSQueMap("productStatusCode_SpecifyDerivedReferrer_SummaryProductList"); }
+    public String keepProductStatusCode_SpecifyDerivedReferrer_SummaryProductList(SummaryProductCQ sq) { return xkeepSQue("productStatusCode_SpecifyDerivedReferrer_SummaryProductList", sq); }
 
     public Map<String, ProductCQ> xdfgetProductStatusCode_QueryDerivedReferrer_ProductList() { return xgetSQueMap("productStatusCode_QueryDerivedReferrer_ProductList"); }
     public String keepProductStatusCode_QueryDerivedReferrer_ProductList(ProductCQ sq) { return xkeepSQue("productStatusCode_QueryDerivedReferrer_ProductList", sq); }
     public Map<String, Object> xdfgetProductStatusCode_QueryDerivedReferrer_ProductListParameter() { return xgetSQuePmMap("productStatusCode_QueryDerivedReferrer_ProductList"); }
     public String keepProductStatusCode_QueryDerivedReferrer_ProductListParameter(Object pm) { return xkeepSQuePm("productStatusCode_QueryDerivedReferrer_ProductList", pm); }
 
-    /** 
+    public Map<String, SummaryProductCQ> xdfgetProductStatusCode_QueryDerivedReferrer_SummaryProductList() { return xgetSQueMap("productStatusCode_QueryDerivedReferrer_SummaryProductList"); }
+    public String keepProductStatusCode_QueryDerivedReferrer_SummaryProductList(SummaryProductCQ sq) { return xkeepSQue("productStatusCode_QueryDerivedReferrer_SummaryProductList", sq); }
+    public Map<String, Object> xdfgetProductStatusCode_QueryDerivedReferrer_SummaryProductListParameter() { return xgetSQuePmMap("productStatusCode_QueryDerivedReferrer_SummaryProductList"); }
+    public String keepProductStatusCode_QueryDerivedReferrer_SummaryProductListParameter(Object pm) { return xkeepSQuePm("productStatusCode_QueryDerivedReferrer_SummaryProductList", pm); }
+
+    /**
      * Add order-by as ascend. <br>
-     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3)}
+     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_ProductStatusCode_Asc() { regOBA("PRODUCT_STATUS_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3)}
+     * (商品ステータスコード)PRODUCT_STATUS_CODE: {PK, NotNull, CHAR(3), classification=ProductStatus}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_ProductStatusCode_Desc() { regOBD("PRODUCT_STATUS_CODE"); return this; }
@@ -113,16 +142,16 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
       return _productStatusName; }
     protected ConditionValue xgetCValueProductStatusName() { return xdfgetProductStatusName(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_ProductStatusName_Asc() { regOBA("PRODUCT_STATUS_NAME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * (商品ステータス名称)PRODUCT_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_ProductStatusName_Desc() { regOBD("PRODUCT_STATUS_NAME"); return this; }
@@ -133,16 +162,16 @@ public class BsProductStatusCQ extends AbstractBsProductStatusCQ {
       return _displayOrder; }
     protected ConditionValue xgetCValueDisplayOrder() { return xdfgetDisplayOrder(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_DisplayOrder_Asc() { regOBA("DISPLAY_ORDER"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsProductStatusCQ addOrderBy_DisplayOrder_Desc() { regOBD("DISPLAY_ORDER"); return this; }

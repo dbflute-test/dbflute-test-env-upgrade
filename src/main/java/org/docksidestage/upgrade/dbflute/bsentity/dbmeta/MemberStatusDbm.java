@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsentity.dbmeta;
 
 import java.util.List;
@@ -42,7 +57,14 @@ public class MemberStatusDbm extends AbstractDBMeta {
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     { xsetupEpg(); }
     protected void xsetupEpg() {
-        setupEpg(_epgMap, et -> ((MemberStatus)et).getMemberStatusCode(), (et, vl) -> ((MemberStatus)et).setMemberStatusCode((String)vl), "memberStatusCode");
+        setupEpg(_epgMap, et -> ((MemberStatus)et).getMemberStatusCode(), (et, vl) -> {
+            CDef.MemberStatus cls = (CDef.MemberStatus)gcls(et, columnMemberStatusCode(), vl);
+            if (cls != null) {
+                ((MemberStatus)et).setMemberStatusCodeAsMemberStatus(cls);
+            } else {
+                ((MemberStatus)et).mynativeMappingMemberStatusCode((String)vl);
+            }
+        }, "memberStatusCode");
         setupEpg(_epgMap, et -> ((MemberStatus)et).getMemberStatusName(), (et, vl) -> ((MemberStatus)et).setMemberStatusName((String)vl), "memberStatusName");
         setupEpg(_epgMap, et -> ((MemberStatus)et).getDescription(), (et, vl) -> ((MemberStatus)et).setDescription((String)vl), "description");
         setupEpg(_epgMap, et -> ((MemberStatus)et).getDisplayOrder(), (et, vl) -> ((MemberStatus)et).setDisplayOrder(cti(vl)), "displayOrder");
@@ -54,38 +76,42 @@ public class MemberStatusDbm extends AbstractDBMeta {
     //                                                                          Table Info
     //                                                                          ==========
     protected final String _tableDbName = "MEMBER_STATUS";
+    protected final String _tableDispName = "MEMBER_STATUS";
     protected final String _tablePropertyName = "memberStatus";
     protected final TableSqlName _tableSqlName = new TableSqlName("MEMBER_STATUS", _tableDbName);
     { _tableSqlName.xacceptFilter(DBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
+    public String getTableDispName() { return _tableDispName; }
     public String getTablePropertyName() { return _tablePropertyName; }
     public TableSqlName getTableSqlName() { return _tableSqlName; }
+    protected final String _tableAlias = "会員ステータス";
+    public String getTableAlias() { return _tableAlias; }
 
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMemberStatusCode = cci("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", null, null, String.class, "memberStatusCode", null, true, false, true, "CHAR", 3, 0, null, false, null, null, null, "memberList,memberLoginList", null, false);
-    protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, null, String.class, "memberStatusName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnDescription = cci("DESCRIPTION", "DESCRIPTION", null, null, String.class, "description", null, false, false, true, "VARCHAR", 200, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, null, Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMemberStatusCode = cci("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE", null, "会員ステータスコード", String.class, "memberStatusCode", null, true, false, true, "CHAR", 3, 0, null, null, false, null, null, null, "memberList,memberLoginList", CDef.DefMeta.MemberStatus, false);
+    protected final ColumnInfo _columnMemberStatusName = cci("MEMBER_STATUS_NAME", "MEMBER_STATUS_NAME", null, "会員ステータス名称", String.class, "memberStatusName", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnDescription = cci("DESCRIPTION", "DESCRIPTION", null, "説明", String.class, "description", null, false, false, true, "VARCHAR", 200, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnDisplayOrder = cci("DISPLAY_ORDER", "DISPLAY_ORDER", null, "表示順", Integer.class, "displayOrder", null, false, false, true, "INTEGER", 10, 0, null, null, false, null, null, null, null, null, false);
 
     /**
-     * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3)}
+     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnMemberStatusCode() { return _columnMemberStatusCode; }
     /**
-     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnMemberStatusName() { return _columnMemberStatusName; }
     /**
-     * DESCRIPTION: {NotNull, VARCHAR(200)}
+     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnDescription() { return _columnDescription; }
     /**
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnDisplayOrder() { return _columnDisplayOrder; }
@@ -111,6 +137,11 @@ public class MemberStatusDbm extends AbstractDBMeta {
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
 
+    // -----------------------------------------------------
+    //                                        Unique Element
+    //                                        --------------
+    public UniqueInfo uniqueOf() { return hpcui(columnDisplayOrder()); }
+
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
@@ -124,7 +155,7 @@ public class MemberStatusDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     /**
-     * MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
+     * (会員)MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
      * @return The information object of referrer property. (NotNull)
      */
     public ReferrerInfo referrerMemberList() {
@@ -132,7 +163,7 @@ public class MemberStatusDbm extends AbstractDBMeta {
         return cri("FK_MEMBER_MEMBER_STATUS", "memberList", this, MemberDbm.getInstance(), mp, false, "memberStatus");
     }
     /**
-     * MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
+     * (会員ログイン)MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
      * @return The information object of referrer property. (NotNull)
      */
     public ReferrerInfo referrerMemberLoginList() {
@@ -147,9 +178,9 @@ public class MemberStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "org.docksidestage.install.dbflute.exentity.MemberStatus"; }
-    public String getConditionBeanTypeName() { return "org.docksidestage.install.dbflute.cbean.MemberStatusCB"; }
-    public String getBehaviorTypeName() { return "org.docksidestage.install.dbflute.exbhv.MemberStatusBhv"; }
+    public String getEntityTypeName() { return "org.docksidestage.upgrade.dbflute.exentity.MemberStatus"; }
+    public String getConditionBeanTypeName() { return "org.docksidestage.upgrade.dbflute.cbean.MemberStatusCB"; }
+    public String getBehaviorTypeName() { return "org.docksidestage.upgrade.dbflute.exbhv.MemberStatusBhv"; }
 
     // ===================================================================================
     //                                                                         Object Type

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsentity;
 
 import java.util.List;
@@ -8,39 +23,43 @@ import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.dbflute.optional.OptionalEntity;
+import org.docksidestage.upgrade.dbflute.allcommon.EntityDefinedCommonColumn;
 import org.docksidestage.upgrade.dbflute.allcommon.DBMetaInstanceHandler;
+import org.docksidestage.upgrade.dbflute.allcommon.CDef;
 import org.docksidestage.upgrade.dbflute.exentity.*;
 
 /**
- * The entity of MEMBER_SERVICE as TABLE. <br>
+ * The entity of (会員サービス)MEMBER_SERVICE as TABLE. <br>
+ * 会員のサービス情報（ポイントサービスなど）。<br>
+ * テストケースのために、あえて統一性を崩してユニーク制約経由の one-to-one を表現している。
  * <pre>
  * [primary-key]
  *     MEMBER_SERVICE_ID
- * 
+ *
  * [column]
  *     MEMBER_SERVICE_ID, MEMBER_ID, SERVICE_POINT_COUNT, SERVICE_RANK_CODE, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER, VERSION_NO
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     MEMBER_SERVICE_ID
- * 
+ *
  * [version-no]
  *     VERSION_NO
- * 
+ *
  * [foreign table]
  *     MEMBER, SERVICE_RANK
- * 
+ *
  * [referrer table]
  *     
- * 
+ *
  * [foreign property]
  *     member, serviceRank
- * 
+ *
  * [referrer property]
  *     
- * 
+ *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer memberServiceId = entity.getMemberServiceId();
@@ -65,7 +84,7 @@ import org.docksidestage.upgrade.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsMemberService extends AbstractEntity implements DomainEntity {
+public abstract class BsMemberService extends AbstractEntity implements DomainEntity, EntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition
@@ -76,25 +95,25 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)} */
+    /** (会員サービスID)MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)} */
     protected Integer _memberServiceId;
 
-    /** MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} */
+    /** (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} */
     protected Integer _memberId;
 
-    /** SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)} */
+    /** (サービスポイント数)SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)} */
     protected Integer _servicePointCount;
 
-    /** SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK} */
+    /** (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank} */
     protected String _serviceRankCode;
 
-    /** REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
+    /** REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} */
     protected java.time.LocalDateTime _registerDatetime;
 
     /** REGISTER_USER: {NotNull, VARCHAR(200)} */
     protected String _registerUser;
 
-    /** UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
+    /** UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)} */
     protected java.time.LocalDateTime _updateDatetime;
 
     /** UPDATE_USER: {NotNull, VARCHAR(200)} */
@@ -117,8 +136,8 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     // ===================================================================================
-    //                                                                         Primary Key
-    //                                                                         ===========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         if (_memberServiceId == null) { return false; }
@@ -128,7 +147,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     /**
      * To be unique by the unique column. <br>
      * You can update the entity by the key when entity update (NOT batch update).
-     * @param memberId : UQ, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param memberId (会員ID): UQ, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      */
     public void uniqueBy(Integer memberId) {
         __uniqueDrivenProperties.clear();
@@ -137,13 +156,138 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     // ===================================================================================
+    //                                                             Classification Property
+    //                                                             =======================
+    /**
+     * Get the value of serviceRankCode as the classification of ServiceRank. <br>
+     * (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank} <br>
+     * rank of service member gets
+     * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
+     * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
+     */
+    public CDef.ServiceRank getServiceRankCodeAsServiceRank() {
+        return CDef.ServiceRank.codeOf(getServiceRankCode());
+    }
+
+    /**
+     * Set the value of serviceRankCode as the classification of ServiceRank. <br>
+     * (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank} <br>
+     * rank of service member gets
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
+     */
+    public void setServiceRankCodeAsServiceRank(CDef.ServiceRank cdef) {
+        setServiceRankCode(cdef != null ? cdef.code() : null);
+    }
+
+    // ===================================================================================
+    //                                                              Classification Setting
+    //                                                              ======================
+    /**
+     * Set the value of serviceRankCode as Platinum (PLT). <br>
+     * PLATINUM: platinum rank
+     */
+    public void setServiceRankCode_Platinum() {
+        setServiceRankCodeAsServiceRank(CDef.ServiceRank.Platinum);
+    }
+
+    /**
+     * Set the value of serviceRankCode as Gold (GLD). <br>
+     * GOLD: gold rank
+     */
+    public void setServiceRankCode_Gold() {
+        setServiceRankCodeAsServiceRank(CDef.ServiceRank.Gold);
+    }
+
+    /**
+     * Set the value of serviceRankCode as Silver (SIL). <br>
+     * SILVER: silver rank
+     */
+    public void setServiceRankCode_Silver() {
+        setServiceRankCodeAsServiceRank(CDef.ServiceRank.Silver);
+    }
+
+    /**
+     * Set the value of serviceRankCode as Bronze (BRZ). <br>
+     * BRONZE: bronze rank
+     */
+    public void setServiceRankCode_Bronze() {
+        setServiceRankCodeAsServiceRank(CDef.ServiceRank.Bronze);
+    }
+
+    /**
+     * Set the value of serviceRankCode as Plastic (PLS). <br>
+     * PLASTIC: plastic rank
+     */
+    public void setServiceRankCode_Plastic() {
+        setServiceRankCodeAsServiceRank(CDef.ServiceRank.Plastic);
+    }
+
+    // ===================================================================================
+    //                                                        Classification Determination
+    //                                                        ============================
+    /**
+     * Is the value of serviceRankCode Platinum? <br>
+     * PLATINUM: platinum rank
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isServiceRankCodePlatinum() {
+        CDef.ServiceRank cdef = getServiceRankCodeAsServiceRank();
+        return cdef != null ? cdef.equals(CDef.ServiceRank.Platinum) : false;
+    }
+
+    /**
+     * Is the value of serviceRankCode Gold? <br>
+     * GOLD: gold rank
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isServiceRankCodeGold() {
+        CDef.ServiceRank cdef = getServiceRankCodeAsServiceRank();
+        return cdef != null ? cdef.equals(CDef.ServiceRank.Gold) : false;
+    }
+
+    /**
+     * Is the value of serviceRankCode Silver? <br>
+     * SILVER: silver rank
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isServiceRankCodeSilver() {
+        CDef.ServiceRank cdef = getServiceRankCodeAsServiceRank();
+        return cdef != null ? cdef.equals(CDef.ServiceRank.Silver) : false;
+    }
+
+    /**
+     * Is the value of serviceRankCode Bronze? <br>
+     * BRONZE: bronze rank
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isServiceRankCodeBronze() {
+        CDef.ServiceRank cdef = getServiceRankCodeAsServiceRank();
+        return cdef != null ? cdef.equals(CDef.ServiceRank.Bronze) : false;
+    }
+
+    /**
+     * Is the value of serviceRankCode Plastic? <br>
+     * PLASTIC: plastic rank
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isServiceRankCodePlastic() {
+        CDef.ServiceRank cdef = getServiceRankCodeAsServiceRank();
+        return cdef != null ? cdef.equals(CDef.ServiceRank.Plastic) : false;
+    }
+
+    // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
-    /** MEMBER by my MEMBER_ID, named 'member'. */
+    /** (会員)MEMBER by my MEMBER_ID, named 'member'. */
     protected OptionalEntity<Member> _member;
 
     /**
-     * [get] MEMBER by my MEMBER_ID, named 'member'. <br>
+     * [get] (会員)MEMBER by my MEMBER_ID, named 'member'. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'member'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -153,18 +297,18 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] MEMBER by my MEMBER_ID, named 'member'.
+     * [set] (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
     public void setMember(OptionalEntity<Member> member) {
         _member = member;
     }
 
-    /** SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'. */
+    /** (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'. */
     protected OptionalEntity<ServiceRank> _serviceRank;
 
     /**
-     * [get] SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'. <br>
+     * [get] (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'serviceRank'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -174,7 +318,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
+     * [set] (サービスランク)SERVICE_RANK by my SERVICE_RANK_CODE, named 'serviceRank'.
      * @param serviceRank The entity of foreign property 'serviceRank'. (NullAllowed)
      */
     public void setServiceRank(OptionalEntity<ServiceRank> serviceRank) {
@@ -184,7 +328,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
-    protected <ELEMENT> List<ELEMENT> newReferrerList() {
+    protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
 
@@ -264,7 +408,8 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)} <br>
+     * [get] (会員サービスID)MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)} <br>
+     * 独立した主キーとなるが、実質的に会員IDとは one-to-one である。
      * @return The value of the column 'MEMBER_SERVICE_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberServiceId() {
@@ -273,7 +418,8 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)} <br>
+     * [set] (会員サービスID)MEMBER_SERVICE_ID: {PK, ID, NotNull, INTEGER(10)} <br>
+     * 独立した主キーとなるが、実質的に会員IDとは one-to-one である。
      * @param memberServiceId The value of the column 'MEMBER_SERVICE_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberServiceId(Integer memberServiceId) {
@@ -282,7 +428,8 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br>
+     * [get] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br>
+     * 会員を参照するID。ユニークなので、会員とは one-to-one の関係に。
      * @return The value of the column 'MEMBER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMemberId() {
@@ -291,7 +438,8 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br>
+     * [set] (会員ID)MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER} <br>
+     * 会員を参照するID。ユニークなので、会員とは one-to-one の関係に。
      * @param memberId The value of the column 'MEMBER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMemberId(Integer memberId) {
@@ -300,7 +448,8 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)} <br>
+     * [get] (サービスポイント数)SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)} <br>
+     * 購入したら増えて使ったら減る。
      * @return The value of the column 'SERVICE_POINT_COUNT'. (basically NotNull if selected: for the constraint)
      */
     public Integer getServicePointCount() {
@@ -309,7 +458,8 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)} <br>
+     * [set] (サービスポイント数)SERVICE_POINT_COUNT: {IX, NotNull, INTEGER(10)} <br>
+     * 購入したら増えて使ったら減る。
      * @param servicePointCount The value of the column 'SERVICE_POINT_COUNT'. (basically NotNull if update: for the constraint)
      */
     public void setServicePointCount(Integer servicePointCount) {
@@ -318,7 +468,8 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK} <br>
+     * [get] (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank} <br>
+     * どんなランクがあるのかドキドキですね。
      * @return The value of the column 'SERVICE_RANK_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getServiceRankCode() {
@@ -327,16 +478,18 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK} <br>
+     * [set] (サービスランクコード)SERVICE_RANK_CODE: {IX, NotNull, CHAR(3), FK to SERVICE_RANK, classification=ServiceRank} <br>
+     * どんなランクがあるのかドキドキですね。
      * @param serviceRankCode The value of the column 'SERVICE_RANK_CODE'. (basically NotNull if update: for the constraint)
      */
-    public void setServiceRankCode(String serviceRankCode) {
+    protected void setServiceRankCode(String serviceRankCode) {
+        checkClassificationCode("SERVICE_RANK_CODE", CDef.DefMeta.ServiceRank, serviceRankCode);
         registerModifiedProperty("serviceRankCode");
         _serviceRankCode = serviceRankCode;
     }
 
     /**
-     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getRegisterDatetime() {
@@ -345,7 +498,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setRegisterDatetime(java.time.LocalDateTime registerDatetime) {
@@ -372,7 +525,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getUpdateDatetime() {
@@ -381,7 +534,7 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setUpdateDatetime(java.time.LocalDateTime updateDatetime) {
@@ -423,5 +576,13 @@ public abstract class BsMemberService extends AbstractEntity implements DomainEn
     public void setVersionNo(Long versionNo) {
         registerModifiedProperty("versionNo");
         _versionNo = versionNo;
+    }
+
+    /**
+     * For framework so basically DON'T use this method.
+     * @param serviceRankCode The value of the column 'SERVICE_RANK_CODE'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingServiceRankCode(String serviceRankCode) {
+        setServiceRankCode(serviceRankCode);
     }
 }

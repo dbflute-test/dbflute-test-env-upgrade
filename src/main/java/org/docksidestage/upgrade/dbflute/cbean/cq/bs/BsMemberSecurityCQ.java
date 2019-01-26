@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.cbean.cq.bs;
 
 import java.util.Map;
@@ -8,9 +23,9 @@ import org.dbflute.cbean.coption.*;
 import org.dbflute.cbean.cvalue.ConditionValue;
 import org.dbflute.cbean.sqlclause.SqlClause;
 import org.dbflute.exception.IllegalConditionBeanOperationException;
+import org.docksidestage.upgrade.dbflute.cbean.cq.ciq.*;
 import org.docksidestage.upgrade.dbflute.cbean.*;
 import org.docksidestage.upgrade.dbflute.cbean.cq.*;
-import org.docksidestage.upgrade.dbflute.cbean.cq.ciq.*;
 
 /**
  * The base condition-query of MEMBER_SECURITY.
@@ -79,16 +94,16 @@ public class BsMemberSecurityCQ extends AbstractBsMemberSecurityCQ {
       return _memberId; }
     protected ConditionValue xgetCValueMemberId() { return xdfgetMemberId(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
+     * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
      * @return this. (NotNull)
      */
     public BsMemberSecurityCQ addOrderBy_MemberId_Asc() { regOBA("MEMBER_ID"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
+     * (会員ID)MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
      * @return this. (NotNull)
      */
     public BsMemberSecurityCQ addOrderBy_MemberId_Desc() { regOBD("MEMBER_ID"); return this; }
@@ -99,16 +114,16 @@ public class BsMemberSecurityCQ extends AbstractBsMemberSecurityCQ {
       return _loginPassword; }
     protected ConditionValue xgetCValueLoginPassword() { return xdfgetLoginPassword(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
+     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(100)}
      * @return this. (NotNull)
      */
     public BsMemberSecurityCQ addOrderBy_LoginPassword_Asc() { regOBA("LOGIN_PASSWORD"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * LOGIN_PASSWORD: {NotNull, VARCHAR(50)}
+     * (ログインパスワード)LOGIN_PASSWORD: {NotNull, VARCHAR(100)}
      * @return this. (NotNull)
      */
     public BsMemberSecurityCQ addOrderBy_LoginPassword_Desc() { regOBD("LOGIN_PASSWORD"); return this; }
@@ -119,16 +134,16 @@ public class BsMemberSecurityCQ extends AbstractBsMemberSecurityCQ {
       return _reminderQuestion; }
     protected ConditionValue xgetCValueReminderQuestion() { return xdfgetReminderQuestion(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * REMINDER_QUESTION: {NotNull, VARCHAR(50)}
+     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsMemberSecurityCQ addOrderBy_ReminderQuestion_Asc() { regOBA("REMINDER_QUESTION"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * REMINDER_QUESTION: {NotNull, VARCHAR(50)}
+     * (リマインダ質問)REMINDER_QUESTION: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsMemberSecurityCQ addOrderBy_ReminderQuestion_Desc() { regOBD("REMINDER_QUESTION"); return this; }
@@ -139,16 +154,16 @@ public class BsMemberSecurityCQ extends AbstractBsMemberSecurityCQ {
       return _reminderAnswer; }
     protected ConditionValue xgetCValueReminderAnswer() { return xdfgetReminderAnswer(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * REMINDER_ANSWER: {NotNull, VARCHAR(50)}
+     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsMemberSecurityCQ addOrderBy_ReminderAnswer_Asc() { regOBA("REMINDER_ANSWER"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * REMINDER_ANSWER: {NotNull, VARCHAR(50)}
+     * (リマインダ回答)REMINDER_ANSWER: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsMemberSecurityCQ addOrderBy_ReminderAnswer_Desc() { regOBD("REMINDER_ANSWER"); return this; }
@@ -159,16 +174,16 @@ public class BsMemberSecurityCQ extends AbstractBsMemberSecurityCQ {
       return _reminderUseCount; }
     protected ConditionValue xgetCValueReminderUseCount() { return xdfgetReminderUseCount(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
+     * (リマインダ利用回数)REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsMemberSecurityCQ addOrderBy_ReminderUseCount_Asc() { regOBA("REMINDER_USE_COUNT"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
+     * (リマインダ利用回数)REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsMemberSecurityCQ addOrderBy_ReminderUseCount_Desc() { regOBD("REMINDER_USE_COUNT"); return this; }
@@ -179,16 +194,16 @@ public class BsMemberSecurityCQ extends AbstractBsMemberSecurityCQ {
       return _registerDatetime; }
     protected ConditionValue xgetCValueRegisterDatetime() { return xdfgetRegisterDatetime(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsMemberSecurityCQ addOrderBy_RegisterDatetime_Asc() { regOBA("REGISTER_DATETIME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsMemberSecurityCQ addOrderBy_RegisterDatetime_Desc() { regOBD("REGISTER_DATETIME"); return this; }
@@ -199,7 +214,7 @@ public class BsMemberSecurityCQ extends AbstractBsMemberSecurityCQ {
       return _registerUser; }
     protected ConditionValue xgetCValueRegisterUser() { return xdfgetRegisterUser(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * REGISTER_USER: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
@@ -219,16 +234,16 @@ public class BsMemberSecurityCQ extends AbstractBsMemberSecurityCQ {
       return _updateDatetime; }
     protected ConditionValue xgetCValueUpdateDatetime() { return xdfgetUpdateDatetime(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsMemberSecurityCQ addOrderBy_UpdateDatetime_Asc() { regOBA("UPDATE_DATETIME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsMemberSecurityCQ addOrderBy_UpdateDatetime_Desc() { regOBD("UPDATE_DATETIME"); return this; }
@@ -239,7 +254,7 @@ public class BsMemberSecurityCQ extends AbstractBsMemberSecurityCQ {
       return _updateUser; }
     protected ConditionValue xgetCValueUpdateUser() { return xdfgetUpdateUser(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * UPDATE_USER: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
@@ -259,7 +274,7 @@ public class BsMemberSecurityCQ extends AbstractBsMemberSecurityCQ {
       return _versionNo; }
     protected ConditionValue xgetCValueVersionNo() { return xdfgetVersionNo(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * VERSION_NO: {NotNull, BIGINT(19)}
      * @return this. (NotNull)
@@ -324,7 +339,7 @@ public class BsMemberSecurityCQ extends AbstractBsMemberSecurityCQ {
     //                                                                       =============
     /**
      * Get the condition-query for relation table. <br>
-     * MEMBER by my MEMBER_ID, named 'member'.
+     * (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @return The instance of condition-query. (NotNull)
      */
     public MemberCQ queryMember() {

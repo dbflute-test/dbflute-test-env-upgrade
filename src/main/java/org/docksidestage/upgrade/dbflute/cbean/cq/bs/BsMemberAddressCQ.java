@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.cbean.cq.bs;
 
 import java.util.Map;
@@ -8,9 +23,9 @@ import org.dbflute.cbean.coption.*;
 import org.dbflute.cbean.cvalue.ConditionValue;
 import org.dbflute.cbean.sqlclause.SqlClause;
 import org.dbflute.exception.IllegalConditionBeanOperationException;
+import org.docksidestage.upgrade.dbflute.cbean.cq.ciq.*;
 import org.docksidestage.upgrade.dbflute.cbean.*;
 import org.docksidestage.upgrade.dbflute.cbean.cq.*;
-import org.docksidestage.upgrade.dbflute.cbean.cq.ciq.*;
 
 /**
  * The base condition-query of MEMBER_ADDRESS.
@@ -79,16 +94,16 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
       return _memberAddressId; }
     protected ConditionValue xgetCValueMemberAddressId() { return xdfgetMemberAddressId(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
+     * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_MemberAddressId_Asc() { regOBA("MEMBER_ADDRESS_ID"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
+     * (会員住所ID)MEMBER_ADDRESS_ID: {PK, ID, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_MemberAddressId_Desc() { regOBD("MEMBER_ADDRESS_ID"); return this; }
@@ -99,16 +114,16 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
       return _memberId; }
     protected ConditionValue xgetCValueMemberId() { return xdfgetMemberId(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_MemberId_Asc() { regOBA("MEMBER_ID"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * (会員ID)MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_MemberId_Desc() { regOBD("MEMBER_ID"); return this; }
@@ -119,16 +134,16 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
       return _validBeginDate; }
     protected ConditionValue xgetCValueValidBeginDate() { return xdfgetValidBeginDate(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)}
+     * (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_ValidBeginDate_Asc() { regOBA("VALID_BEGIN_DATE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)}
+     * (有効開始日)VALID_BEGIN_DATE: {+UQ, NotNull, DATE(10)}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_ValidBeginDate_Desc() { regOBD("VALID_BEGIN_DATE"); return this; }
@@ -139,16 +154,16 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
       return _validEndDate; }
     protected ConditionValue xgetCValueValidEndDate() { return xdfgetValidEndDate(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * VALID_END_DATE: {NotNull, DATE(8)}
+     * (有効終了日)VALID_END_DATE: {NotNull, DATE(10)}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_ValidEndDate_Asc() { regOBA("VALID_END_DATE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * VALID_END_DATE: {NotNull, DATE(8)}
+     * (有効終了日)VALID_END_DATE: {NotNull, DATE(10)}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_ValidEndDate_Desc() { regOBD("VALID_END_DATE"); return this; }
@@ -159,16 +174,16 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
       return _address; }
     protected ConditionValue xgetCValueAddress() { return xdfgetAddress(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * ADDRESS: {NotNull, VARCHAR(200)}
+     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_Address_Asc() { regOBA("ADDRESS"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * ADDRESS: {NotNull, VARCHAR(200)}
+     * (住所)ADDRESS: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_Address_Desc() { regOBD("ADDRESS"); return this; }
@@ -179,16 +194,16 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
       return _regionId; }
     protected ConditionValue xgetCValueRegionId() { return xdfgetRegionId(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION}
+     * (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_RegionId_Asc() { regOBA("REGION_ID"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION}
+     * (地域ID)REGION_ID: {IX, NotNull, INTEGER(10), FK to REGION, classification=Region}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_RegionId_Desc() { regOBD("REGION_ID"); return this; }
@@ -199,16 +214,16 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
       return _registerDatetime; }
     protected ConditionValue xgetCValueRegisterDatetime() { return xdfgetRegisterDatetime(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_RegisterDatetime_Asc() { regOBA("REGISTER_DATETIME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_RegisterDatetime_Desc() { regOBD("REGISTER_DATETIME"); return this; }
@@ -219,7 +234,7 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
       return _registerUser; }
     protected ConditionValue xgetCValueRegisterUser() { return xdfgetRegisterUser(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * REGISTER_USER: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
@@ -239,16 +254,16 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
       return _updateDatetime; }
     protected ConditionValue xgetCValueUpdateDatetime() { return xdfgetUpdateDatetime(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_UpdateDatetime_Asc() { regOBA("UPDATE_DATETIME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
+     * UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @return this. (NotNull)
      */
     public BsMemberAddressCQ addOrderBy_UpdateDatetime_Desc() { regOBD("UPDATE_DATETIME"); return this; }
@@ -259,7 +274,7 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
       return _updateUser; }
     protected ConditionValue xgetCValueUpdateUser() { return xdfgetUpdateUser(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * UPDATE_USER: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
@@ -279,7 +294,7 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
       return _versionNo; }
     protected ConditionValue xgetCValueVersionNo() { return xdfgetVersionNo(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
      * VERSION_NO: {NotNull, BIGINT(19)}
      * @return this. (NotNull)
@@ -347,7 +362,7 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
     //                                                                       =============
     /**
      * Get the condition-query for relation table. <br>
-     * MEMBER by my MEMBER_ID, named 'member'.
+     * (会員)MEMBER by my MEMBER_ID, named 'member'.
      * @return The instance of condition-query. (NotNull)
      */
     public MemberCQ queryMember() {
@@ -367,7 +382,7 @@ public class BsMemberAddressCQ extends AbstractBsMemberAddressCQ {
 
     /**
      * Get the condition-query for relation table. <br>
-     * REGION by my REGION_ID, named 'region'.
+     * (地域)REGION by my REGION_ID, named 'region'.
      * @return The instance of condition-query. (NotNull)
      */
     public RegionCQ queryRegion() {

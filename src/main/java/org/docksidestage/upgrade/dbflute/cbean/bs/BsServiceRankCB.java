@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.cbean.bs;
 
 import org.dbflute.cbean.AbstractConditionBean;
@@ -12,6 +27,7 @@ import org.dbflute.cbean.scoping.*;
 import org.dbflute.dbmeta.DBMetaProvider;
 import org.dbflute.twowaysql.factory.SqlAnalyzerFactory;
 import org.dbflute.twowaysql.style.BoundDateDisplayTimeZoneProvider;
+import org.docksidestage.upgrade.dbflute.allcommon.CDef;
 import org.docksidestage.upgrade.dbflute.allcommon.DBFluteConfig;
 import org.docksidestage.upgrade.dbflute.allcommon.DBMetaInstanceHandler;
 import org.docksidestage.upgrade.dbflute.allcommon.ImplementedInvokerAssistant;
@@ -43,6 +59,10 @@ public class BsServiceRankCB extends AbstractConditionBean {
         if (DBFluteConfig.getInstance().isNonSpecifiedColumnAccessAllowed()) {
             enableNonSpecifiedColumnAccess();
         }
+        if (DBFluteConfig.getInstance().isSpecifyColumnRequired()) {
+            enableSpecifyColumnRequired();
+        }
+        xsetSpecifyColumnRequiredExceptDeterminer(DBFluteConfig.getInstance().getSpecifyColumnRequiredExceptDeterminer());
         if (DBFluteConfig.getInstance().isQueryUpdateCountPreCheck()) {
             enableQueryUpdateCountPreCheck();
         }
@@ -77,19 +97,19 @@ public class BsServiceRankCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param serviceRankCode : PK, NotNull, CHAR(3). (NotNull)
+     * @param serviceRankCode (サービスランクコード): PK, NotNull, CHAR(3), classification=ServiceRank. (NotNull)
      * @return this. (NotNull)
      */
-    public ServiceRankCB acceptPK(String serviceRankCode) {
+    public ServiceRankCB acceptPK(CDef.ServiceRank serviceRankCode) {
         assertObjectNotNull("serviceRankCode", serviceRankCode);
         BsServiceRankCB cb = this;
-        cb.query().setServiceRankCode_Equal(serviceRankCode);
+        cb.query().setServiceRankCode_Equal_AsServiceRank(serviceRankCode);
         return (ServiceRankCB)this;
     }
 
     /**
      * Accept the query condition of unique key as equal.
-     * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
+     * @param displayOrder (表示順): UQ, NotNull, INTEGER(10). (NotNull)
      * @return this. (NotNull)
      */
     public ServiceRankCB acceptUniqueOf(Integer displayOrder) {
@@ -136,33 +156,33 @@ public class BsServiceRankCB extends AbstractConditionBean {
      * <span style="color: #3F7E5E">// {fromDate &lt;= BIRTHDATE &lt; toDate + 1 day}</span>
      * cb.query().setBirthdate_IsNull();    <span style="color: #3F7E5E">// is null</span>
      * cb.query().setBirthdate_IsNotNull(); <span style="color: #3F7E5E">// is not null</span>
-     * 
+     *
      * <span style="color: #3F7E5E">// ExistsReferrer: (correlated sub-query)</span>
      * <span style="color: #3F7E5E">// {where exists (select PURCHASE_ID from PURCHASE where ...)}</span>
      * cb.query().existsPurchase(purchaseCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     purchaseCB.query().set... <span style="color: #3F7E5E">// referrer sub-query condition</span>
      * });
      * cb.query().notExistsPurchase...
-     * 
+     *
      * <span style="color: #3F7E5E">// (Query)DerivedReferrer: (correlated sub-query)</span>
      * cb.query().derivedPurchaseList().max(purchaseCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     purchaseCB.specify().columnPurchasePrice(); <span style="color: #3F7E5E">// derived column for function</span>
      *     purchaseCB.query().set... <span style="color: #3F7E5E">// referrer sub-query condition</span>
      * }).greaterEqual(value);
-     * 
+     *
      * <span style="color: #3F7E5E">// ScalarCondition: (self-table sub-query)</span>
      * cb.query().scalar_Equal().max(scalarCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     scalarCB.specify().columnBirthdate(); <span style="color: #3F7E5E">// derived column for function</span>
      *     scalarCB.query().set... <span style="color: #3F7E5E">// scalar sub-query condition</span>
      * });
-     * 
+     *
      * <span style="color: #3F7E5E">// OrderBy</span>
      * cb.query().addOrderBy_MemberName_Asc();
      * cb.query().addOrderBy_MemberName_Desc().withManualOrder(option);
      * cb.query().addOrderBy_MemberName_Desc().withNullsFirst();
      * cb.query().addOrderBy_MemberName_Desc().withNullsLast();
      * cb.query().addSpecifiedDerivedOrderBy_Desc(aliasName);
-     * 
+     *
      * <span style="color: #3F7E5E">// Query(Relation)</span>
      * cb.query().queryMemberStatus()...;
      * cb.query().queryMemberAddressAsValid(targetDate)...;
@@ -170,7 +190,7 @@ public class BsServiceRankCB extends AbstractConditionBean {
      * @return The instance of condition-query for base-point table to set up query. (NotNull)
      */
     public ServiceRankCQ query() {
-        assertQueryPurpose(); // assert only when user-public query 
+        assertQueryPurpose(); // assert only when user-public query
         return doGetConditionQuery();
     }
 
@@ -221,7 +241,7 @@ public class BsServiceRankCB extends AbstractConditionBean {
      * @param unionCBLambda The callback for query of 'union'. (NotNull)
      */
     public void union(UnionQuery<ServiceRankCB> unionCBLambda) {
-        final ServiceRankCB cb = new ServiceRankCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        final ServiceRankCB cb = new ServiceRankCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final ServiceRankCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
@@ -282,8 +302,8 @@ public class BsServiceRankCB extends AbstractConditionBean {
         return specify();
     }
 
-    public boolean hasSpecifiedColumn() {
-        return _specification != null && _specification.isAlreadySpecifiedRequiredColumn();
+    public boolean hasSpecifiedLocalColumn() {
+        return _specification != null && _specification.hasSpecifiedColumn();
     }
 
     public static class HpSpecification extends HpAbstractSpecification<ServiceRankCQ> {
@@ -292,32 +312,32 @@ public class BsServiceRankCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * SERVICE_RANK_CODE: {PK, NotNull, CHAR(3)}
+         * (サービスランクコード)SERVICE_RANK_CODE: {PK, NotNull, CHAR(3), classification=ServiceRank}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnServiceRankCode() { return doColumn("SERVICE_RANK_CODE"); }
         /**
-         * SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
+         * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnServiceRankName() { return doColumn("SERVICE_RANK_NAME"); }
         /**
-         * SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)}
+         * (サービスポイント発生率)SERVICE_POINT_INCIDENCE: {NotNull, DECIMAL(5, 3)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnServicePointIncidence() { return doColumn("SERVICE_POINT_INCIDENCE"); }
         /**
-         * NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10)}
+         * (新規受け入れ可能フラグ)NEW_ACCEPTABLE_FLG: {NotNull, INTEGER(10), classification=Flg}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnNewAcceptableFlg() { return doColumn("NEW_ACCEPTABLE_FLG"); }
         /**
-         * DESCRIPTION: {NotNull, VARCHAR(200)}
+         * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnDescription() { return doColumn("DESCRIPTION"); }
         /**
-         * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+         * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnDisplayOrder() { return doColumn("DISPLAY_ORDER"); }
@@ -332,7 +352,7 @@ public class BsServiceRankCB extends AbstractConditionBean {
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
          * {select max(FOO) from MEMBER_SERVICE where ...) as FOO_MAX} <br>
-         * MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
+         * (会員サービス)MEMBER_SERVICE by SERVICE_RANK_CODE, named 'memberServiceList'.
          * <pre>
          * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(serviceCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
          *     serviceCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>

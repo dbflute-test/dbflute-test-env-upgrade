@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.cbean.cq.bs;
 
 import java.util.*;
@@ -45,11 +60,53 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     //                                                                               =====
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as equal. (NullAllowed: if null (or empty), no condition)
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
+     * @param withdrawalReasonCode The value of withdrawalReasonCode as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setWithdrawalReasonCode_Equal(String withdrawalReasonCode) {
+    protected void setWithdrawalReasonCode_Equal(String withdrawalReasonCode) {
         doSetWithdrawalReasonCode_Equal(fRES(withdrawalReasonCode));
+    }
+
+    /**
+     * Equal(=). As WithdrawalReason. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * reason for member withdrawal
+     * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
+     */
+    public void setWithdrawalReasonCode_Equal_AsWithdrawalReason(CDef.WithdrawalReason cdef) {
+        doSetWithdrawalReasonCode_Equal(cdef != null ? cdef.code() : null);
+    }
+
+    /**
+     * Equal(=). As Sit (SIT). And OnlyOnceRegistered. <br>
+     * SIT: サイトが使いにくいから
+     */
+    public void setWithdrawalReasonCode_Equal_Sit() {
+        setWithdrawalReasonCode_Equal_AsWithdrawalReason(CDef.WithdrawalReason.Sit);
+    }
+
+    /**
+     * Equal(=). As Prd (PRD). And OnlyOnceRegistered. <br>
+     * PRD: 商品に魅力がないから
+     */
+    public void setWithdrawalReasonCode_Equal_Prd() {
+        setWithdrawalReasonCode_Equal_AsWithdrawalReason(CDef.WithdrawalReason.Prd);
+    }
+
+    /**
+     * Equal(=). As Frt (FRT). And OnlyOnceRegistered. <br>
+     * FRT: フリテンだから
+     */
+    public void setWithdrawalReasonCode_Equal_Frt() {
+        setWithdrawalReasonCode_Equal_AsWithdrawalReason(CDef.WithdrawalReason.Frt);
+    }
+
+    /**
+     * Equal(=). As Oth (OTH). And OnlyOnceRegistered. <br>
+     * OTH: その他理由
+     */
+    public void setWithdrawalReasonCode_Equal_Oth() {
+        setWithdrawalReasonCode_Equal_AsWithdrawalReason(CDef.WithdrawalReason.Oth);
     }
 
     protected void doSetWithdrawalReasonCode_Equal(String withdrawalReasonCode) {
@@ -58,11 +115,53 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as notEqual. (NullAllowed: if null (or empty), no condition)
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
+     * @param withdrawalReasonCode The value of withdrawalReasonCode as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setWithdrawalReasonCode_NotEqual(String withdrawalReasonCode) {
+    protected void setWithdrawalReasonCode_NotEqual(String withdrawalReasonCode) {
         doSetWithdrawalReasonCode_NotEqual(fRES(withdrawalReasonCode));
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). As WithdrawalReason. And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * reason for member withdrawal
+     * @param cdef The instance of classification definition (as ENUM type). (basically NotNull: error as default, or no condition as option)
+     */
+    public void setWithdrawalReasonCode_NotEqual_AsWithdrawalReason(CDef.WithdrawalReason cdef) {
+        doSetWithdrawalReasonCode_NotEqual(cdef != null ? cdef.code() : null);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). As Sit (SIT). And OnlyOnceRegistered. <br>
+     * SIT: サイトが使いにくいから
+     */
+    public void setWithdrawalReasonCode_NotEqual_Sit() {
+        setWithdrawalReasonCode_NotEqual_AsWithdrawalReason(CDef.WithdrawalReason.Sit);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). As Prd (PRD). And OnlyOnceRegistered. <br>
+     * PRD: 商品に魅力がないから
+     */
+    public void setWithdrawalReasonCode_NotEqual_Prd() {
+        setWithdrawalReasonCode_NotEqual_AsWithdrawalReason(CDef.WithdrawalReason.Prd);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). As Frt (FRT). And OnlyOnceRegistered. <br>
+     * FRT: フリテンだから
+     */
+    public void setWithdrawalReasonCode_NotEqual_Frt() {
+        setWithdrawalReasonCode_NotEqual_AsWithdrawalReason(CDef.WithdrawalReason.Frt);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). As Oth (OTH). And OnlyOnceRegistered. <br>
+     * OTH: その他理由
+     */
+    public void setWithdrawalReasonCode_NotEqual_Oth() {
+        setWithdrawalReasonCode_NotEqual_AsWithdrawalReason(CDef.WithdrawalReason.Oth);
     }
 
     protected void doSetWithdrawalReasonCode_NotEqual(String withdrawalReasonCode) {
@@ -70,48 +169,22 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     }
 
     /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonCode_GreaterThan(String withdrawalReasonCode) {
-        regWithdrawalReasonCode(CK_GT, fRES(withdrawalReasonCode));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonCode_LessThan(String withdrawalReasonCode) {
-        regWithdrawalReasonCode(CK_LT, fRES(withdrawalReasonCode));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonCode_GreaterEqual(String withdrawalReasonCode) {
-        regWithdrawalReasonCode(CK_GE, fRES(withdrawalReasonCode));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonCode_LessEqual(String withdrawalReasonCode) {
-        regWithdrawalReasonCode(CK_LE, fRES(withdrawalReasonCode));
-    }
-
-    /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)}
-     * @param withdrawalReasonCodeList The collection of withdrawalReasonCode as inScope. (NullAllowed: if null (or empty), no condition)
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
+     * @param withdrawalReasonCodeList The collection of withdrawalReasonCode as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setWithdrawalReasonCode_InScope(Collection<String> withdrawalReasonCodeList) {
+    protected void setWithdrawalReasonCode_InScope(Collection<String> withdrawalReasonCodeList) {
         doSetWithdrawalReasonCode_InScope(withdrawalReasonCodeList);
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. As WithdrawalReason. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * reason for member withdrawal
+     * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setWithdrawalReasonCode_InScope_AsWithdrawalReason(Collection<CDef.WithdrawalReason> cdefList) {
+        doSetWithdrawalReasonCode_InScope(cTStrL(cdefList));
     }
 
     protected void doSetWithdrawalReasonCode_InScope(Collection<String> withdrawalReasonCodeList) {
@@ -120,11 +193,21 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)}
-     * @param withdrawalReasonCodeList The collection of withdrawalReasonCode as notInScope. (NullAllowed: if null (or empty), no condition)
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
+     * @param withdrawalReasonCodeList The collection of withdrawalReasonCode as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setWithdrawalReasonCode_NotInScope(Collection<String> withdrawalReasonCodeList) {
+    protected void setWithdrawalReasonCode_NotInScope(Collection<String> withdrawalReasonCodeList) {
         doSetWithdrawalReasonCode_NotInScope(withdrawalReasonCodeList);
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. As WithdrawalReason. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * reason for member withdrawal
+     * @param cdefList The list of classification definition (as ENUM type). (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setWithdrawalReasonCode_NotInScope_AsWithdrawalReason(Collection<CDef.WithdrawalReason> cdefList) {
+        doSetWithdrawalReasonCode_NotInScope(cTStrL(cdefList));
     }
 
     protected void doSetWithdrawalReasonCode_NotInScope(Collection<String> withdrawalReasonCodeList) {
@@ -132,53 +215,9 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     }
 
     /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)} <br>
-     * <pre>e.g. setWithdrawalReasonCode_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as likeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param opLambda The callback for option of like-search. (NotNull)
-     */
-    public void setWithdrawalReasonCode_LikeSearch(String withdrawalReasonCode, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setWithdrawalReasonCode_LikeSearch(withdrawalReasonCode, xcLSOP(opLambda));
-    }
-
-    /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)} <br>
-     * <pre>e.g. setWithdrawalReasonCode_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as likeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param likeSearchOption The option of like-search. (NotNull)
-     */
-    protected void setWithdrawalReasonCode_LikeSearch(String withdrawalReasonCode, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(withdrawalReasonCode), xgetCValueWithdrawalReasonCode(), "WITHDRAWAL_REASON_CODE", likeSearchOption);
-    }
-
-    /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
-     * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as notLikeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param opLambda The callback for option of like-search. (NotNull)
-     */
-    public void setWithdrawalReasonCode_NotLikeSearch(String withdrawalReasonCode, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setWithdrawalReasonCode_NotLikeSearch(withdrawalReasonCode, xcLSOP(opLambda));
-    }
-
-    /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
-     * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as notLikeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param likeSearchOption The option of not-like-search. (NotNull)
-     */
-    protected void setWithdrawalReasonCode_NotLikeSearch(String withdrawalReasonCode, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(withdrawalReasonCode), xgetCValueWithdrawalReasonCode(), "WITHDRAWAL_REASON_CODE", likeSearchOption);
-    }
-
-    /**
      * Set up ExistsReferrer (correlated sub-query). <br>
      * {exists (select WITHDRAWAL_REASON_CODE from MEMBER_WITHDRAWAL where ...)} <br>
-     * MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
+     * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">existsMemberWithdrawal</span>(withdrawalCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     withdrawalCB.query().set...
@@ -197,7 +236,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     /**
      * Set up NotExistsReferrer (correlated sub-query). <br>
      * {not exists (select WITHDRAWAL_REASON_CODE from MEMBER_WITHDRAWAL where ...)} <br>
-     * MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
+     * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">notExistsMemberWithdrawal</span>(withdrawalCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     withdrawalCB.query().set...
@@ -224,7 +263,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     /**
      * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
      * {FOO &lt;= (select max(BAR) from MEMBER_WITHDRAWAL where ...)} <br>
-     * MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
+     * (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
      * <pre>
      * cb.query().<span style="color: #CC4747">derivedMemberWithdrawal()</span>.<span style="color: #CC4747">max</span>(withdrawalCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     withdrawalCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
@@ -250,13 +289,13 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)}
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
      */
     public void setWithdrawalReasonCode_IsNull() { regWithdrawalReasonCode(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)}
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason}
      */
     public void setWithdrawalReasonCode_IsNotNull() { regWithdrawalReasonCode(CK_ISNN, DOBJ); }
 
@@ -265,8 +304,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as equal. (NullAllowed: if null (or empty), no condition)
+     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
+     * @param withdrawalReasonText The value of withdrawalReasonText as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_Equal(String withdrawalReasonText) {
         doSetWithdrawalReasonText_Equal(fRES(withdrawalReasonText));
@@ -278,8 +317,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as notEqual. (NullAllowed: if null (or empty), no condition)
+     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
+     * @param withdrawalReasonText The value of withdrawalReasonText as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_NotEqual(String withdrawalReasonText) {
         doSetWithdrawalReasonText_NotEqual(fRES(withdrawalReasonText));
@@ -291,8 +330,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as greaterThan. (NullAllowed: if null (or empty), no condition)
+     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
+     * @param withdrawalReasonText The value of withdrawalReasonText as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_GreaterThan(String withdrawalReasonText) {
         regWithdrawalReasonText(CK_GT, fRES(withdrawalReasonText));
@@ -300,8 +339,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as lessThan. (NullAllowed: if null (or empty), no condition)
+     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
+     * @param withdrawalReasonText The value of withdrawalReasonText as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_LessThan(String withdrawalReasonText) {
         regWithdrawalReasonText(CK_LT, fRES(withdrawalReasonText));
@@ -309,8 +348,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
+     * @param withdrawalReasonText The value of withdrawalReasonText as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_GreaterEqual(String withdrawalReasonText) {
         regWithdrawalReasonText(CK_GE, fRES(withdrawalReasonText));
@@ -318,8 +357,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as lessEqual. (NullAllowed: if null (or empty), no condition)
+     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
+     * @param withdrawalReasonText The value of withdrawalReasonText as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_LessEqual(String withdrawalReasonText) {
         regWithdrawalReasonText(CK_LE, fRES(withdrawalReasonText));
@@ -327,8 +366,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonTextList The collection of withdrawalReasonText as inScope. (NullAllowed: if null (or empty), no condition)
+     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
+     * @param withdrawalReasonTextList The collection of withdrawalReasonText as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_InScope(Collection<String> withdrawalReasonTextList) {
         doSetWithdrawalReasonText_InScope(withdrawalReasonTextList);
@@ -340,8 +379,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonTextList The collection of withdrawalReasonText as notInScope. (NullAllowed: if null (or empty), no condition)
+     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
+     * @param withdrawalReasonTextList The collection of withdrawalReasonText as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWithdrawalReasonText_NotInScope(Collection<String> withdrawalReasonTextList) {
         doSetWithdrawalReasonText_NotInScope(withdrawalReasonTextList);
@@ -353,9 +392,9 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
+     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
      * <pre>e.g. setWithdrawalReasonText_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param withdrawalReasonText The value of withdrawalReasonText as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonText The value of withdrawalReasonText as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonText_LikeSearch(String withdrawalReasonText, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -364,9 +403,9 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
+     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
      * <pre>e.g. setWithdrawalReasonText_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param withdrawalReasonText The value of withdrawalReasonText as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param withdrawalReasonText The value of withdrawalReasonText as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
     protected void setWithdrawalReasonText_LikeSearch(String withdrawalReasonText, LikeSearchOption likeSearchOption) {
@@ -376,8 +415,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
+     * @param withdrawalReasonText The value of withdrawalReasonText as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
     public void setWithdrawalReasonText_NotLikeSearch(String withdrawalReasonText, ConditionOptionCall<LikeSearchOption> opLambda) {
@@ -387,8 +426,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
+     * @param withdrawalReasonText The value of withdrawalReasonText as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setWithdrawalReasonText_NotLikeSearch(String withdrawalReasonText, LikeSearchOption likeSearchOption) {
@@ -401,7 +440,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as equal. (NullAllowed: if null, no condition)
+     * @param displayOrder The value of displayOrder as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_Equal(Integer displayOrder) {
         doSetDisplayOrder_Equal(displayOrder);
@@ -414,7 +453,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as notEqual. (NullAllowed: if null, no condition)
+     * @param displayOrder The value of displayOrder as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_NotEqual(Integer displayOrder) {
         doSetDisplayOrder_NotEqual(displayOrder);
@@ -427,7 +466,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
      * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as greaterThan. (NullAllowed: if null, no condition)
+     * @param displayOrder The value of displayOrder as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_GreaterThan(Integer displayOrder) {
         regDisplayOrder(CK_GT, displayOrder);
@@ -436,7 +475,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
      * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as lessThan. (NullAllowed: if null, no condition)
+     * @param displayOrder The value of displayOrder as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_LessThan(Integer displayOrder) {
         regDisplayOrder(CK_LT, displayOrder);
@@ -445,7 +484,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as greaterEqual. (NullAllowed: if null, no condition)
+     * @param displayOrder The value of displayOrder as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_GreaterEqual(Integer displayOrder) {
         regDisplayOrder(CK_GE, displayOrder);
@@ -454,7 +493,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
      * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as lessEqual. (NullAllowed: if null, no condition)
+     * @param displayOrder The value of displayOrder as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setDisplayOrder_LessEqual(Integer displayOrder) {
         regDisplayOrder(CK_LE, displayOrder);
@@ -465,8 +504,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param minNumber The min number of displayOrder. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of displayOrder. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
     public void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
@@ -478,8 +517,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
      * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param minNumber The min number of displayOrder. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of displayOrder. (NullAllowed: if null, no to-condition)
+     * @param minNumber The min number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of displayOrder. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
     protected void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
@@ -489,7 +528,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrderList The collection of displayOrder as inScope. (NullAllowed: if null (or empty), no condition)
+     * @param displayOrderList The collection of displayOrder as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDisplayOrder_InScope(Collection<Integer> displayOrderList) {
         doSetDisplayOrder_InScope(displayOrderList);
@@ -502,7 +541,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
      * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrderList The collection of displayOrder as notInScope. (NullAllowed: if null (or empty), no condition)
+     * @param displayOrderList The collection of displayOrder as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setDisplayOrder_NotInScope(Collection<Integer> displayOrderList) {
         doSetDisplayOrder_NotInScope(displayOrderList);
@@ -520,92 +559,82 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     //                                                                     ===============
     /**
      * Prepare ScalarCondition as equal. <br>
-     * {where FOO = (select max(BAR) from ...)
+     * {where FOO = (select max(BAR) from ...)}
      * <pre>
-     * cb.query().<span style="color: #CC4747">scalar_Equal()</span>.max(new SubQuery&lt;WithdrawalReasonCB&gt;() {
-     *     public void query(WithdrawalReasonCB subCB) {
-     *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
-     *         subCB.query().setYyy...
-     *     }
+     * cb.query().scalar_Equal().<span style="color: #CC4747">avg</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">purchaseCB</span>.specify().<span style="color: #CC4747">columnPurchasePrice</span>(); <span style="color: #3F7E5E">// *Point!</span>
+     *     <span style="color: #553000">purchaseCB</span>.query().setPaymentCompleteFlg_Equal_True();
      * });
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSSQFunction<WithdrawalReasonCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ, WithdrawalReasonCB.class);
+    public HpSLCFunction<WithdrawalReasonCB> scalar_Equal() {
+        return xcreateSLCFunction(CK_EQ, WithdrawalReasonCB.class);
     }
 
     /**
      * Prepare ScalarCondition as equal. <br>
-     * {where FOO &lt;&gt; (select max(BAR) from ...)
+     * {where FOO &lt;&gt; (select max(BAR) from ...)}
      * <pre>
-     * cb.query().<span style="color: #CC4747">scalar_NotEqual()</span>.max(new SubQuery&lt;WithdrawalReasonCB&gt;() {
-     *     public void query(WithdrawalReasonCB subCB) {
-     *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
-     *         subCB.query().setYyy...
-     *     }
+     * cb.query().scalar_Equal().<span style="color: #CC4747">avg</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">purchaseCB</span>.specify().<span style="color: #CC4747">columnPurchasePrice</span>(); <span style="color: #3F7E5E">// *Point!</span>
+     *     <span style="color: #553000">purchaseCB</span>.query().setPaymentCompleteFlg_Equal_True();
      * });
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSSQFunction<WithdrawalReasonCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES, WithdrawalReasonCB.class);
+    public HpSLCFunction<WithdrawalReasonCB> scalar_NotEqual() {
+        return xcreateSLCFunction(CK_NES, WithdrawalReasonCB.class);
     }
 
     /**
      * Prepare ScalarCondition as greaterThan. <br>
-     * {where FOO &gt; (select max(BAR) from ...)
+     * {where FOO &gt; (select max(BAR) from ...)}
      * <pre>
-     * cb.query().<span style="color: #CC4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;WithdrawalReasonCB&gt;() {
-     *     public void query(WithdrawalReasonCB subCB) {
-     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
-     *         subCB.query().setBar...
-     *     }
+     * cb.query().scalar_Equal().<span style="color: #CC4747">avg</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">purchaseCB</span>.specify().<span style="color: #CC4747">columnPurchasePrice</span>(); <span style="color: #3F7E5E">// *Point!</span>
+     *     <span style="color: #553000">purchaseCB</span>.query().setPaymentCompleteFlg_Equal_True();
      * });
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSSQFunction<WithdrawalReasonCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT, WithdrawalReasonCB.class);
+    public HpSLCFunction<WithdrawalReasonCB> scalar_GreaterThan() {
+        return xcreateSLCFunction(CK_GT, WithdrawalReasonCB.class);
     }
 
     /**
      * Prepare ScalarCondition as lessThan. <br>
-     * {where FOO &lt; (select max(BAR) from ...)
+     * {where FOO &lt; (select max(BAR) from ...)}
      * <pre>
-     * cb.query().<span style="color: #CC4747">scalar_LessThan()</span>.max(new SubQuery&lt;WithdrawalReasonCB&gt;() {
-     *     public void query(WithdrawalReasonCB subCB) {
-     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
-     *         subCB.query().setBar...
-     *     }
+     * cb.query().scalar_Equal().<span style="color: #CC4747">avg</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">purchaseCB</span>.specify().<span style="color: #CC4747">columnPurchasePrice</span>(); <span style="color: #3F7E5E">// *Point!</span>
+     *     <span style="color: #553000">purchaseCB</span>.query().setPaymentCompleteFlg_Equal_True();
      * });
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSSQFunction<WithdrawalReasonCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT, WithdrawalReasonCB.class);
+    public HpSLCFunction<WithdrawalReasonCB> scalar_LessThan() {
+        return xcreateSLCFunction(CK_LT, WithdrawalReasonCB.class);
     }
 
     /**
      * Prepare ScalarCondition as greaterEqual. <br>
-     * {where FOO &gt;= (select max(BAR) from ...)
+     * {where FOO &gt;= (select max(BAR) from ...)}
      * <pre>
-     * cb.query().<span style="color: #CC4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;WithdrawalReasonCB&gt;() {
-     *     public void query(WithdrawalReasonCB subCB) {
-     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
-     *         subCB.query().setBar...
-     *     }
+     * cb.query().scalar_Equal().<span style="color: #CC4747">avg</span>(<span style="color: #553000">purchaseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">purchaseCB</span>.specify().<span style="color: #CC4747">columnPurchasePrice</span>(); <span style="color: #3F7E5E">// *Point!</span>
+     *     <span style="color: #553000">purchaseCB</span>.query().setPaymentCompleteFlg_Equal_True();
      * });
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSSQFunction<WithdrawalReasonCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE, WithdrawalReasonCB.class);
+    public HpSLCFunction<WithdrawalReasonCB> scalar_GreaterEqual() {
+        return xcreateSLCFunction(CK_GE, WithdrawalReasonCB.class);
     }
 
     /**
      * Prepare ScalarCondition as lessEqual. <br>
-     * {where FOO &lt;= (select max(BAR) from ...)
+     * {where FOO &lt;= (select max(BAR) from ...)}
      * <pre>
      * cb.query().<span style="color: #CC4747">scalar_LessEqual()</span>.max(new SubQuery&lt;WithdrawalReasonCB&gt;() {
      *     public void query(WithdrawalReasonCB subCB) {
@@ -616,17 +645,17 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSSQFunction<WithdrawalReasonCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE, WithdrawalReasonCB.class);
+    public HpSLCFunction<WithdrawalReasonCB> scalar_LessEqual() {
+        return xcreateSLCFunction(CK_LE, WithdrawalReasonCB.class);
     }
 
     @SuppressWarnings("unchecked")
-    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSLCCustomized<CB> cs, ScalarConditionOption op) {
         assertObjectNotNull("subQuery", sq);
         WithdrawalReasonCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(fn, cb.query(), pp, rd, op);
+        cs.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, cs, op);
     }
     public abstract String keepScalarCondition(WithdrawalReasonCQ sq);
 
@@ -699,7 +728,6 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * <span style="color: #3F7E5E">//   end asc, ...</span>
      *
      * cb.query().addOrderBy_MemberStatusCode_Asc().<span style="color: #CC4747">withManualOrder</span>(<span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">op</span>.<span style="color: #CC4747">when_GreaterEqual</span>(priorityDate); <span style="color: #3F7E5E">// e.g. 2000/01/01</span>
      *     <span style="color: #553000">op</span>.<span style="color: #CC4747">when_Equal</span>(CDef.MemberStatus.Withdrawal);
      *     <span style="color: #553000">op</span>.<span style="color: #CC4747">when_Equal</span>(CDef.MemberStatus.Formalized);
      *     <span style="color: #553000">op</span>.<span style="color: #CC4747">when_Equal</span>(CDef.MemberStatus.Provisional);
@@ -733,6 +761,6 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return WithdrawalReasonCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
-    protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
+    protected String xabSLCS() { return HpSLCSetupper.class.getName(); }
     protected String xabSCP() { return SubQuery.class.getName(); }
 }

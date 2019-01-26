@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsentity;
 
 import java.util.List;
@@ -8,39 +23,43 @@ import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.dbflute.optional.OptionalEntity;
+import org.docksidestage.upgrade.dbflute.allcommon.EntityDefinedCommonColumn;
 import org.docksidestage.upgrade.dbflute.allcommon.DBMetaInstanceHandler;
+import org.docksidestage.upgrade.dbflute.allcommon.CDef;
 import org.docksidestage.upgrade.dbflute.exentity.*;
 
 /**
- * The entity of PURCHASE_PAYMENT as TABLE. <br>
+ * The entity of (購入支払)PURCHASE_PAYMENT as TABLE. <br>
+ * 購入に対する支払。<br>
+ * 分割払いもできるのでmanyとなり、会員からの孫テーブルのテストができてうれしい。
  * <pre>
  * [primary-key]
  *     PURCHASE_PAYMENT_ID
- * 
+ *
  * [column]
  *     PURCHASE_PAYMENT_ID, PURCHASE_ID, PAYMENT_AMOUNT, PAYMENT_DATETIME, PAYMENT_METHOD_CODE, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     PURCHASE_PAYMENT_ID
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     PURCHASE
- * 
+ *
  * [referrer table]
  *     
- * 
+ *
  * [foreign property]
  *     purchase
- * 
+ *
  * [referrer property]
  *     
- * 
+ *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Long purchasePaymentId = entity.getPurchasePaymentId();
@@ -65,7 +84,7 @@ import org.docksidestage.upgrade.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsPurchasePayment extends AbstractEntity implements DomainEntity {
+public abstract class BsPurchasePayment extends AbstractEntity implements DomainEntity, EntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition
@@ -76,28 +95,28 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)} */
+    /** (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)} */
     protected Long _purchasePaymentId;
 
-    /** PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE} */
+    /** (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE} */
     protected Long _purchaseId;
 
-    /** PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)} */
+    /** (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)} */
     protected java.math.BigDecimal _paymentAmount;
 
-    /** PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)} */
+    /** (支払日時)PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(26, 6)} */
     protected java.time.LocalDateTime _paymentDatetime;
 
-    /** PAYMENT_METHOD_CODE: {NotNull, CHAR(3)} */
+    /** (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3), classification=PaymentMethod} */
     protected String _paymentMethodCode;
 
-    /** REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
+    /** REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} */
     protected java.time.LocalDateTime _registerDatetime;
 
     /** REGISTER_USER: {NotNull, VARCHAR(200)} */
     protected String _registerUser;
 
-    /** UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} */
+    /** UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)} */
     protected java.time.LocalDateTime _updateDatetime;
 
     /** UPDATE_USER: {NotNull, VARCHAR(200)} */
@@ -117,8 +136,8 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     // ===================================================================================
-    //                                                                         Primary Key
-    //                                                                         ===========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         if (_purchasePaymentId == null) { return false; }
@@ -126,13 +145,131 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     // ===================================================================================
+    //                                                             Classification Property
+    //                                                             =======================
+    /**
+     * Get the value of paymentMethodCode as the classification of PaymentMethod. <br>
+     * (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3), classification=PaymentMethod} <br>
+     * method of payment for purchase
+     * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
+     * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
+     */
+    public CDef.PaymentMethod getPaymentMethodCodeAsPaymentMethod() {
+        return CDef.PaymentMethod.codeOf(getPaymentMethodCode());
+    }
+
+    /**
+     * Set the value of paymentMethodCode as the classification of PaymentMethod. <br>
+     * (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3), classification=PaymentMethod} <br>
+     * method of payment for purchase
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
+     */
+    public void setPaymentMethodCodeAsPaymentMethod(CDef.PaymentMethod cdef) {
+        setPaymentMethodCode(cdef != null ? cdef.code() : null);
+    }
+
+    // ===================================================================================
+    //                                                              Classification Setting
+    //                                                              ======================
+    /**
+     * Set the value of paymentMethodCode as ByHand (HAN). <br>
+     * by hand: payment by hand, face-to-face
+     */
+    public void setPaymentMethodCode_ByHand() {
+        setPaymentMethodCodeAsPaymentMethod(CDef.PaymentMethod.ByHand);
+    }
+
+    /**
+     * Set the value of paymentMethodCode as BankTransfer (BAK). <br>
+     * bank transfer: bank transfer payment
+     */
+    public void setPaymentMethodCode_BankTransfer() {
+        setPaymentMethodCodeAsPaymentMethod(CDef.PaymentMethod.BankTransfer);
+    }
+
+    /**
+     * Set the value of paymentMethodCode as CreditCard (CRC). <br>
+     * credit card: credit card payment
+     */
+    public void setPaymentMethodCode_CreditCard() {
+        setPaymentMethodCodeAsPaymentMethod(CDef.PaymentMethod.CreditCard);
+    }
+
+    // ===================================================================================
+    //                                                        Classification Determination
+    //                                                        ============================
+    /**
+     * Is the value of paymentMethodCode ByHand? <br>
+     * by hand: payment by hand, face-to-face
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isPaymentMethodCodeByHand() {
+        CDef.PaymentMethod cdef = getPaymentMethodCodeAsPaymentMethod();
+        return cdef != null ? cdef.equals(CDef.PaymentMethod.ByHand) : false;
+    }
+
+    /**
+     * Is the value of paymentMethodCode BankTransfer? <br>
+     * bank transfer: bank transfer payment
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isPaymentMethodCodeBankTransfer() {
+        CDef.PaymentMethod cdef = getPaymentMethodCodeAsPaymentMethod();
+        return cdef != null ? cdef.equals(CDef.PaymentMethod.BankTransfer) : false;
+    }
+
+    /**
+     * Is the value of paymentMethodCode CreditCard? <br>
+     * credit card: credit card payment
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isPaymentMethodCodeCreditCard() {
+        CDef.PaymentMethod cdef = getPaymentMethodCodeAsPaymentMethod();
+        return cdef != null ? cdef.equals(CDef.PaymentMethod.CreditCard) : false;
+    }
+
+    /**
+     * the most recommended method <br>
+     * The group elements:[ByHand]
+     * @return The determination, true or false.
+     */
+    public boolean isPaymentMethodCode_Recommended() {
+        CDef.PaymentMethod cdef = getPaymentMethodCodeAsPaymentMethod();
+        return cdef != null && cdef.isRecommended();
+    }
+
+    // ===================================================================================
+    //                                                           Classification Name/Alias
+    //                                                           =========================
+    /**
+     * Get the value of the column 'paymentMethodCode' as classification name.
+     * @return The string of classification name. (NullAllowed: when the column value is null)
+     */
+    public String getPaymentMethodCodeName() {
+        CDef.PaymentMethod cdef = getPaymentMethodCodeAsPaymentMethod();
+        return cdef != null ? cdef.name() : null;
+    }
+
+    /**
+     * Get the value of the column 'paymentMethodCode' as classification alias.
+     * @return The string of classification alias. (NullAllowed: when the column value is null)
+     */
+    public String getPaymentMethodCodeAlias() {
+        CDef.PaymentMethod cdef = getPaymentMethodCodeAsPaymentMethod();
+        return cdef != null ? cdef.alias() : null;
+    }
+
+    // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
-    /** PURCHASE by my PURCHASE_ID, named 'purchase'. */
+    /** (購入)PURCHASE by my PURCHASE_ID, named 'purchase'. */
     protected OptionalEntity<Purchase> _purchase;
 
     /**
-     * [get] PURCHASE by my PURCHASE_ID, named 'purchase'. <br>
+     * [get] (購入)PURCHASE by my PURCHASE_ID, named 'purchase'. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
      * @return The entity of foreign property 'purchase'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
@@ -142,7 +279,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] PURCHASE by my PURCHASE_ID, named 'purchase'.
+     * [set] (購入)PURCHASE by my PURCHASE_ID, named 'purchase'.
      * @param purchase The entity of foreign property 'purchase'. (NullAllowed)
      */
     public void setPurchase(OptionalEntity<Purchase> purchase) {
@@ -152,7 +289,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
-    protected <ELEMENT> List<ELEMENT> newReferrerList() {
+    protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
 
@@ -228,7 +365,8 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)} <br>
+     * [get] (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)} <br>
+     * 連番
      * @return The value of the column 'PURCHASE_PAYMENT_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getPurchasePaymentId() {
@@ -237,7 +375,8 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)} <br>
+     * [set] (購入支払ID)PURCHASE_PAYMENT_ID: {PK, ID, NotNull, BIGINT(19)} <br>
+     * 連番
      * @param purchasePaymentId The value of the column 'PURCHASE_PAYMENT_ID'. (basically NotNull if update: for the constraint)
      */
     public void setPurchasePaymentId(Long purchasePaymentId) {
@@ -246,7 +385,8 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE} <br>
+     * [get] (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE} <br>
+     * 支払い対象の購入へのID
      * @return The value of the column 'PURCHASE_ID'. (basically NotNull if selected: for the constraint)
      */
     public Long getPurchaseId() {
@@ -255,7 +395,8 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE} <br>
+     * [set] (購入ID)PURCHASE_ID: {IX, NotNull, BIGINT(19), FK to PURCHASE} <br>
+     * 支払い対象の購入へのID
      * @param purchaseId The value of the column 'PURCHASE_ID'. (basically NotNull if update: for the constraint)
      */
     public void setPurchaseId(Long purchaseId) {
@@ -264,7 +405,8 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)} <br>
+     * [get] (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)} <br>
+     * 支払った金額。さて、小数点なのはなぜでしょう？
      * @return The value of the column 'PAYMENT_AMOUNT'. (basically NotNull if selected: for the constraint)
      */
     public java.math.BigDecimal getPaymentAmount() {
@@ -273,7 +415,8 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)} <br>
+     * [set] (支払金額)PAYMENT_AMOUNT: {NotNull, DECIMAL(10, 2)} <br>
+     * 支払った金額。さて、小数点なのはなぜでしょう？
      * @param paymentAmount The value of the column 'PAYMENT_AMOUNT'. (basically NotNull if update: for the constraint)
      */
     public void setPaymentAmount(java.math.BigDecimal paymentAmount) {
@@ -282,7 +425,8 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)} <br>
+     * [get] (支払日時)PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(26, 6)} <br>
+     * 支払ったときの日時
      * @return The value of the column 'PAYMENT_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getPaymentDatetime() {
@@ -291,7 +435,8 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(23, 10)} <br>
+     * [set] (支払日時)PAYMENT_DATETIME: {IX+, NotNull, TIMESTAMP(26, 6)} <br>
+     * 支払ったときの日時
      * @param paymentDatetime The value of the column 'PAYMENT_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setPaymentDatetime(java.time.LocalDateTime paymentDatetime) {
@@ -300,7 +445,8 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] PAYMENT_METHOD_CODE: {NotNull, CHAR(3)} <br>
+     * [get] (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3), classification=PaymentMethod} <br>
+     * 手渡しや銀行振込など
      * @return The value of the column 'PAYMENT_METHOD_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getPaymentMethodCode() {
@@ -309,16 +455,18 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] PAYMENT_METHOD_CODE: {NotNull, CHAR(3)} <br>
+     * [set] (支払方法コード)PAYMENT_METHOD_CODE: {NotNull, CHAR(3), classification=PaymentMethod} <br>
+     * 手渡しや銀行振込など
      * @param paymentMethodCode The value of the column 'PAYMENT_METHOD_CODE'. (basically NotNull if update: for the constraint)
      */
-    public void setPaymentMethodCode(String paymentMethodCode) {
+    protected void setPaymentMethodCode(String paymentMethodCode) {
+        checkClassificationCode("PAYMENT_METHOD_CODE", CDef.DefMeta.PaymentMethod, paymentMethodCode);
         registerModifiedProperty("paymentMethodCode");
         _paymentMethodCode = paymentMethodCode;
     }
 
     /**
-     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * [get] REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
      * @return The value of the column 'REGISTER_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getRegisterDatetime() {
@@ -327,7 +475,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * [set] REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setRegisterDatetime(java.time.LocalDateTime registerDatetime) {
@@ -354,7 +502,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * [get] UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
      * @return The value of the column 'UPDATE_DATETIME'. (basically NotNull if selected: for the constraint)
      */
     public java.time.LocalDateTime getUpdateDatetime() {
@@ -363,7 +511,7 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)} <br>
+     * [set] UPDATE_DATETIME: {NotNull, TIMESTAMP(26, 6)} <br>
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setUpdateDatetime(java.time.LocalDateTime updateDatetime) {
@@ -387,5 +535,13 @@ public abstract class BsPurchasePayment extends AbstractEntity implements Domain
     public void setUpdateUser(String updateUser) {
         registerModifiedProperty("updateUser");
         _updateUser = updateUser;
+    }
+
+    /**
+     * For framework so basically DON'T use this method.
+     * @param paymentMethodCode The value of the column 'PAYMENT_METHOD_CODE'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingPaymentMethodCode(String paymentMethodCode) {
+        setPaymentMethodCode(paymentMethodCode);
     }
 }

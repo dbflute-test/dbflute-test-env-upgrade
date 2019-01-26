@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.bsentity;
 
 import java.util.List;
@@ -7,38 +22,40 @@ import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.docksidestage.upgrade.dbflute.allcommon.DBMetaInstanceHandler;
+import org.docksidestage.upgrade.dbflute.allcommon.CDef;
 import org.docksidestage.upgrade.dbflute.exentity.*;
 
 /**
- * The entity of WITHDRAWAL_REASON as TABLE. <br>
+ * The entity of (退会理由)WITHDRAWAL_REASON as TABLE. <br>
+ * 会員に選ばせる定型的な退会理由のマスタ。そういえば、これ表示順カラムがないですねぇ...
  * <pre>
  * [primary-key]
  *     WITHDRAWAL_REASON_CODE
- * 
+ *
  * [column]
  *     WITHDRAWAL_REASON_CODE, WITHDRAWAL_REASON_TEXT, DISPLAY_ORDER
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     
- * 
+ *
  * [referrer table]
  *     MEMBER_WITHDRAWAL
- * 
+ *
  * [foreign property]
  *     
- * 
+ *
  * [referrer property]
  *     memberWithdrawalList
- * 
+ *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * String withdrawalReasonCode = entity.getWithdrawalReasonCode();
@@ -62,10 +79,10 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)} */
+    /** (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} */
     protected String _withdrawalReasonCode;
 
-    /** WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} */
+    /** (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} */
     protected String _withdrawalReasonText;
 
     /** DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)} */
@@ -85,8 +102,8 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     }
 
     // ===================================================================================
-    //                                                                         Primary Key
-    //                                                                         ===========
+    //                                                                        Key Handling
+    //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
         if (_withdrawalReasonCode == null) { return false; }
@@ -105,16 +122,122 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     }
 
     // ===================================================================================
+    //                                                             Classification Property
+    //                                                             =======================
+    /**
+     * Get the value of withdrawalReasonCode as the classification of WithdrawalReason. <br>
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * reason for member withdrawal
+     * <p>It's treated as case insensitive and if the code value is null, it returns null.</p>
+     * @return The instance of classification definition (as ENUM type). (NullAllowed: when the column value is null)
+     */
+    public CDef.WithdrawalReason getWithdrawalReasonCodeAsWithdrawalReason() {
+        return CDef.WithdrawalReason.codeOf(getWithdrawalReasonCode());
+    }
+
+    /**
+     * Set the value of withdrawalReasonCode as the classification of WithdrawalReason. <br>
+     * (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
+     * reason for member withdrawal
+     * @param cdef The instance of classification definition (as ENUM type). (NullAllowed: if null, null value is set to the column)
+     */
+    public void setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason cdef) {
+        setWithdrawalReasonCode(cdef != null ? cdef.code() : null);
+    }
+
+    // ===================================================================================
+    //                                                              Classification Setting
+    //                                                              ======================
+    /**
+     * Set the value of withdrawalReasonCode as Sit (SIT). <br>
+     * SIT: サイトが使いにくいから
+     */
+    public void setWithdrawalReasonCode_Sit() {
+        setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason.Sit);
+    }
+
+    /**
+     * Set the value of withdrawalReasonCode as Prd (PRD). <br>
+     * PRD: 商品に魅力がないから
+     */
+    public void setWithdrawalReasonCode_Prd() {
+        setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason.Prd);
+    }
+
+    /**
+     * Set the value of withdrawalReasonCode as Frt (FRT). <br>
+     * FRT: フリテンだから
+     */
+    public void setWithdrawalReasonCode_Frt() {
+        setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason.Frt);
+    }
+
+    /**
+     * Set the value of withdrawalReasonCode as Oth (OTH). <br>
+     * OTH: その他理由
+     */
+    public void setWithdrawalReasonCode_Oth() {
+        setWithdrawalReasonCodeAsWithdrawalReason(CDef.WithdrawalReason.Oth);
+    }
+
+    // ===================================================================================
+    //                                                        Classification Determination
+    //                                                        ============================
+    /**
+     * Is the value of withdrawalReasonCode Sit? <br>
+     * SIT: サイトが使いにくいから
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isWithdrawalReasonCodeSit() {
+        CDef.WithdrawalReason cdef = getWithdrawalReasonCodeAsWithdrawalReason();
+        return cdef != null ? cdef.equals(CDef.WithdrawalReason.Sit) : false;
+    }
+
+    /**
+     * Is the value of withdrawalReasonCode Prd? <br>
+     * PRD: 商品に魅力がないから
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isWithdrawalReasonCodePrd() {
+        CDef.WithdrawalReason cdef = getWithdrawalReasonCodeAsWithdrawalReason();
+        return cdef != null ? cdef.equals(CDef.WithdrawalReason.Prd) : false;
+    }
+
+    /**
+     * Is the value of withdrawalReasonCode Frt? <br>
+     * FRT: フリテンだから
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isWithdrawalReasonCodeFrt() {
+        CDef.WithdrawalReason cdef = getWithdrawalReasonCodeAsWithdrawalReason();
+        return cdef != null ? cdef.equals(CDef.WithdrawalReason.Frt) : false;
+    }
+
+    /**
+     * Is the value of withdrawalReasonCode Oth? <br>
+     * OTH: その他理由
+     * <p>It's treated as case insensitive and if the code value is null, it returns false.</p>
+     * @return The determination, true or false.
+     */
+    public boolean isWithdrawalReasonCodeOth() {
+        CDef.WithdrawalReason cdef = getWithdrawalReasonCodeAsWithdrawalReason();
+        return cdef != null ? cdef.equals(CDef.WithdrawalReason.Oth) : false;
+    }
+
+    // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
-    /** MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'. */
+    /** (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'. */
     protected List<MemberWithdrawal> _memberWithdrawalList;
 
     /**
-     * [get] MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
+     * [get] (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * @return The entity list of referrer property 'memberWithdrawalList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberWithdrawal> getMemberWithdrawalList() {
@@ -123,14 +246,14 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
+     * [set] (会員退会情報)MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * @param memberWithdrawalList The entity list of referrer property 'memberWithdrawalList'. (NullAllowed)
      */
     public void setMemberWithdrawalList(List<MemberWithdrawal> memberWithdrawalList) {
         _memberWithdrawalList = memberWithdrawalList;
     }
 
-    protected <ELEMENT> List<ELEMENT> newReferrerList() {
+    protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
 
@@ -197,7 +320,7 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)} <br>
+     * [get] (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
      * @return The value of the column 'WITHDRAWAL_REASON_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getWithdrawalReasonCode() {
@@ -206,16 +329,19 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)} <br>
+     * [set] (退会理由コード)WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3), classification=WithdrawalReason} <br>
      * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (basically NotNull if update: for the constraint)
      */
-    public void setWithdrawalReasonCode(String withdrawalReasonCode) {
+    protected void setWithdrawalReasonCode(String withdrawalReasonCode) {
+        checkClassificationCode("WITHDRAWAL_REASON_CODE", CDef.DefMeta.WithdrawalReason, withdrawalReasonCode);
         registerModifiedProperty("withdrawalReasonCode");
         _withdrawalReasonCode = withdrawalReasonCode;
     }
 
     /**
-     * [get] WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
+     * [get] (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
+     * 退会理由の内容。<br>
+     * テキスト形式なので目いっぱい書けるが、そうするとUI側できれいに見せるのが大変でしょうね。
      * @return The value of the column 'WITHDRAWAL_REASON_TEXT'. (basically NotNull if selected: for the constraint)
      */
     public String getWithdrawalReasonText() {
@@ -224,7 +350,9 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     }
 
     /**
-     * [set] WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
+     * [set] (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)} <br>
+     * 退会理由の内容。<br>
+     * テキスト形式なので目いっぱい書けるが、そうするとUI側できれいに見せるのが大変でしょうね。
      * @param withdrawalReasonText The value of the column 'WITHDRAWAL_REASON_TEXT'. (basically NotNull if update: for the constraint)
      */
     public void setWithdrawalReasonText(String withdrawalReasonText) {
@@ -248,5 +376,13 @@ public abstract class BsWithdrawalReason extends AbstractEntity implements Domai
     public void setDisplayOrder(Integer displayOrder) {
         registerModifiedProperty("displayOrder");
         _displayOrder = displayOrder;
+    }
+
+    /**
+     * For framework so basically DON'T use this method.
+     * @param withdrawalReasonCode The value of the column 'WITHDRAWAL_REASON_CODE'. (basically NotNull if update: for the constraint)
+     */
+    public void mynativeMappingWithdrawalReasonCode(String withdrawalReasonCode) {
+        setWithdrawalReasonCode(withdrawalReasonCode);
     }
 }

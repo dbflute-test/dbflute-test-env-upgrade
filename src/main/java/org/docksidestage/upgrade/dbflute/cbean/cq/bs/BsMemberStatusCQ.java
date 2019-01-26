@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014-2015 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.docksidestage.upgrade.dbflute.cbean.cq.bs;
 
 import java.util.Map;
@@ -8,9 +23,9 @@ import org.dbflute.cbean.coption.*;
 import org.dbflute.cbean.cvalue.ConditionValue;
 import org.dbflute.cbean.sqlclause.SqlClause;
 import org.dbflute.exception.IllegalConditionBeanOperationException;
+import org.docksidestage.upgrade.dbflute.cbean.cq.ciq.*;
 import org.docksidestage.upgrade.dbflute.cbean.*;
 import org.docksidestage.upgrade.dbflute.cbean.cq.*;
-import org.docksidestage.upgrade.dbflute.cbean.cq.ciq.*;
 
 /**
  * The base condition-query of MEMBER_STATUS.
@@ -107,16 +122,16 @@ public class BsMemberStatusCQ extends AbstractBsMemberStatusCQ {
     public Map<String, Object> xdfgetMemberStatusCode_QueryDerivedReferrer_MemberLoginListParameter() { return xgetSQuePmMap("memberStatusCode_QueryDerivedReferrer_MemberLoginList"); }
     public String keepMemberStatusCode_QueryDerivedReferrer_MemberLoginListParameter(Object pm) { return xkeepSQuePm("memberStatusCode_QueryDerivedReferrer_MemberLoginList", pm); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3)}
+     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_MemberStatusCode_Asc() { regOBA("MEMBER_STATUS_CODE"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3)}
+     * (会員ステータスコード)MEMBER_STATUS_CODE: {PK, NotNull, CHAR(3), classification=MemberStatus}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_MemberStatusCode_Desc() { regOBD("MEMBER_STATUS_CODE"); return this; }
@@ -127,16 +142,16 @@ public class BsMemberStatusCQ extends AbstractBsMemberStatusCQ {
       return _memberStatusName; }
     protected ConditionValue xgetCValueMemberStatusName() { return xdfgetMemberStatusName(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_MemberStatusName_Asc() { regOBA("MEMBER_STATUS_NAME"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
+     * (会員ステータス名称)MEMBER_STATUS_NAME: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_MemberStatusName_Desc() { regOBD("MEMBER_STATUS_NAME"); return this; }
@@ -147,16 +162,16 @@ public class BsMemberStatusCQ extends AbstractBsMemberStatusCQ {
       return _description; }
     protected ConditionValue xgetCValueDescription() { return xdfgetDescription(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * DESCRIPTION: {NotNull, VARCHAR(200)}
+     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_Description_Asc() { regOBA("DESCRIPTION"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * DESCRIPTION: {NotNull, VARCHAR(200)}
+     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_Description_Desc() { regOBD("DESCRIPTION"); return this; }
@@ -167,16 +182,16 @@ public class BsMemberStatusCQ extends AbstractBsMemberStatusCQ {
       return _displayOrder; }
     protected ConditionValue xgetCValueDisplayOrder() { return xdfgetDisplayOrder(); }
 
-    /** 
+    /**
      * Add order-by as ascend. <br>
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_DisplayOrder_Asc() { regOBA("DISPLAY_ORDER"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
+     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
      * @return this. (NotNull)
      */
     public BsMemberStatusCQ addOrderBy_DisplayOrder_Desc() { regOBD("DISPLAY_ORDER"); return this; }
