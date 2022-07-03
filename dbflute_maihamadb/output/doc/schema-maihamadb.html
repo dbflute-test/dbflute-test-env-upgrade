@@ -772,7 +772,7 @@ pre.spolicyviodisp {
 		<td class="relcell"><a href="#member_withdrawal" title="FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON">MEMBER_WITHDRAWAL</a></td>
 		<td class="commentcell WITHDRAWAL_REASON_comment"><pre>会員に選ばせる定型的な退会理由のマスタ。そういえば、これ表示順カラムがないですねぇ...</pre></td>
 		<td class="subcell">WithdrawalReason</td>
-		<td class="subcell">2022/07/03</td>
+		<td class="subcell"></td>
 	</tr>
 	<tr>
 		<td class="rownumcell">23</td>
@@ -4330,7 +4330,6 @@ VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF
 
 <h2 id="withdrawal_reason" title="type=TABLE, primaryKey={WITHDRAWAL_REASON_CODE}, nameLength=17, columnCount=3">
 (退会理由)WITHDRAWAL_REASON
-&nbsp;<span class="tablefirstdatetitle">since 2022/07/03</span>
 </h2>
 <div class="tablecomment WITHDRAWAL_REASON_comment" data-name="WITHDRAWAL_REASON"><pre>会員に選ばせる定型的な退会理由のマスタ。そういえば、これ表示順カラムがないですねぇ...</pre></div>
 <input type="hidden" value="WITHDRAWAL_REASON">
@@ -4353,7 +4352,6 @@ VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF
 		<th>ColumnComment</th>
 		<th>PropertyName</th>
 		<th>JavaType</th>
-		<th>Since</th>
 	</tr>
 	</thead>
 	<tbody id="withdrawal_reason-body">
@@ -4374,7 +4372,6 @@ VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF
 		<td class="commentcell"><pre>&nbsp;</pre></td>
 		<td class="subcell">withdrawalReasonCode</td>
 		<td class="subcell">String</td>
-		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -4394,7 +4391,6 @@ VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF
 テキスト形式なので目いっぱい書けるが、そうするとUI側できれいに見せるのが大変でしょうね。</pre></td>
 		<td class="subcell">withdrawalReasonText</td>
 		<td class="subcell">String</td>
-		<td class="subcell">first</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
@@ -4413,7 +4409,6 @@ VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF
 		<td class="commentcell"><pre>&nbsp;</pre></td>
 		<td class="subcell">displayOrder</td>
 		<td class="subcell">Integer</td>
-		<td class="subcell">first</td>
 	</tr>
 	</tbody>
 </table>
@@ -5605,24 +5600,6 @@ function StoreClient() {
 				]
 			}
 			, {
-				'tableName': 'MEMBER_FOLLOWING'
-				, 'mappings' : [
-				]
-				, 'properties': [
-						{
-						'decomment': 'とある会員が他の会員をフォローできる。すると、フォローした会員の購入履歴が閲覧できる。<br>sea'
-						, 'databaseComment': 'とある会員が他の会員をフォローできる。すると、フォローした会員の購入履歴が閲覧できる。'
-						, 'commentVersion': 0
-						, 'authors': ['jflute']
-						, 'pieceCode': 'be4676cf'
-						, 'pieceDatatime': '2018-06-30T10:39:25.377'
-						, 'previousPieces': []
-					}
-				]
-				, 'columns': [
-				]
-			}
-			, {
 				'tableName': 'MEMBER'
 				, 'mappings' : [
 				]
@@ -5635,6 +5612,24 @@ function StoreClient() {
 						, 'pieceCode': 'c0c6b401'
 						, 'pieceDatatime': '2018-10-25T12:27:47.881'
 						, 'previousPieces': ['fae9411e']
+					}
+				]
+				, 'columns': [
+				]
+			}
+			, {
+				'tableName': 'MEMBER_FOLLOWING'
+				, 'mappings' : [
+				]
+				, 'properties': [
+						{
+						'decomment': 'とある会員が他の会員をフォローできる。すると、フォローした会員の購入履歴が閲覧できる。<br>sea'
+						, 'databaseComment': 'とある会員が他の会員をフォローできる。すると、フォローした会員の購入履歴が閲覧できる。'
+						, 'commentVersion': 0
+						, 'authors': ['jflute']
+						, 'pieceCode': 'be4676cf'
+						, 'pieceDatatime': '2018-06-30T10:39:25.377'
+						, 'previousPieces': []
 					}
 				]
 				, 'columns': [

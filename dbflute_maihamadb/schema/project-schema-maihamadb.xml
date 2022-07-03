@@ -780,28 +780,10 @@
         </unique>
     </table>
     <sequenceGroup>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_27E0A1EE_1F21_4DB7_BB55_562E90E6B22C" schema="MAIHAMADB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_AEFA9F2F_7F7F_4F91_8262_5D23CDBB7200" schema="MAIHAMADB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_FF44952E_E0D3_4928_B2C3_EA098C8E6C48" schema="MAIHAMADB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_FA1DDC6F_AAD9_4919_8FC8_44594A759F1B" schema="MAIHAMADB.PUBLIC"/>
         <sequence incrementSize="-1" name="SEQ_DECREMENT" schema="MAIHAMADB.PUBLIC"/>
         <sequence incrementSize="8" name="SEQ_PURCHASE" schema="MAIHAMADB.PUBLIC"/>
         <sequence incrementSize="3" name="SEQ_MEMBER_LOGIN" schema="MAIHAMADB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_4E930D79_01F9_4992_A6D1_690516B06120" schema="MAIHAMADB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_B6285FC7_0DF5_4DD5_89FF_57C5F7C95B09" schema="MAIHAMADB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_A6D882A9_3758_438B_8902_52A2E72A086F" schema="MAIHAMADB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_ED82D598_1FF1_4F95_A22C_4AADCDBED324" schema="MAIHAMADB.PUBLIC"/>
         <sequence incrementSize="1" name="SEQ_NOT_RELATED_TO_TABLE" schema="MAIHAMADB.PUBLIC"/>
         <sequence incrementSize="1" name="SEQ_MEMBER" schema="MAIHAMADB.PUBLIC"/>
-        <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_335FE6E0_E2A8_414F_8B9D_18412358B69C" schema="MAIHAMADB.PUBLIC"/>
     </sequenceGroup>
 </database>
