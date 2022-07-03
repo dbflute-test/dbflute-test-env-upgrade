@@ -1,18 +1,3 @@
-/*
- * Copyright 2014-2022 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
 package org.docksidestage.upgrade.dbflute.cbean.cq.bs;
 
 import java.util.Map;
@@ -556,14 +541,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * TYPE_OF_UUID: {UUID(2147483647)}
+     * TYPE_OF_UUID: {UUID(16)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfUuid_Asc() { regOBA("TYPE_OF_UUID"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * TYPE_OF_UUID: {UUID(2147483647)}
+     * TYPE_OF_UUID: {UUID(16)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfUuid_Desc() { regOBD("TYPE_OF_UUID"); return this; }
@@ -576,14 +561,14 @@ public class BsVendorCheckCQ extends AbstractBsVendorCheckCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * TYPE_OF_ARRAY: {ARRAY}
+     * TYPE_OF_ARRAY: {ARRAY(2147483647)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfArray_Asc() { regOBA("TYPE_OF_ARRAY"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * TYPE_OF_ARRAY: {ARRAY}
+     * TYPE_OF_ARRAY: {ARRAY(2147483647)}
      * @return this. (NotNull)
      */
     public BsVendorCheckCQ addOrderBy_TypeOfArray_Desc() { regOBD("TYPE_OF_ARRAY"); return this; }
