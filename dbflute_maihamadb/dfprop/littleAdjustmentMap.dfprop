@@ -26,8 +26,9 @@
 # *The line that starts with '#' means comment-out.
 #
 map:{
-    # to avoid unneeded differences
+    # to avoid unneeded differences from H2 database random naming
     ; isFilterSystemRandomDefaultValue = true
+    ; isSuppressSystemRandomSequence = true
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isAvailableAddingSchemaToTableSqlName: (NotRequired - Default false)
