@@ -26,6 +26,9 @@
 # *The line that starts with '#' means comment-out.
 #
 map:{
+    # to avoid unneeded differences
+    ; isFilterSystemRandomDefaultValue = true
+
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o isAvailableAddingSchemaToTableSqlName: (NotRequired - Default false)
     #   [true]

@@ -1,0 +1,2728 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- main language (to avoid HTML validator) -->
+<head>
+	<meta charset="UTF-8" />
+	<title>maihamadb history</title>
+	<style type="text/css">
+/* -------------------------------------------------
+                                             Core
+------------------------------------------------- */
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	font-family: Verdana, "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", Meiryo, "メイリオ", "MS P Gothic", "MS Pゴシック", sans-serif;
+	font-size: 80%;
+	margin: 1em 1.5em;
+	background-color: #ffffee;
+}
+
+/* -------------------------------------------------
+                                        Structure
+------------------------------------------------- */
+h1 {
+	font-size: 1.6em;
+	border-bottom: 2px solid #af0000;
+	border-top: 2px solid #af0000;
+}
+h2 {
+	margin: 30px 0 5px 0;
+	border-bottom: 2px solid #af0000;
+	border-left: 10px solid #af0000;
+	text-indent: 1em;
+	font-size: 1.6em;
+}
+h3 {
+	width: 14em;
+	margin: 0.8em 0;
+	padding-left: 1.8em;
+	border-bottom: solid 1px #333;
+	color: #AA7777;
+	font-size: 1.2em;
+}
+h4 {
+	margin: 1em 0em;
+	font-size: 1em;
+	font-weight: normal;
+	display: list-item;
+}
+h5 {
+	width: 11em;
+	font-size: 0.8em;
+	border-bottom: solid 1px #333;
+	text-indent: 0.3em;
+	color: #AA7777;
+}
+
+/* -------------------------------------------------
+                                     Whole Header
+------------------------------------------------- */
+.updatedate {
+	text-align: right;
+}
+.mainschema {
+	text-align: right;
+}
+.navilinkarea {
+	text-align: right;
+}
+.sisterlink {
+	margin-top: 0.6em;
+	font-size: 1.2em;
+}
+.sistersublink {
+	margin-top: 0.6em;
+	font-size: 0.85em;
+}
+
+/* -------------------------------------------------
+                                Difference Header
+------------------------------------------------- */
+.titlediffno {
+	font-size: 0.8em;
+	font-weight: normal;
+	font-style: italic;
+}
+.titlediffdatepart {
+	font-size: 1.1em;
+}
+.titledifftimepart {
+	font-size: 0.8em;
+}
+.diffcomment {
+	font-size: 1.0em;
+	color: #3F7E5E;
+	padding:0 0 0.2em 1em;
+}
+.commenterror {
+	color: red;
+}
+.tablecount {
+	margin: 0.5em 0 0.5em 1em;
+}
+.titlediffauthor {
+	font-size: 0.7em;
+	font-weight: normal;
+	font-style: italic;
+	color: #888888;
+}
+.titlediffgitbranch {
+	font-size: 0.7em;
+	font-weight: normal;
+	font-style: italic;
+	color: #888888;
+}
+
+/* -------------------------------------------------
+                               Difference Content
+------------------------------------------------- */
+.table-content {
+	margin: 0 6em;
+}
+.column-content {
+	margin: 0.5em 1em 0.5em 3em;
+	line-height: 1.4em;
+}
+
+div.change-table-content {
+	margin-left: 3em;
+}
+
+dl.column-content dt {
+	display: list-item;
+}
+dl.column-content dd {
+	margin: 0 4em;
+}
+dl.column-content dd span {
+	display: block;
+	float: left;
+	width: 6em;
+	margin-right: 1.5em;
+	border-right: dotted 2px #333;
+	font-weight: bold;
+	font-size: 80%;
+	color: #AA7777;
+}
+
+/* -------------------------------------------------
+                                  Hacomment Modal
+------------------------------------------------- */
+.hacommentmodal {
+	display: none;
+	position: fixed;
+	z-index: 5;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	padding-top: 50px;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+.hacommentmodalcontent {
+	position: relative;
+	z-index: 10;
+	width: 50%;
+	margin: 0 auto;
+	border: 1px solid #999999;
+	padding: 15px;
+	background-color: #ffffff;
+	border-radius: 4px;
+}
+.hacommentmodalcontent p {
+	font-size: 14px;
+}
+.hacommentinput {
+	display: block;
+	width: 100%;
+	margin-top: 10px;
+	font-size: 12px;
+}
+.hacommentmodal-ok-btn {
+	margin: 10px 5px 0 0;
+	padding: 5px 10px;
+	border-radius: 4px;
+}
+.hacommentmodal-close-btn {
+	position: absolute;
+	margin-left: 10px;
+	padding: 0;
+	right: 10px;
+	top: 5px;
+	cursor: pointer;
+	width: 28px;
+	height: 28px;
+	border: 0;
+	border-radius: 50%;
+	color: #657786;
+	font-size: 14px;
+	line-height: 24px;
+	text-align: center;
+	transition: box-shadow .15s ease-in-out;
+}
+.hacommentmodal-close-btn:hover {
+	background-color: #eed;
+}
+	</style>
+</head>
+
+<body>
+<h1>History for maihamadb (h2)</h1>
+<div class="navilinkarea">
+<p class="sisterlink"><a href="./schema-maihamadb.html">to SchemaHTML</a></p>
+</div>
+
+<div class="section diffCode_20220703155759">
+	<h2>
+		<span class="titlediffno">diffNo. 70:</span> <span class="titlediffdatepart">2022/07/03</span> <span class="titledifftimepart">15:57:59</span>
+		<span class="titlediffauthor">by jflute</span>
+		<span class="titlediffgitbranch">on since126/committed</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4><a href="./schema-maihamadb.html#member">MEMBER</a></h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>MEMBER_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_random_filtered</dd>
+			</dl>
+		</div>
+		<h4><a href="./schema-maihamadb.html#member_address">MEMBER_ADDRESS</a></h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>MEMBER_ADDRESS_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_random_filtered</dd>
+			</dl>
+		</div>
+		<h4><a href="./schema-maihamadb.html#member_following">MEMBER_FOLLOWING</a></h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>MEMBER_FOLLOWING_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_random_filtered</dd>
+			</dl>
+		</div>
+		<h4><a href="./schema-maihamadb.html#member_login">MEMBER_LOGIN</a></h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>MEMBER_LOGIN_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_random_filtered</dd>
+			</dl>
+		</div>
+		<h4><a href="./schema-maihamadb.html#member_service">MEMBER_SERVICE</a></h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>MEMBER_SERVICE_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_random_filtered</dd>
+			</dl>
+		</div>
+		<h4><a href="./schema-maihamadb.html#product">PRODUCT</a></h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>PRODUCT_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_random_filtered</dd>
+			</dl>
+		</div>
+		<h4><a href="./schema-maihamadb.html#purchase">PURCHASE</a></h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>PURCHASE_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_random_filtered</dd>
+			</dl>
+		</div>
+		<h4><a href="./schema-maihamadb.html#purchase_payment">PURCHASE_PAYMENT</a></h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>PURCHASE_PAYMENT_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_random_filtered</dd>
+			</dl>
+		</div>
+		<h4><a href="./schema-maihamadb.html#vendor_identity_only">VENDOR_IDENTITY_ONLY</a></h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>IDENTITY_ONLY_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_random_filtered</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20220703155717">
+	<h2>
+		<span class="titlediffno">diffNo. 69:</span> <span class="titlediffdatepart">2022/07/03</span> <span class="titledifftimepart">15:57:17</span>
+		<span class="titlediffauthor">by jflute</span>
+		<span class="titlediffgitbranch">on since126/committed</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 0&nbsp;-&gt;&nbsp;24</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>MEMBER</li>
+		<li>MEMBER_ADDRESS</li>
+		<li>MEMBER_FOLLOWING</li>
+		<li>MEMBER_LOGIN</li>
+		<li>MEMBER_SECURITY</li>
+		<li>MEMBER_SERVICE</li>
+		<li>MEMBER_STATUS</li>
+		<li>MEMBER_WITHDRAWAL</li>
+		<li>PRODUCT</li>
+		<li>PRODUCT_CATEGORY</li>
+		<li>PRODUCT_STATUS</li>
+		<li>PURCHASE</li>
+		<li>PURCHASE_PAYMENT</li>
+		<li>REGION</li>
+		<li>SERVICE_RANK</li>
+		<li>SUMMARY_PRODUCT</li>
+		<li>SUMMARY_WITHDRAWAL</li>
+		<li>VENDOR_$_DOLLAR</li>
+		<li>VENDOR_CHECK</li>
+		<li>VENDOR_IDENTITY_ONLY</li>
+		<li>VENDOR_PRIMARY_KEY_ONLY</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF</li>
+		<li>WITHDRAWAL_REASON</li>
+	</ul>
+</div>
+<div class="section diffCode_20220703155325">
+	<h2>
+		<span class="titlediffno">diffNo. 68:</span> <span class="titlediffdatepart">2022/07/03</span> <span class="titledifftimepart">15:53:25</span>
+		<span class="titlediffauthor">by jflute</span>
+		<span class="titlediffgitbranch">on since126/committed</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>MEMBER_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_F8F5A0EA_3EDF_4E12_9A63_171AF93D24A1"&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered</dd>
+			</dl>
+		</div>
+		<h4>MEMBER_ADDRESS</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>MEMBER_ADDRESS_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_64BC7B99_6ACA_463D_BB16_13E87C28AA63"&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered</dd>
+			</dl>
+		</div>
+		<h4>MEMBER_FOLLOWING</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>MEMBER_FOLLOWING_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_ADEE5521_4175_4C4F_B6C6_C468CC5149CF"&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered</dd>
+			</dl>
+		</div>
+		<h4>MEMBER_LOGIN</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>MEMBER_LOGIN_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_34C0EB39_8B1B_46E1_8DFF_F08300989E9D"&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered</dd>
+			</dl>
+		</div>
+		<h4>MEMBER_SERVICE</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>MEMBER_SERVICE_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_86F8FFE8_A2BC_400A_B8FA_860CF93A8561"&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered</dd>
+			</dl>
+		</div>
+		<h4>PRODUCT</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>PRODUCT_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_FB5B173B_B4E6_4B77_87F3_07C0F8AA4307"&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered</dd>
+			</dl>
+		</div>
+		<h4>PURCHASE</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>PURCHASE_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_0AFDB3A2_E440_4EDB_81AF_99291C2F0805"&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered</dd>
+			</dl>
+		</div>
+		<h4>PURCHASE_PAYMENT</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>PURCHASE_PAYMENT_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_C34DF1C7_0A59_41DE_8820_023AD4B28EF1"&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered</dd>
+			</dl>
+		</div>
+		<h4>VENDOR_IDENTITY_ONLY</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>IDENTITY_ONLY_ID</dt>
+				<dd><span>Default</span>NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."SYSTEM_SEQUENCE_62740A97_82E1_4533_84D8_D90AE987C990"&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;"PUBLIC"."random_filtered</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20220703152348">
+	<h2>
+		<span class="titlediffno">diffNo. 67:</span> <span class="titlediffdatepart">2022/07/03</span> <span class="titledifftimepart">15:23:48</span>
+		<span class="titlediffauthor">by jflute</span>
+		<span class="titlediffgitbranch">on since126/committed</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>VENDOR_CHECK</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>TYPE_OF_UUID</dt>
+				<dd><span>Size</span>2147483647&nbsp;-&gt;&nbsp;16</dd>
+				<dt>TYPE_OF_ARRAY</dt>
+				<dd><span>Size</span>null&nbsp;-&gt;&nbsp;2147483647</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20180519182658">
+	<h2>
+		<span class="titlediffno">diffNo. 66:</span> <span class="titlediffdatepart">2018/05/19</span> <span class="titledifftimepart">18:26:58</span>
+		<span class="titlediffauthor">by jflute</span>
+		<span class="titlediffgitbranch">on master</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>FORMALIZED_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+				<dt>BIRTHDATE</dt>
+				<dd><span>Size</span>8&nbsp;-&gt;&nbsp;10</dd>
+				<dt>REGISTER_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+				<dt>UPDATE_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+			</dl>
+		</div>
+		<h4>MEMBER_ADDRESS</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>VALID_BEGIN_DATE</dt>
+				<dd><span>Size</span>8&nbsp;-&gt;&nbsp;10</dd>
+				<dt>VALID_END_DATE</dt>
+				<dd><span>Size</span>8&nbsp;-&gt;&nbsp;10</dd>
+				<dt>REGISTER_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+				<dt>UPDATE_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+			</dl>
+		</div>
+		<h4>MEMBER_FOLLOWING</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>FOLLOW_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+			</dl>
+		</div>
+		<h4>MEMBER_LOGIN</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>LOGIN_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+			</dl>
+		</div>
+		<h4>MEMBER_SECURITY</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>REGISTER_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+				<dt>UPDATE_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+			</dl>
+		</div>
+		<h4>MEMBER_SERVICE</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>REGISTER_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+				<dt>UPDATE_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+			</dl>
+		</div>
+		<h4>MEMBER_WITHDRAWAL</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>WITHDRAWAL_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+				<dt>REGISTER_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+				<dt>UPDATE_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+			</dl>
+		</div>
+		<h4>PRODUCT</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>REGISTER_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+				<dt>UPDATE_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+			</dl>
+		</div>
+		<h4>PURCHASE</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>PURCHASE_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+				<dt>REGISTER_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+				<dt>UPDATE_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+			</dl>
+		</div>
+		<h4>PURCHASE_PAYMENT</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>PAYMENT_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+				<dt>REGISTER_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+				<dt>UPDATE_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+			</dl>
+		</div>
+		<h4>SUMMARY_PRODUCT</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>LATEST_PURCHASE_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+			</dl>
+		</div>
+		<h4>SUMMARY_WITHDRAWAL</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>WITHDRAWAL_DATETIME</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+			</dl>
+		</div>
+		<h4>VENDOR_CHECK</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>TYPE_OF_DATE</dt>
+				<dd><span>Size</span>8&nbsp;-&gt;&nbsp;10</dd>
+				<dt>TYPE_OF_TIMESTAMP</dt>
+				<dd><span>Size</span>23,&nbsp;10&nbsp;-&gt;&nbsp;26,&nbsp;6</dd>
+				<dt>TYPE_OF_TIME</dt>
+				<dd><span>Size</span>6&nbsp;-&gt;&nbsp;8</dd>
+			</dl>
+		</div>
+		<h4>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF_DATE</dt>
+				<dd><span>Size</span>8&nbsp;-&gt;&nbsp;10</dd>
+				<dt>SHORT_DATE</dt>
+				<dd><span>Size</span>8&nbsp;-&gt;&nbsp;10</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20170327150700">
+	<h2>
+		<span class="titlediffno">diffNo. 65:</span> <span class="titlediffdatepart">2017/03/27</span> <span class="titledifftimepart">15:07:00</span>
+	</h2>
+	<pre class="diffcomment">sea,land,piari</pre>
+
+	<h3>Change Status</h3>
+	<div class="table-content">
+		<h4>PRV</h4>
+		<div class="change-table-content">
+			<h5>Value</h5>
+			<div class="column-content">SEA海|first&nbsp;status&nbsp;after&nbsp;entry,&nbsp;allowed&nbsp;to&nbsp;use&nbsp;only&nbsp;part&nbsp;of&nbsp;service|3&nbsp;-&gt;&nbsp;Provisional|first&nbsp;status&nbsp;after&nbsp;entry,&nbsp;allowed&nbsp;to&nbsp;use&nbsp;only&nbsp;part&nbsp;of&nbsp;service|3</div>
+		</div>
+		<h4>FML</h4>
+		<div class="change-table-content">
+			<h5>Value</h5>
+			<div class="column-content">LAND陸one|as&nbsp;formal&nbsp;member,&nbsp;allowed&nbsp;to&nbsp;use&nbsp;all&nbsp;service|1&nbsp;-&gt;&nbsp;Formalized|as&nbsp;formal&nbsp;member,&nbsp;allowed&nbsp;to&nbsp;use&nbsp;all&nbsp;service|1</div>
+		</div>
+		<h4>WDL</h4>
+		<div class="change-table-content">
+			<h5>Value</h5>
+			<div class="column-content">PIARI&nbsp;BON-VO|withdrawal&nbsp;is&nbsp;fixed,&nbsp;not&nbsp;allowed&nbsp;to&nbsp;use&nbsp;service|2&nbsp;-&gt;&nbsp;Withdrawal|withdrawal&nbsp;is&nbsp;fixed,&nbsp;not&nbsp;allowed&nbsp;to&nbsp;use&nbsp;service|2</div>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20170327150124">
+	<h2>
+		<span class="titlediffno">diffNo. 64:</span> <span class="titlediffdatepart">2017/03/27</span> <span class="titledifftimepart">15:01:24</span>
+	</h2>
+	<pre class="diffcomment">sea,land,piari
+aaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaa</pre>
+
+	<h3>Change Status</h3>
+	<div class="table-content">
+		<h4>WDL</h4>
+		<div class="change-table-content">
+			<h5>Value</h5>
+			<div class="column-content">PIARI&nbsp;BONVO|withdrawal&nbsp;is&nbsp;fixed,&nbsp;not&nbsp;allowed&nbsp;to&nbsp;use&nbsp;service|2&nbsp;-&gt;&nbsp;PIARI&nbsp;BON-VO|withdrawal&nbsp;is&nbsp;fixed,&nbsp;not&nbsp;allowed&nbsp;to&nbsp;use&nbsp;service|2</div>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20170327145934">
+	<h2>
+		<span class="titlediffno">diffNo. 63:</span> <span class="titlediffdatepart">2017/03/27</span> <span class="titledifftimepart">14:59:34</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Status</h3>
+	<div class="table-content">
+		<h4>FML</h4>
+		<div class="change-table-content">
+			<h5>Value</h5>
+			<div class="column-content">LAND陸ONE|as&nbsp;formal&nbsp;member,&nbsp;allowed&nbsp;to&nbsp;use&nbsp;all&nbsp;service|1&nbsp;-&gt;&nbsp;LAND陸one|as&nbsp;formal&nbsp;member,&nbsp;allowed&nbsp;to&nbsp;use&nbsp;all&nbsp;service|1</div>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20170327145654">
+	<h2>
+		<span class="titlediffno">diffNo. 62:</span> <span class="titlediffdatepart">2017/03/27</span> <span class="titledifftimepart">14:56:54</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Status</h3>
+	<div class="table-content">
+		<h4>PRV</h4>
+		<div class="change-table-content">
+			<h5>Value</h5>
+			<div class="column-content">Provisional|first&nbsp;status&nbsp;after&nbsp;entry,&nbsp;allowed&nbsp;to&nbsp;use&nbsp;only&nbsp;part&nbsp;of&nbsp;service|3&nbsp;-&gt;&nbsp;SEA海|first&nbsp;status&nbsp;after&nbsp;entry,&nbsp;allowed&nbsp;to&nbsp;use&nbsp;only&nbsp;part&nbsp;of&nbsp;service|3</div>
+		</div>
+		<h4>FML</h4>
+		<div class="change-table-content">
+			<h5>Value</h5>
+			<div class="column-content">Formalized|as&nbsp;formal&nbsp;member,&nbsp;allowed&nbsp;to&nbsp;use&nbsp;all&nbsp;service|1&nbsp;-&gt;&nbsp;LAND陸ONE|as&nbsp;formal&nbsp;member,&nbsp;allowed&nbsp;to&nbsp;use&nbsp;all&nbsp;service|1</div>
+		</div>
+		<h4>WDL</h4>
+		<div class="change-table-content">
+			<h5>Value</h5>
+			<div class="column-content">Withdrawal|withdrawal&nbsp;is&nbsp;fixed,&nbsp;not&nbsp;allowed&nbsp;to&nbsp;use&nbsp;service|2&nbsp;-&gt;&nbsp;PIARI&nbsp;BONVO|withdrawal&nbsp;is&nbsp;fixed,&nbsp;not&nbsp;allowed&nbsp;to&nbsp;use&nbsp;service|2</div>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20150925163557">
+	<h2>
+		<span class="titlediffno">diffNo. 61:</span> <span class="titlediffdatepart">2015/09/25</span> <span class="titledifftimepart">16:35:57</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER_WITHDRAWAL</h4>
+		<div class="change-table-content">
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>VERSION_NO</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20150701030335">
+	<h2>
+		<span class="titlediffno">diffNo. 60:</span> <span class="titlediffdatepart">2015/07/01</span> <span class="titledifftimepart">03:03:35</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER_SECURITY</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>LOGIN_PASSWORD</dt>
+				<dd><span>Size</span>50&nbsp;-&gt;&nbsp;100</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20140616234226">
+	<h2>
+		<span class="titlediffno">diffNo. 59:</span> <span class="titlediffdatepart">2014/06/16</span> <span class="titledifftimepart">23:42:26</span>
+	</h2>
+	<pre class="diffcomment">ここでもコメント<br>
+書くぞ sealandpiarisealandpiarisealandpiarisealandpiarisealandpiari<br>
+書くぞ sealandpiarisealandpiarisealandpiarisealandpiarisealandpiari</pre>
+	<p class="tablecount">table count: 23&nbsp;-&gt;&nbsp;24</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>PRODUCT_CATEGORY</li>
+	</ul>
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>PRODUCT</h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>FK_PRODUCT_PRODUCT_CATEGORY</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20140616234054">
+	<h2>
+		<span class="titlediffno">diffNo. 58:</span> <span class="titlediffdatepart">2014/06/16</span> <span class="titledifftimepart">23:40:54</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 24&nbsp;-&gt;&nbsp;23</p>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>PRODUCT</h4>
+		<div class="change-table-content">
+			<h5>Delete FK</h5>
+			<ul class="column-content">
+				<li>FK_PRODUCT_PRODUCT_CATEGORY</li>
+			</ul>
+		</div>
+	</div>
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>PRODUCT_CATEGORY</li>
+	</ul>
+</div>
+<div class="section diffCode_20140531134623">
+	<h2>
+		<span class="titlediffno">diffNo. 57:</span> <span class="titlediffdatepart">2014/05/31</span> <span class="titledifftimepart">13:46:23</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>PURCHASE_PAYMENT</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>PAYMENT_METHOD_CODE</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20140530215101">
+	<h2>
+		<span class="titlediffno">diffNo. 56:</span> <span class="titlediffdatepart">2014/05/30</span> <span class="titledifftimepart">21:51:01</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>PURCHASE_PAYMENT</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>PURCHASE_ID</dt>
+				<dd><span>Type</span>INTEGER&nbsp;-&gt;&nbsp;BIGINT</dd>
+				<dd><span>Size</span>10&nbsp;-&gt;&nbsp;19</dd>
+			</dl>
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>VERSION_NO</li>
+			</ul>
+			<h5>Delete UQ</h5>
+			<ul class="column-content">
+				<li>UQ_PURCHASE_PAYMENT_INDEX_C</li>
+			</ul>
+			<h5>Add Index</h5>
+			<ul class="column-content">
+				<li>IX_PURCHASE_PAYMENT_DATETIME</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20140529230806">
+	<h2>
+		<span class="titlediffno">diffNo. 55:</span> <span class="titlediffdatepart">2014/05/29</span> <span class="titledifftimepart">23:08:06</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 23&nbsp;-&gt;&nbsp;24</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>PURCHASE_PAYMENT</li>
+	</ul>
+</div>
+<div class="section diffCode_20130731231603">
+	<h2>
+		<span class="titlediffno">diffNo. 54:</span> <span class="titlediffdatepart">2013/07/31</span> <span class="titledifftimepart">23:16:03</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER_FOLLOWING</h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>FK_MEMBER_FOLLOWING_MY_MEMBER</li>
+				<li>FK_MEMBER_FOLLOWING_YOUR_MEMBER</li>
+			</ul>
+			<h5>Add UQ</h5>
+			<ul class="column-content">
+				<li>UQ_MEMBER_FOLLOWING_INDEX_B</li>
+			</ul>
+			<h5>Add Index</h5>
+			<ul class="column-content">
+				<li>FK_MEMBER_FOLLOWING_MY_MEMBER_INDEX_B</li>
+				<li>FK_MEMBER_FOLLOWING_YOUR_MEMBER_INDEX_B</li>
+				<li>IX_MEMBER_FOLLOWING_FOLLOW_DATETIME</li>
+				<li>IX_MEMBER_FOLLOWING_UNIQUE_REVERSE</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20130731230730">
+	<h2>
+		<span class="titlediffno">diffNo. 53:</span> <span class="titlediffdatepart">2013/07/31</span> <span class="titledifftimepart">23:07:30</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER_FOLLOWING</h4>
+		<div class="change-table-content">
+			<h5>Delete FK</h5>
+			<ul class="column-content">
+				<li>FK_MEMBER_FOLLOWING_MY_MEMBER</li>
+				<li>FK_MEMBER_FOLLOWING_YOUR_MEMBER</li>
+			</ul>
+			<h5>Delete UQ</h5>
+			<ul class="column-content">
+				<li>UQ_MEMBER_FOLLOWING_INDEX_B</li>
+			</ul>
+			<h5>Delete Index</h5>
+			<ul class="column-content">
+				<li>FK_MEMBER_FOLLOWING_MY_MEMBER_INDEX_B</li>
+				<li>FK_MEMBER_FOLLOWING_YOUR_MEMBER_INDEX_B</li>
+				<li>IX_MEMBER_FOLLOWING_FOLLOW_DATETIME</li>
+				<li>IX_MEMBER_FOLLOWING_UNIQUE_REVERSE</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20130701114342">
+	<h2>
+		<span class="titlediffno">diffNo. 52:</span> <span class="titlediffdatepart">2013/07/01</span> <span class="titledifftimepart">11:43:42</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 22&nbsp;-&gt;&nbsp;23</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>MEMBER_FOLLOWING</li>
+	</ul>
+</div>
+<div class="section diffCode_20130213174702">
+	<h2>
+		<span class="titlediffno">diffNo. 51:</span> <span class="titlediffdatepart">2013/02/13</span> <span class="titledifftimepart">17:47:02</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Status</h3>
+	<div class="table-content">
+		<h4>PRV</h4>
+		<div class="change-table-content">
+			<h5>Value</h5>
+			<div class="column-content">PROVISIONAL|first&nbsp;status&nbsp;after&nbsp;entry,&nbsp;allowed&nbsp;to&nbsp;use&nbsp;only&nbsp;part&nbsp;of&nbsp;service|3&nbsp;-&gt;&nbsp;Provisional|first&nbsp;status&nbsp;after&nbsp;entry,&nbsp;allowed&nbsp;to&nbsp;use&nbsp;only&nbsp;part&nbsp;of&nbsp;service|3</div>
+		</div>
+		<h4>FML</h4>
+		<div class="change-table-content">
+			<h5>Value</h5>
+			<div class="column-content">FORMALIZED|as&nbsp;formal&nbsp;member,&nbsp;allowed&nbsp;to&nbsp;use&nbsp;all&nbsp;service|1&nbsp;-&gt;&nbsp;Formalized|as&nbsp;formal&nbsp;member,&nbsp;allowed&nbsp;to&nbsp;use&nbsp;all&nbsp;service|1</div>
+		</div>
+		<h4>WDL</h4>
+		<div class="change-table-content">
+			<h5>Value</h5>
+			<div class="column-content">WITHDRAWAL|withdrawal&nbsp;is&nbsp;fixed,&nbsp;not&nbsp;allowed&nbsp;to&nbsp;use&nbsp;service|2&nbsp;-&gt;&nbsp;Withdrawal|withdrawal&nbsp;is&nbsp;fixed,&nbsp;not&nbsp;allowed&nbsp;to&nbsp;use&nbsp;service|2</div>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20120828131317">
+	<h2>
+		<span class="titlediffno">diffNo. 50:</span> <span class="titlediffdatepart">2012/08/28</span> <span class="titledifftimepart">13:13:17</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER_ADDRESS</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>MEMBER_ADDRESS_ID</dt>
+				<dd><span>Default</span>null&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;PUBLIC.SYSTEM_SEQUENCE_1C7AA128_57F6_41AC_8850_EB20C92B60B6</dd>
+				<dd><span>Identity</span>false&nbsp;-&gt;&nbsp;true</dd>
+			</dl>
+		</div>
+		<h4>MEMBER_SERVICE</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>MEMBER_SERVICE_ID</dt>
+				<dd><span>Default</span>null&nbsp;-&gt;&nbsp;NEXT&nbsp;VALUE&nbsp;FOR&nbsp;PUBLIC.SYSTEM_SEQUENCE_F46E7E87_C874_4690_8BF4_0E68EBDEC1EF</dd>
+				<dd><span>Identity</span>false&nbsp;-&gt;&nbsp;true</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20120826214601">
+	<h2>
+		<span class="titlediffno">diffNo. 49:</span> <span class="titlediffdatepart">2012/08/26</span> <span class="titledifftimepart">21:46:01</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER</h4>
+		<div class="change-table-content">
+			<h5>Delete Index</h5>
+			<ul class="column-content">
+				<li>IX_MEMBER_BIRTHDATE</li>
+				<li>IX_MEMBER_UPDATE_USER</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20120826212227">
+	<h2>
+		<span class="titlediffno">diffNo. 48:</span> <span class="titlediffdatepart">2012/08/26</span> <span class="titledifftimepart">21:22:27</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER</h4>
+		<div class="change-table-content">
+			<h5>Add Index</h5>
+			<ul class="column-content">
+				<li>IX_MEMBER_BIRTHDATE</li>
+				<li>IX_MEMBER_UPDATE_USER</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20120819020757">
+	<h2>
+		<span class="titlediffno">diffNo. 47:</span> <span class="titlediffdatepart">2012/08/19</span> <span class="titledifftimepart">02:07:57</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Add Sequence</h3>
+	<ul class="table-content">
+		<li>EXAMPLEDB.PUBLIC.SEQ_PURCHASE</li>
+		<li>EXAMPLEDB.PUBLIC.SEQ_MEMBER</li>
+		<li>EXAMPLEDB.PUBLIC.SEQ_NOT_RELATED_TO_TABLE</li>
+		<li>EXAMPLEDB.PUBLIC.SEQ_MEMBER_LOGIN</li>
+		<li>EXAMPLEDB.PUBLIC.SEQ_DECREMENT</li>
+	</ul>
+</div>
+<div class="section diffCode_20120804020044">
+	<h2>
+		<span class="titlediffno">diffNo. 46:</span> <span class="titlediffdatepart">2012/08/04</span> <span class="titledifftimepart">02:00:44</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 25&nbsp;-&gt;&nbsp;22</p>
+
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>BAR</li>
+		<li>FOO</li>
+		<li>QUX</li>
+	</ul>
+</div>
+<div class="section diffCode_20120804013858">
+	<h2>
+		<span class="titlediffno">diffNo. 45:</span> <span class="titlediffdatepart">2012/08/04</span> <span class="titledifftimepart">01:38:58</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 24&nbsp;-&gt;&nbsp;25</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>QUX</li>
+	</ul>
+</div>
+<div class="section diffCode_20120803234714">
+	<h2>
+		<span class="titlediffno">diffNo. 44:</span> <span class="titlediffdatepart">2012/08/03</span> <span class="titledifftimepart">23:47:14</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 22&nbsp;-&gt;&nbsp;24</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>BAR</li>
+		<li>FOO</li>
+	</ul>
+</div>
+<div class="section diffCode_20120802235031">
+	<h2>
+		<span class="titlediffno">diffNo. 43:</span> <span class="titlediffdatepart">2012/08/02</span> <span class="titledifftimepart">23:50:31</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 23&nbsp;-&gt;&nbsp;22</p>
+
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>FOO</li>
+	</ul>
+</div>
+<div class="section diffCode_20120802225610">
+	<h2>
+		<span class="titlediffno">diffNo. 42:</span> <span class="titlediffdatepart">2012/08/02</span> <span class="titledifftimepart">22:56:10</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 22&nbsp;-&gt;&nbsp;23</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>FOO</li>
+	</ul>
+</div>
+<div class="section diffCode_20120730011613">
+	<h2>
+		<span class="titlediffno">diffNo. 41:</span> <span class="titlediffdatepart">2012/07/30</span> <span class="titledifftimepart">01:16:13</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 23&nbsp;-&gt;&nbsp;22</p>
+
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>ABC</li>
+	</ul>
+</div>
+<div class="section diffCode_20120730003444">
+	<h2>
+		<span class="titlediffno">diffNo. 40:</span> <span class="titlediffdatepart">2012/07/30</span> <span class="titledifftimepart">00:34:44</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 22&nbsp;-&gt;&nbsp;23</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>ABC</li>
+	</ul>
+</div>
+<div class="section diffCode_20120713132239">
+	<h2>
+		<span class="titlediffno">diffNo. 39:</span> <span class="titlediffdatepart">2012/07/13</span> <span class="titledifftimepart">13:22:39</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>MEMBER_ACCOUNT</dt>
+				<dd><span>Size</span>80&nbsp;-&gt;&nbsp;50</dd>
+				<dd><span>Not Null</span>false&nbsp;-&gt;&nbsp;true</dd>
+			</dl>
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>CLUB_DB2_MEMO</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20120713125517">
+	<h2>
+		<span class="titlediffno">diffNo. 38:</span> <span class="titlediffdatepart">2012/07/13</span> <span class="titledifftimepart">12:55:17</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>CLUB_DB2_MEMO</li>
+			</ul>
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>MEMBER_ACCOUNT</dt>
+				<dd><span>Size</span>50&nbsp;-&gt;&nbsp;80</dd>
+				<dd><span>Not Null</span>true&nbsp;-&gt;&nbsp;false</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20120412112351">
+	<h2>
+		<span class="titlediffno">diffNo. 37:</span> <span class="titlediffdatepart">2012/04/12</span> <span class="titledifftimepart">11:23:51</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 20&nbsp;-&gt;&nbsp;22</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>VENDOR_IDENTITY_ONLY</li>
+		<li>VENDOR_PRIMARY_KEY_ONLY</li>
+	</ul>
+</div>
+<div class="section diffCode_20120325125022">
+	<h2>
+		<span class="titlediffno">diffNo. 36:</span> <span class="titlediffdatepart">2012/03/25</span> <span class="titledifftimepart">12:50:22</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>VENDOR_CHECK</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>J_A_V_A_BEANS_PROPERTY</li>
+				<li>J_POP_BEANS_PROPERTY</li>
+			</ul>
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>J_A_V_A_BEAN_PROPERTY</li>
+				<li>J_BEAN_PROPERTY</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20120325124431">
+	<h2>
+		<span class="titlediffno">diffNo. 35:</span> <span class="titlediffdatepart">2012/03/25</span> <span class="titledifftimepart">12:44:31</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>VENDOR_CHECK</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>J_BEAN_PROPERTY</li>
+				<li>J_A_V_A_BEAN_PROPERTY</li>
+			</ul>
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>U_Y_TEXT</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20120305135229">
+	<h2>
+		<span class="titlediffno">diffNo. 34:</span> <span class="titlediffdatepart">2012/03/05</span> <span class="titledifftimepart">13:52:29</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 16&nbsp;-&gt;&nbsp;20</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>VENDOR_$_DOLLAR</li>
+		<li>VENDOR_CHECK</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF</li>
+	</ul>
+</div>
+<div class="section diffCode_20120305134955">
+	<h2>
+		<span class="titlediffno">diffNo. 33:</span> <span class="titlediffdatepart">2012/03/05</span> <span class="titledifftimepart">13:49:55</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 20&nbsp;-&gt;&nbsp;16</p>
+
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>VENDOR_$_DOLLAR</li>
+		<li>VENDOR_CHECK</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF</li>
+	</ul>
+</div>
+<div class="section diffCode_20120305132348">
+	<h2>
+		<span class="titlediffno">diffNo. 32:</span> <span class="titlediffdatepart">2012/03/05</span> <span class="titledifftimepart">13:23:48</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 14&nbsp;-&gt;&nbsp;20</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>VENDOR_$_DOLLAR</li>
+		<li>VENDOR_CHECK</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF</li>
+		<li>SUMMARY_PRODUCT</li>
+		<li>SUMMARY_WITHDRAWAL</li>
+	</ul>
+</div>
+<div class="section diffCode_20120305130522">
+	<h2>
+		<span class="titlediffno">diffNo. 31:</span> <span class="titlediffdatepart">2012/03/05</span> <span class="titledifftimepart">13:05:22</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 20&nbsp;-&gt;&nbsp;14</p>
+
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>VENDOR_$_DOLLAR</li>
+		<li>VENDOR_CHECK</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF</li>
+		<li>SUMMARY_PRODUCT</li>
+		<li>SUMMARY_WITHDRAWAL</li>
+	</ul>
+</div>
+<div class="section diffCode_20120305125917">
+	<h2>
+		<span class="titlediffno">diffNo. 30:</span> <span class="titlediffdatepart">2012/03/05</span> <span class="titledifftimepart">12:59:17</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 14&nbsp;-&gt;&nbsp;20</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>VENDOR_$_DOLLAR</li>
+		<li>VENDOR_CHECK</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF</li>
+		<li>SUMMARY_PRODUCT</li>
+		<li>SUMMARY_WITHDRAWAL</li>
+	</ul>
+</div>
+<div class="section diffCode_20120305124350">
+	<h2>
+		<span class="titlediffno">diffNo. 29:</span> <span class="titlediffdatepart">2012/03/05</span> <span class="titledifftimepart">12:43:50</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 20&nbsp;-&gt;&nbsp;14</p>
+
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>VENDOR_$_DOLLAR</li>
+		<li>VENDOR_CHECK</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF</li>
+		<li>SUMMARY_PRODUCT</li>
+		<li>SUMMARY_WITHDRAWAL</li>
+	</ul>
+</div>
+<div class="section diffCode_20111019002811">
+	<h2>
+		<span class="titlediffno">diffNo. 28:</span> <span class="titlediffdatepart">2011/10/19</span> <span class="titledifftimepart">00:28:11</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 18&nbsp;-&gt;&nbsp;20</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN</li>
+		<li>VENDOR_THE_LONG_AND_WINDING_TABLE_AND_COLUMN_REF</li>
+	</ul>
+</div>
+<div class="section diffCode_20110617223801">
+	<h2>
+		<span class="titlediffno">diffNo. 27:</span> <span class="titlediffdatepart">2011/06/17</span> <span class="titledifftimepart">22:38:01</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>VENDOR_CHECK</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>TYPE_OF_NUMERIC_MAXDECIMAL</dt>
+				<dd><span>Size</span>128,&nbsp;38&nbsp;-&gt;&nbsp;38,&nbsp;38</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20110617223324">
+	<h2>
+		<span class="titlediffno">diffNo. 26:</span> <span class="titlediffdatepart">2011/06/17</span> <span class="titledifftimepart">22:33:24</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>VENDOR_CHECK</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>TYPE_OF_NUMERIC_MAXDECIMAL</dt>
+				<dd><span>Size</span>38,&nbsp;127&nbsp;-&gt;&nbsp;128,&nbsp;38</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20110609204146">
+	<h2>
+		<span class="titlediffno">diffNo. 25:</span> <span class="titlediffdatepart">2011/06/09</span> <span class="titledifftimepart">20:41:46</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 17&nbsp;-&gt;&nbsp;18</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>MEMBER_ADDRESS</li>
+	</ul>
+</div>
+<div class="section diffCode_20110609202402">
+	<h2>
+		<span class="titlediffno">diffNo. 24:</span> <span class="titlediffdatepart">2011/06/09</span> <span class="titledifftimepart">20:24:02</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 18&nbsp;-&gt;&nbsp;17</p>
+
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>MEMBER_ADDRESS</li>
+	</ul>
+</div>
+<div class="section diffCode_20110603012436">
+	<h2>
+		<span class="titlediffno">diffNo. 23:</span> <span class="titlediffdatepart">2011/06/03</span> <span class="titledifftimepart">01:24:36</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 19&nbsp;-&gt;&nbsp;18</p>
+
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>MEMBER_XXX</li>
+	</ul>
+</div>
+<div class="section diffCode_20110602211551">
+	<h2>
+		<span class="titlediffno">diffNo. 22:</span> <span class="titlediffdatepart">2011/06/02</span> <span class="titledifftimepart">21:15:51</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 18&nbsp;-&gt;&nbsp;19</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>MEMBER_XXX</li>
+	</ul>
+</div>
+<div class="section diffCode_20110520155743">
+	<h2>
+		<span class="titlediffno">diffNo. 21:</span> <span class="titlediffdatepart">2011/05/20</span> <span class="titledifftimepart">15:57:43</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER</h4>
+		<div class="change-table-content">
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>REGISTER_PROCESS</li>
+				<li>UPDATE_PROCESS</li>
+			</ul>
+		</div>
+		<h4>MEMBER_ADDRESS</h4>
+		<div class="change-table-content">
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>REGISTER_PROCESS</li>
+				<li>UPDATE_PROCESS</li>
+			</ul>
+		</div>
+		<h4>MEMBER_SECURITY</h4>
+		<div class="change-table-content">
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>REGISTER_PROCESS</li>
+				<li>UPDATE_PROCESS</li>
+			</ul>
+		</div>
+		<h4>MEMBER_SERVICE</h4>
+		<div class="change-table-content">
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>REGISTER_PROCESS</li>
+				<li>UPDATE_PROCESS</li>
+			</ul>
+		</div>
+		<h4>MEMBER_WITHDRAWAL</h4>
+		<div class="change-table-content">
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>REGISTER_PROCESS</li>
+				<li>UPDATE_PROCESS</li>
+			</ul>
+		</div>
+		<h4>PRODUCT</h4>
+		<div class="change-table-content">
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>REGISTER_PROCESS</li>
+				<li>UPDATE_PROCESS</li>
+			</ul>
+		</div>
+		<h4>PURCHASE</h4>
+		<div class="change-table-content">
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>REGISTER_PROCESS</li>
+				<li>UPDATE_PROCESS</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20110505093901">
+	<h2>
+		<span class="titlediffno">diffNo. 20:</span> <span class="titlediffdatepart">2011/05/05</span> <span class="titledifftimepart">09:39:01</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER_SERVICE</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>MEMBER_SERVICE_ID</li>
+			</ul>
+			<h5>Change PK</h5>
+			<dl class="column-content">
+				<dt>CONSTRAINT_6F</dt>
+				<dd><span>Column</span>MEMBER_ID&nbsp;-&gt;&nbsp;MEMBER_SERVICE_ID</dd>
+			</dl>
+			<h5>Add UQ</h5>
+			<ul class="column-content">
+				<li>UQ_MEMBER_SERVICE_INDEX_6</li>
+			</ul>
+			<h5>Add Index</h5>
+			<ul class="column-content">
+				<li>FK_MEMBER_SERVICE_MEMBER_INDEX_6</li>
+			</ul>
+		</div>
+		<h4>PRODUCT_STATUS</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>DISPLAY_ORDER</li>
+			</ul>
+			<h5>Add UQ</h5>
+			<ul class="column-content">
+				<li>UQ_PRODUCT_STATUS_DISPLAY_ORDER_INDEX_1</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20110418005240">
+	<h2>
+		<span class="titlediffno">diffNo. 19:</span> <span class="titlediffdatepart">2011/04/18</span> <span class="titledifftimepart">00:52:40</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER_STATUS</h4>
+		<div class="change-table-content">
+			<h5>Delete UQ</h5>
+			<ul class="column-content">
+				<li>UQ_MEMBER_STATUS_MEMBER_STATUS_NAME_INDEX_4</li>
+			</ul>
+		</div>
+		<h4>PRODUCT_CATEGORY</h4>
+		<div class="change-table-content">
+			<h5>Delete UQ</h5>
+			<ul class="column-content">
+				<li>UQ_PRODUCT_CATEGORY_PRODUCT_CATEGORY_NAME_INDEX_3</li>
+			</ul>
+		</div>
+		<h4>PRODUCT_STATUS</h4>
+		<div class="change-table-content">
+			<h5>Delete UQ</h5>
+			<ul class="column-content">
+				<li>UQ_PRODUCT_STATUS_PRODUCT_STATUS_NAME_INDEX_1</li>
+			</ul>
+		</div>
+		<h4>REGION</h4>
+		<div class="change-table-content">
+			<h5>Delete UQ</h5>
+			<ul class="column-content">
+				<li>UQ_REGION_REGION_NAME_INDEX_8</li>
+			</ul>
+		</div>
+		<h4>SERVICE_RANK</h4>
+		<div class="change-table-content">
+			<h5>Delete UQ</h5>
+			<ul class="column-content">
+				<li>UQ_SERVICE_RANK_SERVICE_RANK_NAME_INDEX_A</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20101203212009">
+	<h2>
+		<span class="titlediffno">diffNo. 18:</span> <span class="titlediffdatepart">2010/12/03</span> <span class="titledifftimepart">21:20:09</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>SUMMARY_WITHDRAWAL</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>MEMBER_STATUS_CODE</li>
+				<li>MEMBER_STATUS_NAME</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20101203163703">
+	<h2>
+		<span class="titlediffno">diffNo. 17:</span> <span class="titlediffdatepart">2010/12/03</span> <span class="titledifftimepart">16:37:03</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>SUMMARY_WITHDRAWAL</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>MAX_PURCHASE_PRICE</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20101203132303">
+	<h2>
+		<span class="titlediffno">diffNo. 16:</span> <span class="titlediffdatepart">2010/12/03</span> <span class="titledifftimepart">13:23:03</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 17&nbsp;-&gt;&nbsp;18</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>SUMMARY_WITHDRAWAL</li>
+	</ul>
+</div>
+<div class="section diffCode_20101126235615">
+	<h2>
+		<span class="titlediffno">diffNo. 15:</span> <span class="titlediffdatepart">2010/11/26</span> <span class="titledifftimepart">23:56:15</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 16&nbsp;-&gt;&nbsp;17</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>REGION</li>
+	</ul>
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER_ADDRESS</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>REGION_ID</li>
+			</ul>
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>FK_MEMBER_ADDRESS_REGION</li>
+			</ul>
+			<h5>Add Index</h5>
+			<ul class="column-content">
+				<li>FK_MEMBER_ADDRESS_REGION_INDEX_B</li>
+			</ul>
+		</div>
+		<h4>PRODUCT</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>REGULAR_PRICE</li>
+			</ul>
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>PRODUCT_REGULAR_PRICE</li>
+			</ul>
+		</div>
+		<h4>SERVICE_RANK</h4>
+		<div class="change-table-content">
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>REGISTER_DATETIME</li>
+				<li>REGISTER_USER</li>
+				<li>REGISTER_PROCESS</li>
+				<li>UPDATE_DATETIME</li>
+				<li>UPDATE_USER</li>
+				<li>UPDATE_PROCESS</li>
+				<li>VERSION_NO</li>
+			</ul>
+			<h5>Add UQ</h5>
+			<ul class="column-content">
+				<li>UQ_SERVICE_RANK_DISPLAY_ORDER_INDEX_A</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20101126195215">
+	<h2>
+		<span class="titlediffno">diffNo. 14:</span> <span class="titlediffdatepart">2010/11/26</span> <span class="titledifftimepart">19:52:15</span>
+	</h2>
+	<pre class="diffcomment">for many pattern tests</pre>
+	<p class="tablecount">table count: 13&nbsp;-&gt;&nbsp;16</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>MEMBER_SERVICE</li>
+		<li>PRODUCT_CATEGORY</li>
+		<li>SERVICE_RANK</li>
+	</ul>
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>MEMBER_SECURITY</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>REMINDER_USE_COUNT</li>
+			</ul>
+		</div>
+		<h4>PRODUCT</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>PRODUCT_CATEGORY_CODE</li>
+				<li>PRODUCT_REGULAR_PRICE</li>
+			</ul>
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>FK_PRODUCT_PRODUCT_CATEGORY</li>
+			</ul>
+			<h5>Add Index</h5>
+			<ul class="column-content">
+				<li>FK_PRODUCT_PRODUCT_CATEGORY_INDEX_1</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20100615164111">
+	<h2>
+		<span class="titlediffno">diffNo. 13:</span> <span class="titlediffdatepart">2010/06/15</span> <span class="titledifftimepart">16:41:11</span>
+	</h2>
+	<pre class="diffcomment">restore the dollar table (wrong deleted)</pre>
+	<p class="tablecount">table count: 12&nbsp;-&gt;&nbsp;13</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>VENDOR_$_DOLLAR</li>
+	</ul>
+</div>
+<div class="section diffCode_20100615163723">
+	<h2>
+		<span class="titlediffno">diffNo. 12:</span> <span class="titlediffdatepart">2010/06/15</span> <span class="titledifftimepart">16:37:23</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 14&nbsp;-&gt;&nbsp;12</p>
+
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>VENDOR-NON COMPILABLE</li>
+		<li>VENDOR_$_DOLLAR</li>
+	</ul>
+</div>
+<div class="section diffCode_20100615062755">
+	<h2>
+		<span class="titlediffno">diffNo. 11:</span> <span class="titlediffdatepart">2010/06/15</span> <span class="titledifftimepart">06:27:55</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>VENDOR-NON COMPILABLE</h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>FK_VENDOR_NON_COMPPILABLE_SELF</li>
+			</ul>
+			<h5>Add Index</h5>
+			<ul class="column-content">
+				<li>FK_VENDOR_NON_COMPPILABLE_SELF_INDEX_D</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20100615061504">
+	<h2>
+		<span class="titlediffno">diffNo. 10:</span> <span class="titlediffdatepart">2010/06/15</span> <span class="titledifftimepart">06:15:04</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>VENDOR-NON COMPILABLE</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>PARENT-ID</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20100615042410">
+	<h2>
+		<span class="titlediffno">diffNo. 9:</span> <span class="titlediffdatepart">2010/06/15</span> <span class="titledifftimepart">04:24:10</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 4&nbsp;-&gt;&nbsp;14</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>MEMBER</li>
+		<li>MEMBER_ADDRESS</li>
+		<li>MEMBER_LOGIN</li>
+		<li>MEMBER_SECURITY</li>
+		<li>MEMBER_STATUS</li>
+		<li>MEMBER_WITHDRAWAL</li>
+		<li>PRODUCT</li>
+		<li>PRODUCT_STATUS</li>
+		<li>PURCHASE</li>
+		<li>VENDOR-NON COMPILABLE</li>
+		<li>SUMMARY_PRODUCT</li>
+	</ul>
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>VENDOR-HYPHEN SPACE</li>
+	</ul>
+</div>
+<div class="section diffCode_20100615042308">
+	<h2>
+		<span class="titlediffno">diffNo. 8:</span> <span class="titlediffdatepart">2010/06/15</span> <span class="titledifftimepart">04:23:08</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 14&nbsp;-&gt;&nbsp;4</p>
+
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>MEMBER</li>
+		<li>MEMBER_ADDRESS</li>
+		<li>MEMBER_LOGIN</li>
+		<li>MEMBER_SECURITY</li>
+		<li>MEMBER_STATUS</li>
+		<li>MEMBER_WITHDRAWAL</li>
+		<li>PRODUCT</li>
+		<li>PRODUCT_STATUS</li>
+		<li>PURCHASE</li>
+		<li>SUMMARY_PRODUCT</li>
+	</ul>
+</div>
+<div class="section diffCode_20100615041023">
+	<h2>
+		<span class="titlediffno">diffNo. 7:</span> <span class="titlediffdatepart">2010/06/15</span> <span class="titledifftimepart">04:10:23</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 13&nbsp;-&gt;&nbsp;14</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>VENDOR-HYPHEN SPACE</li>
+		<li>VENDOR_$_DOLLAR</li>
+	</ul>
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>TMP_TMPP</li>
+	</ul>
+</div>
+<div class="section diffCode_20100612181845">
+	<h2>
+		<span class="titlediffno">diffNo. 6:</span> <span class="titlediffdatepart">2010/06/12</span> <span class="titledifftimepart">18:18:45</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>TMP_TMPP</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>VENDOR_ID</li>
+			</ul>
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>VENDOR_CHECK_ID</li>
+			</ul>
+			<h5>Change PK</h5>
+			<dl class="column-content">
+				<dt>CONSTRAINT_8D</dt>
+				<dd><span>Column</span>VENDOR_CHECK_ID&nbsp;-&gt;&nbsp;VENDOR_ID</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20100612181805">
+	<h2>
+		<span class="titlediffno">diffNo. 5:</span> <span class="titlediffdatepart">2010/06/12</span> <span class="titledifftimepart">18:18:05</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>TMP_TMPP</li>
+	</ul>
+	<h3>Delete Table</h3>
+	<ul class="table-content">
+		<li>TMP_TMP</li>
+	</ul>
+</div>
+<div class="section diffCode_20100612181643">
+	<h2>
+		<span class="titlediffno">diffNo. 4:</span> <span class="titlediffdatepart">2010/06/12</span> <span class="titledifftimepart">18:16:43</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>TMP_TMP</h4>
+		<div class="change-table-content">
+			<h5>Add PK</h5>
+			<ul class="column-content">
+				<li>CONSTRAINT_E3</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20100612181610">
+	<h2>
+		<span class="titlediffno">diffNo. 3:</span> <span class="titlediffdatepart">2010/06/12</span> <span class="titledifftimepart">18:16:10</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>TMP_TMP</h4>
+		<div class="change-table-content">
+			<h5>Delete PK</h5>
+			<ul class="column-content">
+				<li>CONSTRAINT_E3</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section diffCode_20100612181528">
+	<h2>
+		<span class="titlediffno">diffNo. 2:</span> <span class="titlediffdatepart">2010/06/12</span> <span class="titledifftimepart">18:15:28</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+	<p class="tablecount">table count: 12&nbsp;-&gt;&nbsp;13</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>TMP_TMP</li>
+	</ul>
+</div>
+<div class="section diffCode_20100612165357">
+	<h2>
+		<span class="titlediffno">diffNo. 1:</span> <span class="titlediffdatepart">2010/06/12</span> <span class="titledifftimepart">16:53:57</span>
+	</h2>
+	<pre class="diffcomment"></pre>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>VENDOR_CHECK</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>TYPE_OF_INTEGER</li>
+				<li>TYPE_OF_BIGINT</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<h2>Thanks</h2>
+<p>
+	Created by <a href="http://dbflute.org/">DBFlute(AutoGenerator)</a>
+</p>
+<!-- Only used by dbflute intro http://dbflute.seasar.org/ja/manual/function/helper/intro/index.html -->
+<div id="hacomment-modal" class="hacommentmodal">
+    <div class="hacommentmodalcontent">
+        <div id="hacomment-close" class="hacommentmodal-close-btn"><span>x</span></div>
+        <p>Input the new comment of diffdate: <span id="hacomment-modal-column-info"></span></p>
+        <textarea id="hacomment-input" class="hacommentinput" rows="5"></textarea>
+        <button id="hacomment-ok" class="hacommentmodal-ok-btn">OK</button>
+    </div>
+</div>
+</body>
+	<script>
+    /**
+     * @author hakiba
+     */
+    function ApiClient() {
+    }
+
+    ApiClient.prototype = {
+        /**
+         * Fetch hacomment virtual pickup.
+         * @param {function} successCallback
+         */
+        fetchHacomment: function(successCallback) {
+            var path = '/api/document/hacomment/' + HacommentUtil.getSchemaName() + '/pickup';
+            var method = 'GET';
+            var errorCallback = function() {
+                alert('Error!! cannot fetch diff comment.');
+            };
+            this.request(path, method, null, successCallback, errorCallback);
+        },
+
+        /**
+         * Request save hacomment
+         * @param {Object} params - Request parameters
+         * @param {function} successCallback
+         */
+        saveHacomment: function(params, successCallback) {
+            var path = '/api/document/hacomment/' + HacommentUtil.getSchemaName() + '/save';
+            var method = 'POST';
+            var errorCallback = function() {
+                alert('Error!! cannot save new column comment.');
+            };
+            this.request(path, method, params, successCallback, errorCallback);
+        },
+
+        /**
+         * Request to intro server
+         * @param {string} path
+         * @param {string} method
+         * @param {object} params
+         * @param {function} successCallback
+         * @param {function} errorCallback
+         */
+        request: function(path, method, params, successCallback, errorCallback) {
+            var http = new XMLHttpRequest();
+            http.withCredentials = true;
+            var url = HacommentUtil.getHostName() + path;
+            http.open(method, url, true);
+
+            http.onreadystatechange = function () {
+                if (http.readyState === 4) {
+                    if (http.status === 200) {
+                        successCallback(http.response)
+                    } else {
+                        errorCallback()
+                    }
+                }
+            };
+            if (params != null) {
+                http.send(JSON.stringify(params, null, "  "));
+            } else {
+                http.send();
+            }
+        }
+    };
+    /**
+     * @author hakiba
+     */
+    var HacommentUtil = new function(){
+        /**
+         * Get host name
+         * @returns {string} Host name
+         */
+        this.getHostName = function() {
+            return 'http://' + window.location.host;
+        },
+                /**
+                 * Get scheme name from url
+                 * @returns {string} Scheme name
+                 */
+                this.getSchemaName = function () {
+                    return "maihamadb";
+                },
+                /**
+                 * Escape inputed text
+                 * @param {String} string - text
+                 */
+                this.escapeInputText = function(string) {
+                    if(typeof string !== 'string') {
+                        return string;
+                    }
+                    return string.replace(/[&'`"<>]/g, function(match) {
+                        return {
+                            '&': '&amp;',
+                            "'": '&#x27;',
+                            '`': '&#x60;',
+                            '"': '&quot;',
+                            '<': '&lt;',
+                            '>': '&gt;'
+                        }[match]
+                    });
+                },
+                /**
+                 * Escape newline character of text
+                 * @param {String} string - text
+                 */
+                this.escapeNewlineCharacter = function (string) {
+                    return string.split('<br>').join('\n');
+                },
+                /**
+                 * Delete unnecessary whitespace
+                 * @param {String} string - text
+                 */
+                this.deleteUnnecessaryWhitespace = function(string) {
+                    var commentArray = string.split("\n");
+                    var result = "";
+                    for(var i = 0; i < commentArray.length; i++) {
+                        result += commentArray[i].replace(/\s+$/g,'');
+                        if (!(i === commentArray.length - 1)) {
+                            result += '\n';
+                        }
+                    }
+                    return result.trim();
+                },
+
+                /**
+                 * Unescape whitespace character of text
+                 * @param {String} string - text
+                 */
+                this.unescapeWhitespace = function (string) {
+                    return string.split('&nbsp;').join(' ');
+                }
+    };
+
+    function Hacomment() {
+        this.embeddedPickup = {
+            'diffList' : [
+            ]
+        };
+        this.pickupStore = {
+            '20220703155759' : {
+                'diffDate' : '2022/07/03 15:57:59',
+                'diffComment' : ''
+            }
+            , '20220703155717' : {
+                'diffDate' : '2022/07/03 15:57:17',
+                'diffComment' : ''
+            }
+            , '20220703155325' : {
+                'diffDate' : '2022/07/03 15:53:25',
+                'diffComment' : ''
+            }
+            , '20220703152348' : {
+                'diffDate' : '2022/07/03 15:23:48',
+                'diffComment' : ''
+            }
+            , '20180519182658' : {
+                'diffDate' : '2018/05/19 18:26:58',
+                'diffComment' : ''
+            }
+            , '20170327150700' : {
+                'diffDate' : '2017/03/27 15:07:00',
+                'diffComment' : 'sea,land,piari'
+            }
+            , '20170327150124' : {
+                'diffDate' : '2017/03/27 15:01:24',
+                'diffComment' : 'sea,land,piari<br>aaaaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaaaa'
+            }
+            , '20170327145934' : {
+                'diffDate' : '2017/03/27 14:59:34',
+                'diffComment' : ''
+            }
+            , '20170327145654' : {
+                'diffDate' : '2017/03/27 14:56:54',
+                'diffComment' : ''
+            }
+            , '20150925163557' : {
+                'diffDate' : '2015/09/25 16:35:57',
+                'diffComment' : ''
+            }
+            , '20150701030335' : {
+                'diffDate' : '2015/07/01 03:03:35',
+                'diffComment' : ''
+            }
+            , '20140616234226' : {
+                'diffDate' : '2014/06/16 23:42:26',
+                'diffComment' : 'ここでもコメント<br><br>書くぞ sealandpiarisealandpiarisealandpiarisealandpiarisealandpiari<br><br>書くぞ sealandpiarisealandpiarisealandpiarisealandpiarisealandpiari'
+            }
+            , '20140616234054' : {
+                'diffDate' : '2014/06/16 23:40:54',
+                'diffComment' : ''
+            }
+            , '20140531134623' : {
+                'diffDate' : '2014/05/31 13:46:23',
+                'diffComment' : ''
+            }
+            , '20140530215101' : {
+                'diffDate' : '2014/05/30 21:51:01',
+                'diffComment' : ''
+            }
+            , '20140529230806' : {
+                'diffDate' : '2014/05/29 23:08:06',
+                'diffComment' : ''
+            }
+            , '20130731231603' : {
+                'diffDate' : '2013/07/31 23:16:03',
+                'diffComment' : ''
+            }
+            , '20130731230730' : {
+                'diffDate' : '2013/07/31 23:07:30',
+                'diffComment' : ''
+            }
+            , '20130701114342' : {
+                'diffDate' : '2013/07/01 11:43:42',
+                'diffComment' : ''
+            }
+            , '20130213174702' : {
+                'diffDate' : '2013/02/13 17:47:02',
+                'diffComment' : ''
+            }
+            , '20120828131317' : {
+                'diffDate' : '2012/08/28 13:13:17',
+                'diffComment' : ''
+            }
+            , '20120826214601' : {
+                'diffDate' : '2012/08/26 21:46:01',
+                'diffComment' : ''
+            }
+            , '20120826212227' : {
+                'diffDate' : '2012/08/26 21:22:27',
+                'diffComment' : ''
+            }
+            , '20120819020757' : {
+                'diffDate' : '2012/08/19 02:07:57',
+                'diffComment' : ''
+            }
+            , '20120804020044' : {
+                'diffDate' : '2012/08/04 02:00:44',
+                'diffComment' : ''
+            }
+            , '20120804013858' : {
+                'diffDate' : '2012/08/04 01:38:58',
+                'diffComment' : ''
+            }
+            , '20120803234714' : {
+                'diffDate' : '2012/08/03 23:47:14',
+                'diffComment' : ''
+            }
+            , '20120802235031' : {
+                'diffDate' : '2012/08/02 23:50:31',
+                'diffComment' : ''
+            }
+            , '20120802225610' : {
+                'diffDate' : '2012/08/02 22:56:10',
+                'diffComment' : ''
+            }
+            , '20120730011613' : {
+                'diffDate' : '2012/07/30 01:16:13',
+                'diffComment' : ''
+            }
+            , '20120730003444' : {
+                'diffDate' : '2012/07/30 00:34:44',
+                'diffComment' : ''
+            }
+            , '20120713132239' : {
+                'diffDate' : '2012/07/13 13:22:39',
+                'diffComment' : ''
+            }
+            , '20120713125517' : {
+                'diffDate' : '2012/07/13 12:55:17',
+                'diffComment' : ''
+            }
+            , '20120412112351' : {
+                'diffDate' : '2012/04/12 11:23:51',
+                'diffComment' : ''
+            }
+            , '20120325125022' : {
+                'diffDate' : '2012/03/25 12:50:22',
+                'diffComment' : ''
+            }
+            , '20120325124431' : {
+                'diffDate' : '2012/03/25 12:44:31',
+                'diffComment' : ''
+            }
+            , '20120305135229' : {
+                'diffDate' : '2012/03/05 13:52:29',
+                'diffComment' : ''
+            }
+            , '20120305134955' : {
+                'diffDate' : '2012/03/05 13:49:55',
+                'diffComment' : ''
+            }
+            , '20120305132348' : {
+                'diffDate' : '2012/03/05 13:23:48',
+                'diffComment' : ''
+            }
+            , '20120305130522' : {
+                'diffDate' : '2012/03/05 13:05:22',
+                'diffComment' : ''
+            }
+            , '20120305125917' : {
+                'diffDate' : '2012/03/05 12:59:17',
+                'diffComment' : ''
+            }
+            , '20120305124350' : {
+                'diffDate' : '2012/03/05 12:43:50',
+                'diffComment' : ''
+            }
+            , '20111019002811' : {
+                'diffDate' : '2011/10/19 00:28:11',
+                'diffComment' : ''
+            }
+            , '20110617223801' : {
+                'diffDate' : '2011/06/17 22:38:01',
+                'diffComment' : ''
+            }
+            , '20110617223324' : {
+                'diffDate' : '2011/06/17 22:33:24',
+                'diffComment' : ''
+            }
+            , '20110609204146' : {
+                'diffDate' : '2011/06/09 20:41:46',
+                'diffComment' : ''
+            }
+            , '20110609202402' : {
+                'diffDate' : '2011/06/09 20:24:02',
+                'diffComment' : ''
+            }
+            , '20110603012436' : {
+                'diffDate' : '2011/06/03 01:24:36',
+                'diffComment' : ''
+            }
+            , '20110602211551' : {
+                'diffDate' : '2011/06/02 21:15:51',
+                'diffComment' : ''
+            }
+            , '20110520155743' : {
+                'diffDate' : '2011/05/20 15:57:43',
+                'diffComment' : ''
+            }
+            , '20110505093901' : {
+                'diffDate' : '2011/05/05 09:39:01',
+                'diffComment' : ''
+            }
+            , '20110418005240' : {
+                'diffDate' : '2011/04/18 00:52:40',
+                'diffComment' : ''
+            }
+            , '20101203212009' : {
+                'diffDate' : '2010/12/03 21:20:09',
+                'diffComment' : ''
+            }
+            , '20101203163703' : {
+                'diffDate' : '2010/12/03 16:37:03',
+                'diffComment' : ''
+            }
+            , '20101203132303' : {
+                'diffDate' : '2010/12/03 13:23:03',
+                'diffComment' : ''
+            }
+            , '20101126235615' : {
+                'diffDate' : '2010/11/26 23:56:15',
+                'diffComment' : ''
+            }
+            , '20101126195215' : {
+                'diffDate' : '2010/11/26 19:52:15',
+                'diffComment' : 'for many pattern tests'
+            }
+            , '20100615164111' : {
+                'diffDate' : '2010/06/15 16:41:11',
+                'diffComment' : 'restore the dollar table (wrong deleted)'
+            }
+            , '20100615163723' : {
+                'diffDate' : '2010/06/15 16:37:23',
+                'diffComment' : ''
+            }
+            , '20100615062755' : {
+                'diffDate' : '2010/06/15 06:27:55',
+                'diffComment' : ''
+            }
+            , '20100615061504' : {
+                'diffDate' : '2010/06/15 06:15:04',
+                'diffComment' : ''
+            }
+            , '20100615042410' : {
+                'diffDate' : '2010/06/15 04:24:10',
+                'diffComment' : ''
+            }
+            , '20100615042308' : {
+                'diffDate' : '2010/06/15 04:23:08',
+                'diffComment' : ''
+            }
+            , '20100615041023' : {
+                'diffDate' : '2010/06/15 04:10:23',
+                'diffComment' : ''
+            }
+            , '20100612181845' : {
+                'diffDate' : '2010/06/12 18:18:45',
+                'diffComment' : ''
+            }
+            , '20100612181805' : {
+                'diffDate' : '2010/06/12 18:18:05',
+                'diffComment' : ''
+            }
+            , '20100612181643' : {
+                'diffDate' : '2010/06/12 18:16:43',
+                'diffComment' : ''
+            }
+            , '20100612181610' : {
+                'diffDate' : '2010/06/12 18:16:10',
+                'diffComment' : ''
+            }
+            , '20100612181528' : {
+                'diffDate' : '2010/06/12 18:15:28',
+                'diffComment' : ''
+            }
+            , '20100612165357' : {
+                'diffDate' : '2010/06/12 16:53:57',
+                'diffComment' : ''
+            }
+        }
+    }
+    Hacomment.prototype = {
+
+        /**
+         * init
+         */
+        init: function () {
+            if (document.getElementById("intro_opening") !== null) {
+                var schemeName = HacommentUtil.getSchemaName();
+                this.fetchVirtualPickup(schemeName);
+                this.setupSaveDiff();
+                this.setupKeyDownEvent();
+            } else {
+                this.reflectEmbeddedPickup();
+            }
+        },
+
+        /**
+         * Fetch virtual pickup from server
+         */
+        fetchVirtualPickup: function () {
+            var that = this;
+            new ApiClient().fetchHacomment(function(response) {
+                var hacomment = JSON.parse(response);
+                that.reflectPickup(hacomment);
+            })
+        },
+
+        /**
+         * Reflect embedded pickup
+         */
+        reflectEmbeddedPickup: function () {
+            this.reflectPickup(this.embeddedPickup);
+        },
+
+        /**
+         * Reflect pickup
+         * @param {Object} pickupResult - Pickup object
+         */
+        reflectPickup: function (pickupResult) {
+            var that = this;
+            Array.prototype.forEach.call(pickupResult['diffList'], function (diff) {
+                var diffCode = diff['diffCode'];
+                var hacommentElement = that.extractHacommentElement(diffCode);
+                if (that.storePickup(diff)) {
+                    var newDiffComment = that.buildDisplayDiffCommentFromServer(that.getDiffMapFromStore(diffCode));
+                    var authors = that.getDiffMapFromStore(diffCode)['authors'];
+                    that.storePreviousWholeComment(diffCode, newDiffComment);
+                    that.updateDisplayHacommentToHtml(diffCode, hacommentElement, newDiffComment, authors);
+                }
+            });
+        },
+
+        /**
+         * Extract hacomment element
+         * @param {Object} diffCode - Diff code
+         * @returns {Object} Hacomment element
+         */
+        extractHacommentElement: function (diffCode) {
+            var idClassQuerySelector =".diffCode_" + diffCode;
+            var commentClassQuerySelector = ".diffcomment";
+            var hacommentQuerySelector = idClassQuerySelector + " " + commentClassQuerySelector;
+
+            return document.querySelector(hacommentQuerySelector);
+        },
+
+        /**
+         * Store diff comment properties
+         * @param {Object} diff - Diff object
+         * @retuns {Boolean} if properties saved
+         */
+        storePickup: function (diff) {
+            var diffCode = diff['diffCode'];
+            // verify stored diff
+            if (this.pickupStore[diffCode] === undefined) {
+                this.pickupStore[diffCode] = {};
+            }
+            var storedDiff = this.pickupStore[diffCode];
+
+            // verify stored properties
+            if (this.pickupStore[diffCode]['properties'] === undefined) {
+                this.pickupStore[diffCode]['properties'] = {};
+            }
+
+            // check existing property
+            var propertyList = diff['properties'];
+            if (propertyList.length === 0) {
+                return false;
+            }
+
+            // store properties
+            var hacomments = [];
+            var previousPieces = [];
+            var authors = [];
+            var commentVersion = 0;
+            Array.prototype.forEach.call(propertyList, function (property) {
+                // add hacomment
+                hacomments.push(property['hacomment']);
+                // add previous pieceCode
+                if (property['pieceCode'] != null) {
+                    previousPieces.push(property['pieceCode']);
+                }
+                // concat authors
+                authors = authors.concat(property['authorList']);
+                // update comment version
+                if (commentVersion < property['commentVersion']) {
+                    commentVersion = property['commentVersion'];
+                }
+            });
+            // delete duplicate authors
+            authors = authors.filter(function (value, index, self) {
+                return self.indexOf(value) === index;
+            });
+
+            // add diff map property
+            var isConflict = propertyList.length > 1;
+            storedDiff['diffDate'] = diff['diffDate'];
+            storedDiff['isConflict'] = isConflict;
+            storedDiff['hacomments'] = hacomments;
+            storedDiff['previousPieces'] = previousPieces;
+            storedDiff['authors'] = authors;
+            storedDiff['commentVersion'] = commentVersion;
+
+            return true;
+        },
+
+        /**
+         * Build new diff comment from server response
+         * @param {Object} table - table object
+         * @returns {string} New diff comment
+         */
+        buildDisplayDiffCommentFromServer : function (diffMap) {
+            var result = "";
+            // add hacomments
+            result += diffMap['hacomments'].join('\n\n=======\n\n');
+
+            return result;
+        },
+
+        /**
+         * Store new comment properties
+         * @param {Object} diffCode - Diff code object
+         * @param {string} newComment - Comment from server
+         */
+        storePreviousWholeComment: function (diffCode, newComment) {
+            var storedPickup = this.pickupStore[diffCode];
+            storedPickup['previousWholeComment'] = newComment;
+        },
+
+        /**
+         * Update diff comment of html
+         * @param {string} diffCode - Diff Code
+         * @param {Object} diffCommentElement - Diff comment element
+         * @param {string} newComment - New scheme comment
+         * @param {Array} authors - Comment authoers
+         */
+        updateDisplayHacommentToHtml: function(diffCode, diffCommentElement, newComment, authors) {
+            var authorStrForHtml = authors.join(',');
+            var comment = newComment + "\n<span>@author(" + authorStrForHtml + ")</span>";
+            diffCommentElement.innerHTML = comment;
+
+            // reflect conflict
+            var storedDiff = this.pickupStore[diffCode];
+            if (storedDiff["isConflict"]) {
+                diffCommentElement.className += " commenterror"
+            }
+        },
+
+        /**
+         * Get diff map from store.
+         * @param {string} diffCode - Diff code
+         * @returns {Object} commentMap - Comment object of table or column
+         */
+        getDiffMapFromStore: function(diffCode) {
+            var storedDiff = this.pickupStore[diffCode];
+            if (storedDiff === undefined) {
+                return null;
+            }
+            return storedDiff;
+        },
+
+        /**
+         * Check the comment is conflict
+         * @param {Object} diffMap - Comment object of diff
+         * @returns {Boolean} comment is conflict
+         */
+        isCommentConflict: function(diffMap) {
+            if (diffMap === null) {
+                return false;
+            }
+            return diffMap['isConflict'] || false;
+        },
+
+        /**
+         * Setup save diff comment click event to html
+         */
+        setupSaveDiff: function() {
+            var diffCommentSections = this.getHacommentElements();
+            for (var i = 0; i < diffCommentSections.length; i++) {
+                var sectionElement = diffCommentSections[i];
+                // TODO hakiba change how to get diff code(e.g. create diff code list when generate hisotry html)
+                var diffCode = sectionElement.classList[1].split("diffCode_")[1];
+
+                // add click-event (open hacomment modal window, save function)
+                var diffMap = this.getDiffMapFromStore(diffCode);
+                // to Title Element
+                sectionElement.querySelector('h2').onclick = this.createSaveHacommentFunction(diffCode, diffMap);
+                // to Hacommet Element
+                sectionElement.querySelector('pre').onclick = this.createSaveHacommentFunction(diffCode, diffMap);
+
+            }
+        },
+
+        /**
+         * Get Hacomment Elements
+         * @return {Array} html elements
+         */
+        getHacommentElements: function() {
+            return document.getElementsByClassName('section');
+        },
+
+        /**
+         * Get Hacomment Element by DiffCode
+         * @return {Object} html elements
+         */
+        getHacommentElement: function (targetDiffCode) {
+            var hacommentElements = this.getHacommentElements();
+            var result = null;
+            Array.prototype.forEach.call(hacommentElements, function (element) {
+                var diffCode = element.classList[1].split("diffCode_")[1];
+                if (targetDiffCode === diffCode) {
+                    var target = element.querySelector('pre');
+                    result = target;
+                }
+            });
+            return result;
+        },
+
+        /**
+         * Create save hacomment function
+         * param {string} diffCode - Diff code
+         * param {Object} diffMap - Comment element of diff
+         * returns {function} Save hacomment function
+         */
+        createSaveHacommentFunction: function (diffCode, diffMap) {
+            var that = this;
+            return function () {
+                // get modal window element
+                var modalElement = document.getElementById("hacomment-modal");
+                modalElement.style.display = "block";
+
+                // build diff info
+                var isConflict = that.isCommentConflict(diffMap);
+                var diffDate = diffMap['diffDate'];
+                var diffInfo = isConflict ? diffDate + "... but now in CONFLICT!" : diffDate;
+                document.getElementById("hacomment-modal-column-info").innerText = diffInfo;
+
+                // set diff comment
+                var inputElement = document.getElementById("hacomment-input");
+                inputElement.value = that.getDisplayHtmlComment(diffCode);
+                inputElement.focus();
+
+                // set ok event
+                document.getElementById("hacomment-ok").onclick = function () {
+                    var hacomment = inputElement.value;
+                    if (that.isStillConflicting(hacomment)) {
+                      alert('Still conflicting. please resolve.')
+                      return;
+                    }
+                    if (!that.isCommentChanged(diffCode, hacomment)) {
+                        modalElement.style.display = "none";
+                        return;
+                    }
+                    var params = that.buildCommentRequestParams(diffCode, hacomment);
+                    new ApiClient().saveHacomment(params, function() {
+                        that.fetchVirtualPickup();
+                    });
+                    modalElement.style.display = "none";
+                };
+
+                // set close event
+                document.getElementById("hacomment-close").onclick = function () {
+                    modalElement.style.display = "none";
+                };
+            };
+        },
+
+        /**
+         * Check new hacomment and previous comment is different
+         * @param {string} diffCode - Diff name
+         * @param {string} hacomment - Hacomment
+         * @returns {Boolean} is changed
+         */
+        isCommentChanged: function (diffCode, hacomment) {
+            var diffMap = this.getDiffMapFromStore(diffCode);
+            if (diffMap !== null) {
+                var previousComment = diffMap['previousWholeComment'];
+                if (previousComment) {
+                    return previousComment.trim() !== hacomment.trim();
+                }
+            }
+            return hacomment.trim().length !== 0;
+        },
+
+        /**
+         * Build comment request body
+         * @param {string} diffCode - Diff code
+         * @param {string} hacomment - Inputted hacomment
+         * @return {Object} Request body
+         */
+        buildCommentRequestParams: function (diffCode, hacomment) {
+            var diffMap = this.getDiffMapFromStore(diffCode);
+
+            // TODO: refactoring mapping
+            var diffComment;
+            if (diffMap !== null) {
+                var diffDate = diffMap['diffDate'];
+                var authors = diffMap['authors'];
+                var previousPieces = diffMap['previousPieces'];
+                var commentVersion = diffMap['commentVersion'];
+                diffComment = diffMap['diffComment'];
+                if (diffComment) {
+                    diffComment = HacommentUtil.escapeNewlineCharacter(diffComment);
+                }
+            }
+
+            hacomment = HacommentUtil.escapeInputText(hacomment);
+            hacomment = HacommentUtil.deleteUnnecessaryWhitespace(hacomment);
+
+            return {
+                'diffDate': diffDate,
+                'hacomment': hacomment,
+                'diffComment': diffComment,
+                'commentVersion': commentVersion || 0,
+                'authors': authors || [],
+                'previousPieces': previousPieces || []
+            };
+        },
+
+        /**
+         * Get display html comment
+         * @return {string} display html comment
+         */
+        getDisplayHtmlComment: function(diffCode) {
+            var child = this.getHacommentElement(diffCode).childNodes[0];
+            if (child != null && child.nodeName === "#text") {
+                return child.nodeValue.trim();
+            }
+            return ""
+        },
+
+  /**
+   * Check still conflicting
+   * @param {string} hacomment - hacomment
+   * @returns {Boolean} is still conflicting
+   */
+  isStillConflicting: function(hacomment) {
+    return hacomment.includes('=======');
+  },
+
+  /**
+   * Setup key down event
+   */
+  setupKeyDownEvent : function() {
+    document.onkeydown = function (e) {
+      // ESC
+      if(e.keyCode === 27){
+        var modalElement = document.getElementById("hacomment-modal");
+        modalElement.style.display = "none";
+      }
+    }
+  }
+};
+
+    new Hacomment().init();
+</script>
+</html>
