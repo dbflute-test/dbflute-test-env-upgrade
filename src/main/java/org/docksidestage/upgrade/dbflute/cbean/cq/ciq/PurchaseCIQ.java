@@ -1,3 +1,6 @@
+/*
+ * Copyright 2014-2022 the original author or authors.
+ */
 package org.docksidestage.upgrade.dbflute.cbean.cq.ciq;
 
 import java.util.Map;

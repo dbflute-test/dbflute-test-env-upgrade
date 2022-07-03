@@ -1,3 +1,6 @@
+/*
+ * Copyright 2014-2022 the original author or authors.
+ */
 package org.docksidestage.upgrade.dbflute.cbean.bs;
 
 import org.dbflute.cbean.AbstractConditionBean;

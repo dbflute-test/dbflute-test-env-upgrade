@@ -1,3 +1,6 @@
+/*
+ * Copyright 2014-2022 the original author or authors.
+ */
 package org.docksidestage.upgrade.dbflute.cbean.nss;
 
 import org.docksidestage.upgrade.dbflute.cbean.cq.MemberServiceCQ;
