@@ -620,7 +620,7 @@ pre.spolicyviodisp {
 	<tr>
 		<td class="rownumcell">9</td>
 		<td class="aliascell">商品</td>
-		<td class="namecell" data-name="PRODUCT"><a href="#product" title="type=TABLE, primaryKey={PRODUCT_ID}, nameLength=7, columnCount=11">PRODUCT</a></td>
+		<td class="namecell" data-name="PRODUCT"><a href="#product" title="type=TABLE, primaryKey={PRODUCT_ID}, nameLength=7, columnCount=12">PRODUCT</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#product_category" title="FK_PRODUCT_PRODUCT_CATEGORY">PRODUCT_CATEGORY</a>, <a href="#product_status" title="FK_PRODUCT_PRODUCT_STATUS">PRODUCT_STATUS</a></td>
 		<td class="relcell"><a href="#purchase" title="FK_PURCHASE_PRODUCT">PURCHASE</a></td>
@@ -2269,7 +2269,7 @@ pre.spolicyviodisp {
 	</tbody>
 </table>
 
-<h2 id="product" title="type=TABLE, primaryKey={PRODUCT_ID}, nameLength=7, columnCount=11">
+<h2 id="product" title="type=TABLE, primaryKey={PRODUCT_ID}, nameLength=7, columnCount=12">
 (商品)PRODUCT
 &nbsp;<span class="tablefirstdatetitle">since 2010/06/15</span>
 </h2>
@@ -2419,6 +2419,25 @@ pre.spolicyviodisp {
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="aliascell"></td>
+		<td class=" columnnamecell" id="product_test_far_regular_price">TEST_FAR_REGULAR_PRICE</td>
+		<td class="typecell">INTEGER</td>
+		<td class="sizecell"> 10 </td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"><pre>&nbsp;</pre></td>
+		<td class="subcell">testFarRegularPrice</td>
+		<td class="subcell">Integer</td>
+		<td class="subcell">2022/07/06</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">8</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">*</td>
 		<td class="aliascell comcolcell"></td>
 		<td class="comcolcell columnnamecell" id="product_register_datetime">REGISTER_DATETIME</td>
@@ -2433,7 +2452,7 @@ pre.spolicyviodisp {
 		<td class="subcell">first</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">8</td>
+		<td class="rownumcell">9</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -2452,7 +2471,7 @@ pre.spolicyviodisp {
 		<td class="subcell">first</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">9</td>
+		<td class="rownumcell">10</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -2471,7 +2490,7 @@ pre.spolicyviodisp {
 		<td class="subcell">first</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">10</td>
+		<td class="rownumcell">11</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -2490,7 +2509,7 @@ pre.spolicyviodisp {
 		<td class="subcell">first</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">11</td>
+		<td class="rownumcell">12</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -5883,6 +5902,9 @@ function StoreClient() {
 					'databaseComment': ''
 				}
 				, 'REGULAR_PRICE': {
+					'databaseComment': ''
+				}
+				, 'TEST_FAR_REGULAR_PRICE': {
 					'databaseComment': ''
 				}
 				, 'REGISTER_DATETIME': {

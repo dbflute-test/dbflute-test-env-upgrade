@@ -1,0 +1,19 @@
+map:{
+    ; 2022/07/06 17:40:13.024 = map:{
+        ; diffDate = 2022/07/06 17:40:13.024
+        ; diffAuthor = jflute
+        ; diffGitBranch = since126/committed_add_column_far_position
+        ; tableDiff = map:{
+            ; PRODUCT = map:{
+                ; tableName = PRODUCT
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; TEST_FAR_REGULAR_PRICE = map:{
+                        ; columnName = TEST_FAR_REGULAR_PRICE
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
+}

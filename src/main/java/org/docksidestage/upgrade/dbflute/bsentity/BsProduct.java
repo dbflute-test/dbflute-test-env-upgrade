@@ -23,7 +23,7 @@ import org.docksidestage.upgrade.dbflute.exentity.*;
  *     PRODUCT_ID
  *
  * [column]
- *     PRODUCT_ID, PRODUCT_NAME, PRODUCT_HANDLE_CODE, PRODUCT_CATEGORY_CODE, PRODUCT_STATUS_CODE, REGULAR_PRICE, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER, VERSION_NO
+ *     PRODUCT_ID, PRODUCT_NAME, PRODUCT_HANDLE_CODE, PRODUCT_CATEGORY_CODE, PRODUCT_STATUS_CODE, REGULAR_PRICE, TEST_FAR_REGULAR_PRICE, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER, VERSION_NO
  *
  * [sequence]
  *     
@@ -54,6 +54,7 @@ import org.docksidestage.upgrade.dbflute.exentity.*;
  * String productCategoryCode = entity.getProductCategoryCode();
  * String productStatusCode = entity.getProductStatusCode();
  * Integer regularPrice = entity.getRegularPrice();
+ * Integer testFarRegularPrice = entity.getTestFarRegularPrice();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerUser = entity.getRegisterUser();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
@@ -65,6 +66,7 @@ import org.docksidestage.upgrade.dbflute.exentity.*;
  * entity.setProductCategoryCode(productCategoryCode);
  * entity.setProductStatusCode(productStatusCode);
  * entity.setRegularPrice(regularPrice);
+ * entity.setTestFarRegularPrice(testFarRegularPrice);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setRegisterUser(registerUser);
  * entity.setUpdateDatetime(updateDatetime);
@@ -102,6 +104,9 @@ public abstract class BsProduct extends AbstractEntity implements DomainEntity, 
 
     /** (定価)REGULAR_PRICE: {NotNull, INTEGER(10)} */
     protected Integer _regularPrice;
+
+    /** TEST_FAR_REGULAR_PRICE: {INTEGER(10)} */
+    protected Integer _testFarRegularPrice;
 
     /** REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)} */
     protected java.time.LocalDateTime _registerDatetime;
@@ -356,6 +361,7 @@ public abstract class BsProduct extends AbstractEntity implements DomainEntity, 
         sb.append(dm).append(xfND(_productCategoryCode));
         sb.append(dm).append(xfND(_productStatusCode));
         sb.append(dm).append(xfND(_regularPrice));
+        sb.append(dm).append(xfND(_testFarRegularPrice));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerUser));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -504,6 +510,24 @@ public abstract class BsProduct extends AbstractEntity implements DomainEntity, 
     public void setRegularPrice(Integer regularPrice) {
         registerModifiedProperty("regularPrice");
         _regularPrice = regularPrice;
+    }
+
+    /**
+     * [get] TEST_FAR_REGULAR_PRICE: {INTEGER(10)} <br>
+     * @return The value of the column 'TEST_FAR_REGULAR_PRICE'. (NullAllowed even if selected: for no constraint)
+     */
+    public Integer getTestFarRegularPrice() {
+        checkSpecifiedProperty("testFarRegularPrice");
+        return _testFarRegularPrice;
+    }
+
+    /**
+     * [set] TEST_FAR_REGULAR_PRICE: {INTEGER(10)} <br>
+     * @param testFarRegularPrice The value of the column 'TEST_FAR_REGULAR_PRICE'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setTestFarRegularPrice(Integer testFarRegularPrice) {
+        registerModifiedProperty("testFarRegularPrice");
+        _testFarRegularPrice = testFarRegularPrice;
     }
 
     /**

@@ -80,6 +80,7 @@ public class ProductCIQ extends AbstractBsProductCQ {
     protected ConditionValue xgetCValueProductCategoryCode() { return _myCQ.xdfgetProductCategoryCode(); }
     protected ConditionValue xgetCValueProductStatusCode() { return _myCQ.xdfgetProductStatusCode(); }
     protected ConditionValue xgetCValueRegularPrice() { return _myCQ.xdfgetRegularPrice(); }
+    protected ConditionValue xgetCValueTestFarRegularPrice() { return _myCQ.xdfgetTestFarRegularPrice(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueRegisterUser() { return _myCQ.xdfgetRegisterUser(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }

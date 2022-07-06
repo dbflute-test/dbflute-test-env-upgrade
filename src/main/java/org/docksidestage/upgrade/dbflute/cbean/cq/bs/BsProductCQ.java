@@ -210,6 +210,26 @@ public class BsProductCQ extends AbstractBsProductCQ {
      */
     public BsProductCQ addOrderBy_RegularPrice_Desc() { regOBD("REGULAR_PRICE"); return this; }
 
+    protected ConditionValue _testFarRegularPrice;
+    public ConditionValue xdfgetTestFarRegularPrice()
+    { if (_testFarRegularPrice == null) { _testFarRegularPrice = nCV(); }
+      return _testFarRegularPrice; }
+    protected ConditionValue xgetCValueTestFarRegularPrice() { return xdfgetTestFarRegularPrice(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * TEST_FAR_REGULAR_PRICE: {INTEGER(10)}
+     * @return this. (NotNull)
+     */
+    public BsProductCQ addOrderBy_TestFarRegularPrice_Asc() { regOBA("TEST_FAR_REGULAR_PRICE"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * TEST_FAR_REGULAR_PRICE: {INTEGER(10)}
+     * @return this. (NotNull)
+     */
+    public BsProductCQ addOrderBy_TestFarRegularPrice_Desc() { regOBD("TEST_FAR_REGULAR_PRICE"); return this; }
+
     protected ConditionValue _registerDatetime;
     public ConditionValue xdfgetRegisterDatetime()
     { if (_registerDatetime == null) { _registerDatetime = nCV(); }

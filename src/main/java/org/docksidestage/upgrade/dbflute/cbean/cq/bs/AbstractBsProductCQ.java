@@ -915,6 +915,135 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * TEST_FAR_REGULAR_PRICE: {INTEGER(10)}
+     * @param testFarRegularPrice The value of testFarRegularPrice as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setTestFarRegularPrice_Equal(Integer testFarRegularPrice) {
+        doSetTestFarRegularPrice_Equal(testFarRegularPrice);
+    }
+
+    protected void doSetTestFarRegularPrice_Equal(Integer testFarRegularPrice) {
+        regTestFarRegularPrice(CK_EQ, testFarRegularPrice);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * TEST_FAR_REGULAR_PRICE: {INTEGER(10)}
+     * @param testFarRegularPrice The value of testFarRegularPrice as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setTestFarRegularPrice_NotEqual(Integer testFarRegularPrice) {
+        doSetTestFarRegularPrice_NotEqual(testFarRegularPrice);
+    }
+
+    protected void doSetTestFarRegularPrice_NotEqual(Integer testFarRegularPrice) {
+        regTestFarRegularPrice(CK_NES, testFarRegularPrice);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * TEST_FAR_REGULAR_PRICE: {INTEGER(10)}
+     * @param testFarRegularPrice The value of testFarRegularPrice as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setTestFarRegularPrice_GreaterThan(Integer testFarRegularPrice) {
+        regTestFarRegularPrice(CK_GT, testFarRegularPrice);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * TEST_FAR_REGULAR_PRICE: {INTEGER(10)}
+     * @param testFarRegularPrice The value of testFarRegularPrice as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setTestFarRegularPrice_LessThan(Integer testFarRegularPrice) {
+        regTestFarRegularPrice(CK_LT, testFarRegularPrice);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * TEST_FAR_REGULAR_PRICE: {INTEGER(10)}
+     * @param testFarRegularPrice The value of testFarRegularPrice as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setTestFarRegularPrice_GreaterEqual(Integer testFarRegularPrice) {
+        regTestFarRegularPrice(CK_GE, testFarRegularPrice);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * TEST_FAR_REGULAR_PRICE: {INTEGER(10)}
+     * @param testFarRegularPrice The value of testFarRegularPrice as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setTestFarRegularPrice_LessEqual(Integer testFarRegularPrice) {
+        regTestFarRegularPrice(CK_LE, testFarRegularPrice);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * TEST_FAR_REGULAR_PRICE: {INTEGER(10)}
+     * @param minNumber The min number of testFarRegularPrice. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of testFarRegularPrice. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setTestFarRegularPrice_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setTestFarRegularPrice_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * TEST_FAR_REGULAR_PRICE: {INTEGER(10)}
+     * @param minNumber The min number of testFarRegularPrice. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of testFarRegularPrice. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setTestFarRegularPrice_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueTestFarRegularPrice(), "TEST_FAR_REGULAR_PRICE", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * TEST_FAR_REGULAR_PRICE: {INTEGER(10)}
+     * @param testFarRegularPriceList The collection of testFarRegularPrice as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTestFarRegularPrice_InScope(Collection<Integer> testFarRegularPriceList) {
+        doSetTestFarRegularPrice_InScope(testFarRegularPriceList);
+    }
+
+    protected void doSetTestFarRegularPrice_InScope(Collection<Integer> testFarRegularPriceList) {
+        regINS(CK_INS, cTL(testFarRegularPriceList), xgetCValueTestFarRegularPrice(), "TEST_FAR_REGULAR_PRICE");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * TEST_FAR_REGULAR_PRICE: {INTEGER(10)}
+     * @param testFarRegularPriceList The collection of testFarRegularPrice as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTestFarRegularPrice_NotInScope(Collection<Integer> testFarRegularPriceList) {
+        doSetTestFarRegularPrice_NotInScope(testFarRegularPriceList);
+    }
+
+    protected void doSetTestFarRegularPrice_NotInScope(Collection<Integer> testFarRegularPriceList) {
+        regINS(CK_NINS, cTL(testFarRegularPriceList), xgetCValueTestFarRegularPrice(), "TEST_FAR_REGULAR_PRICE");
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * TEST_FAR_REGULAR_PRICE: {INTEGER(10)}
+     */
+    public void setTestFarRegularPrice_IsNull() { regTestFarRegularPrice(CK_ISN, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * TEST_FAR_REGULAR_PRICE: {INTEGER(10)}
+     */
+    public void setTestFarRegularPrice_IsNotNull() { regTestFarRegularPrice(CK_ISNN, DOBJ); }
+
+    protected void regTestFarRegularPrice(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueTestFarRegularPrice(), "TEST_FAR_REGULAR_PRICE"); }
+    protected abstract ConditionValue xgetCValueTestFarRegularPrice();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
      * @param registerDatetime The value of registerDatetime as equal. (basically NotNull: error as default, or no condition as option)
      */

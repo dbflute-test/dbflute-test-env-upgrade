@@ -384,6 +384,11 @@ public class BsProductCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnRegularPrice() { return doColumn("REGULAR_PRICE"); }
         /**
+         * TEST_FAR_REGULAR_PRICE: {INTEGER(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnTestFarRegularPrice() { return doColumn("TEST_FAR_REGULAR_PRICE"); }
+        /**
          * REGISTER_DATETIME: {NotNull, TIMESTAMP(26, 6)}
          * @return The information object of specified column. (NotNull)
          */

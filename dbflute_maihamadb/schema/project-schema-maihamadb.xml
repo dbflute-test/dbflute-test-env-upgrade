@@ -384,6 +384,8 @@
             name="PRODUCT_STATUS_CODE" required="true" size="3" type="CHAR"/>
         <column comment="定価:" dbType="INTEGER" javaType="Integer"
             name="REGULAR_PRICE" required="true" size="10" type="INTEGER"/>
+        <column comment="" dbType="INTEGER" javaType="Integer"
+            name="TEST_FAR_REGULAR_PRICE" size="10" type="INTEGER"/>
         <column comment="" dbType="TIMESTAMP"
             javaType="java.time.LocalDateTime" name="REGISTER_DATETIME"
             required="true" size="26, 6" type="TIMESTAMP"/>
