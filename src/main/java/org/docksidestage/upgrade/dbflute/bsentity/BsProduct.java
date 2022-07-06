@@ -23,7 +23,7 @@ import org.docksidestage.upgrade.dbflute.exentity.*;
  *     PRODUCT_ID
  *
  * [column]
- *     PRODUCT_ID, PRODUCT_NAME, PRODUCT_HANDLE_CODE, PRODUCT_CATEGORY_CODE, PRODUCT_STATUS_CODE, REGULAR_PRICE, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER, VERSION_NO
+ *     PRODUCT_ID, PRODUCT_NAME, TEST_BASE_PRODUCT_NAME, PRODUCT_HANDLE_CODE, PRODUCT_CATEGORY_CODE, PRODUCT_STATUS_CODE, REGULAR_PRICE, REGISTER_DATETIME, REGISTER_USER, UPDATE_DATETIME, UPDATE_USER, VERSION_NO
  *
  * [sequence]
  *     
@@ -50,6 +50,7 @@ import org.docksidestage.upgrade.dbflute.exentity.*;
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer productId = entity.getProductId();
  * String productName = entity.getProductName();
+ * String testBaseProductName = entity.getTestBaseProductName();
  * String productHandleCode = entity.getProductHandleCode();
  * String productCategoryCode = entity.getProductCategoryCode();
  * String productStatusCode = entity.getProductStatusCode();
@@ -61,6 +62,7 @@ import org.docksidestage.upgrade.dbflute.exentity.*;
  * Long versionNo = entity.getVersionNo();
  * entity.setProductId(productId);
  * entity.setProductName(productName);
+ * entity.setTestBaseProductName(testBaseProductName);
  * entity.setProductHandleCode(productHandleCode);
  * entity.setProductCategoryCode(productCategoryCode);
  * entity.setProductStatusCode(productStatusCode);
@@ -90,6 +92,9 @@ public abstract class BsProduct extends AbstractEntity implements DomainEntity, 
 
     /** (商品名称)PRODUCT_NAME: {IX, NotNull, VARCHAR(50)} */
     protected String _productName;
+
+    /** TEST_BASE_PRODUCT_NAME: {VARCHAR(50)} */
+    protected String _testBaseProductName;
 
     /** (商品ハンドルコード)PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)} */
     protected String _productHandleCode;
@@ -352,6 +357,7 @@ public abstract class BsProduct extends AbstractEntity implements DomainEntity, 
         StringBuilder sb = new StringBuilder();
         sb.append(dm).append(xfND(_productId));
         sb.append(dm).append(xfND(_productName));
+        sb.append(dm).append(xfND(_testBaseProductName));
         sb.append(dm).append(xfND(_productHandleCode));
         sb.append(dm).append(xfND(_productCategoryCode));
         sb.append(dm).append(xfND(_productStatusCode));
@@ -429,6 +435,24 @@ public abstract class BsProduct extends AbstractEntity implements DomainEntity, 
     public void setProductName(String productName) {
         registerModifiedProperty("productName");
         _productName = productName;
+    }
+
+    /**
+     * [get] TEST_BASE_PRODUCT_NAME: {VARCHAR(50)} <br>
+     * @return The value of the column 'TEST_BASE_PRODUCT_NAME'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getTestBaseProductName() {
+        checkSpecifiedProperty("testBaseProductName");
+        return _testBaseProductName;
+    }
+
+    /**
+     * [set] TEST_BASE_PRODUCT_NAME: {VARCHAR(50)} <br>
+     * @param testBaseProductName The value of the column 'TEST_BASE_PRODUCT_NAME'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setTestBaseProductName(String testBaseProductName) {
+        registerModifiedProperty("testBaseProductName");
+        _testBaseProductName = testBaseProductName;
     }
 
     /**

@@ -130,6 +130,26 @@ public class BsProductCQ extends AbstractBsProductCQ {
      */
     public BsProductCQ addOrderBy_ProductName_Desc() { regOBD("PRODUCT_NAME"); return this; }
 
+    protected ConditionValue _testBaseProductName;
+    public ConditionValue xdfgetTestBaseProductName()
+    { if (_testBaseProductName == null) { _testBaseProductName = nCV(); }
+      return _testBaseProductName; }
+    protected ConditionValue xgetCValueTestBaseProductName() { return xdfgetTestBaseProductName(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)}
+     * @return this. (NotNull)
+     */
+    public BsProductCQ addOrderBy_TestBaseProductName_Asc() { regOBA("TEST_BASE_PRODUCT_NAME"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)}
+     * @return this. (NotNull)
+     */
+    public BsProductCQ addOrderBy_TestBaseProductName_Desc() { regOBD("TEST_BASE_PRODUCT_NAME"); return this; }
+
     protected ConditionValue _productHandleCode;
     public ConditionValue xdfgetProductHandleCode()
     { if (_productHandleCode == null) { _productHandleCode = nCV(); }

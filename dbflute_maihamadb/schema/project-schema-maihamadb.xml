@@ -374,6 +374,8 @@
             comment="商品名称: ExampleDBとして、コメントの少ないケースを表現するため、あえてコメントを控えている。&#xa;実業務ではしっかりとコメントを入れることが強く強く推奨される。「よりによってこのテーブルでやらないでよ！」あわわ、何も聞こえません〜"
             dbType="VARCHAR" javaType="String" name="PRODUCT_NAME"
             required="true" size="50" type="VARCHAR"/>
+        <column comment="" dbType="VARCHAR" javaType="String"
+            name="TEST_BASE_PRODUCT_NAME" size="50" type="VARCHAR"/>
         <column
             comment="商品ハンドルコード: これだけは書いておこう、商品を識別する業務上のコード。よく品番とか言うかもしれませんねぇ..."
             dbType="VARCHAR" javaType="String"

@@ -385,6 +385,159 @@ public abstract class AbstractBsProductCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)}
+     * @param testBaseProductName The value of testBaseProductName as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTestBaseProductName_Equal(String testBaseProductName) {
+        doSetTestBaseProductName_Equal(fRES(testBaseProductName));
+    }
+
+    protected void doSetTestBaseProductName_Equal(String testBaseProductName) {
+        regTestBaseProductName(CK_EQ, testBaseProductName);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)}
+     * @param testBaseProductName The value of testBaseProductName as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTestBaseProductName_NotEqual(String testBaseProductName) {
+        doSetTestBaseProductName_NotEqual(fRES(testBaseProductName));
+    }
+
+    protected void doSetTestBaseProductName_NotEqual(String testBaseProductName) {
+        regTestBaseProductName(CK_NES, testBaseProductName);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)}
+     * @param testBaseProductName The value of testBaseProductName as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTestBaseProductName_GreaterThan(String testBaseProductName) {
+        regTestBaseProductName(CK_GT, fRES(testBaseProductName));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)}
+     * @param testBaseProductName The value of testBaseProductName as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTestBaseProductName_LessThan(String testBaseProductName) {
+        regTestBaseProductName(CK_LT, fRES(testBaseProductName));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)}
+     * @param testBaseProductName The value of testBaseProductName as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTestBaseProductName_GreaterEqual(String testBaseProductName) {
+        regTestBaseProductName(CK_GE, fRES(testBaseProductName));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)}
+     * @param testBaseProductName The value of testBaseProductName as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTestBaseProductName_LessEqual(String testBaseProductName) {
+        regTestBaseProductName(CK_LE, fRES(testBaseProductName));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)}
+     * @param testBaseProductNameList The collection of testBaseProductName as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTestBaseProductName_InScope(Collection<String> testBaseProductNameList) {
+        doSetTestBaseProductName_InScope(testBaseProductNameList);
+    }
+
+    protected void doSetTestBaseProductName_InScope(Collection<String> testBaseProductNameList) {
+        regINS(CK_INS, cTL(testBaseProductNameList), xgetCValueTestBaseProductName(), "TEST_BASE_PRODUCT_NAME");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)}
+     * @param testBaseProductNameList The collection of testBaseProductName as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTestBaseProductName_NotInScope(Collection<String> testBaseProductNameList) {
+        doSetTestBaseProductName_NotInScope(testBaseProductNameList);
+    }
+
+    protected void doSetTestBaseProductName_NotInScope(Collection<String> testBaseProductNameList) {
+        regINS(CK_NINS, cTL(testBaseProductNameList), xgetCValueTestBaseProductName(), "TEST_BASE_PRODUCT_NAME");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)} <br>
+     * <pre>e.g. setTestBaseProductName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param testBaseProductName The value of testBaseProductName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setTestBaseProductName_LikeSearch(String testBaseProductName, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setTestBaseProductName_LikeSearch(testBaseProductName, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)} <br>
+     * <pre>e.g. setTestBaseProductName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param testBaseProductName The value of testBaseProductName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setTestBaseProductName_LikeSearch(String testBaseProductName, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(testBaseProductName), xgetCValueTestBaseProductName(), "TEST_BASE_PRODUCT_NAME", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)}
+     * @param testBaseProductName The value of testBaseProductName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setTestBaseProductName_NotLikeSearch(String testBaseProductName, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setTestBaseProductName_NotLikeSearch(testBaseProductName, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)}
+     * @param testBaseProductName The value of testBaseProductName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setTestBaseProductName_NotLikeSearch(String testBaseProductName, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(testBaseProductName), xgetCValueTestBaseProductName(), "TEST_BASE_PRODUCT_NAME", likeSearchOption);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)}
+     */
+    public void setTestBaseProductName_IsNull() { regTestBaseProductName(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)}
+     */
+    public void setTestBaseProductName_IsNullOrEmpty() { regTestBaseProductName(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * TEST_BASE_PRODUCT_NAME: {VARCHAR(50)}
+     */
+    public void setTestBaseProductName_IsNotNull() { regTestBaseProductName(CK_ISNN, DOBJ); }
+
+    protected void regTestBaseProductName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueTestBaseProductName(), "TEST_BASE_PRODUCT_NAME"); }
+    protected abstract ConditionValue xgetCValueTestBaseProductName();
+
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (商品ハンドルコード)PRODUCT_HANDLE_CODE: {UQ, NotNull, VARCHAR(100)}
      * @param productHandleCode The value of productHandleCode as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */

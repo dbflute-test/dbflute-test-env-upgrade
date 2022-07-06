@@ -1,0 +1,19 @@
+map:{
+    ; 2022/07/06 17:36:57.766 = map:{
+        ; diffDate = 2022/07/06 17:36:57.766
+        ; diffAuthor = jflute
+        ; diffGitBranch = since126/committed_add_column_base
+        ; tableDiff = map:{
+            ; PRODUCT = map:{
+                ; tableName = PRODUCT
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; TEST_BASE_PRODUCT_NAME = map:{
+                        ; columnName = TEST_BASE_PRODUCT_NAME
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
+}
